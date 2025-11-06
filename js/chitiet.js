@@ -122,20 +122,63 @@ const productsData = {
     }
 };
 
+function getStoredProductById(id) {
+    try {
+        const list = JSON.parse(localStorage.getItem('products')) || [];
+        const found = list.find(p => String(p.id) === String(id));
+        if (!found) return null;
+
+        function imgForDetail(path) {
+            if (!path) return '../img/logo2.png';
+            // Trang chi tiết nằm trong /html, cần '../' cho thư mục img
+            if (path.startsWith('img/')) return '../' + path;
+            return path; // đã là '../img/...'
+        }
+
+        const images = found.image ? [imgForDetail(found.image)] : ['../img/logo2.png'];
+        return {
+            id: found.id,
+            name: found.name || 'Sản phẩm',
+            price: found.price || 0,
+            oldPrice: found.oldPrice || null,
+            discount: found.discount || null,
+            category: found.category || '-',
+            sport: found.sport || '-',
+            rating: 4.6,
+            reviews: 0,
+            stock: found.stock ?? 0,
+            images: images,
+            description: found.description || 'Sản phẩm do Admin thêm.',
+            features: [
+                'Chất lượng đảm bảo',
+                'Thiết kế thể thao năng động',
+                'Giá tốt, dễ tiếp cận'
+            ],
+            sizes: ['S','M','L','XL'],
+            colors: ['Đen','Trắng','Đỏ']
+        };
+    } catch (e) { return null; }
+}
+
 // Load thông tin sản phẩm khi trang được tải
 document.addEventListener('DOMContentLoaded', function() {
-    // Lấy ID sản phẩm từ URL
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
+
+    if (productId) {
+        const stored = getStoredProductById(productId);
+        if (stored) {
+            // Tiêm vào productsData để tái sử dụng luồng render cũ
+            productsData[productId] = stored;
+        }
+    }
 
     if (productId && productsData[productId]) {
         loadProductDetail(productId);
     } else {
-        // Nếu không có ID hoặc ID không hợp lệ, load sản phẩm mặc định
         loadProductDetail(1);
     }
 
-    // Cập nhật cart badge và user display
     if (typeof updateCartBadge === 'function') {
         updateCartBadge();
     }

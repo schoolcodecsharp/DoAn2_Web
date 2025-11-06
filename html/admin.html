@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Quản Trị - Trường Sport</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/theme.css">
     <script src="../js/admin.js" ></script>
    
 </head>
@@ -64,7 +68,7 @@
                     <div class="stat-card">
                         <div class="stat-info">
                             <h3>Sản Phẩm</h3>
-                            <div class="stat-value">0</div>
+                            <div class="stat-value" id="totalProducts">0</div>
                         </div>
                         <i class="fas fa-box stat-icon"></i>
                     </div>
@@ -126,25 +130,13 @@
                             <th>ID</th>
                             <th>Tên Sản Phẩm</th>
                             <th>Danh Mục</th>
+                            <th>Môn</th>
                             <th>Giá</th>
                             <th>Tồn Kho</th>
                             <th>Thao Tác</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Quần Áo Bóng Đá Thiết Kế RO-25</td>
-                            <td>Áo</td>
-                            <td>119,000₫</td>
-                            <td>50</td>
-                            <td>
-                                <button class="action-btn btn-view">Chi tiết</button>
-                                <button class="action-btn btn-edit">Sửa</button>
-                                <button class="action-btn btn-delete">Xóa</button>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="productsTable"></tbody>
                 </table>
             </div>
 
@@ -241,25 +233,26 @@
         </div>
     </div>
 
-    <!-- Modal Add Product -->
+    <!-- Modal Add/Edit Product -->
     <div id="addProductModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Thêm Sản Phẩm Mới</h2>
+                <h2 id="productModalTitle">Thêm Sản Phẩm Mới</h2>
                 <span class="close-modal" onclick="closeAddProductModal()">×</span>
             </div>
             <div class="form-grid">
+                <input type="hidden" id="productIdInput">
                 <div class="form-group">
                     <label>Tên Sản Phẩm</label>
-                    <input type="text" placeholder="Nhập tên sản phẩm">
+                    <input id="productNameInput" type="text" placeholder="Nhập tên sản phẩm">
                 </div>
                 <div class="form-group">
                     <label>Giá (₫)</label>
-                    <input type="number" placeholder="Nhập giá">
+                    <input id="productPriceInput" type="number" min="0" placeholder="Nhập giá">
                 </div>
                 <div class="form-group">
                     <label>Danh Mục</label>
-                    <select>
+                    <select id="productCategorySelect">
                         <option>Áo</option>
                         <option>Quần</option>
                         <option>Giày</option>
@@ -268,20 +261,30 @@
                 </div>
                 <div class="form-group">
                     <label>Môn Thể Thao</label>
-                    <select>
+                    <select id="productSportSelect">
                         <option>Bóng Đá</option>
                         <option>Bóng Rổ</option>
                         <option>Bóng Chuyền</option>
                         <option>Cầu Lông</option>
+                        <option>Chạy Bộ</option>
+                        <option>Đạp Xe</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>Tồn Kho</label>
+                    <input id="productStockInput" type="number" min="0" placeholder="Số lượng tồn">
+                </div>
+                <div class="form-group">
+                    <label>Ảnh (URL)</label>
+                    <input id="productImageInput" type="text" placeholder="Ví dụ: ../img/tk1.jpg">
                 </div>
                 <div class="form-group full-width">
                     <label>Mô Tả</label>
-                    <textarea placeholder="Nhập mô tả sản phẩm"></textarea>
+                    <textarea id="productDescriptionInput" placeholder="Nhập mô tả sản phẩm"></textarea>
                 </div>
                 <div class="form-group full-width">
-                    <button class="btn-primary">
-                        <i class="fas fa-plus"></i> Thêm Sản Phẩm
+                    <button class="btn-primary" onclick="addOrUpdateProduct()" id="submitProductBtn">
+                        <i class="fas fa-plus"></i> Lưu Sản Phẩm
                     </button>
                 </div>
             </div>

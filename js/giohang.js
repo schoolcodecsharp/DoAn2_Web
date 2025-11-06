@@ -261,6 +261,22 @@ Xác nhận đặt hàng?
     `;
 
     if (confirm(orderSummary)) {
+        // Lưu đơn hàng vào localStorage
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const orderId = 'OD' + Date.now();
+        const newOrder = {
+            id: orderId,
+            user: { fullName: user.fullName, email: user.email, username: user.username },
+            items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity, size: i.size, image: i.image })),
+            subtotal: subtotal,
+            shipping: shipping,
+            total: total,
+            status: 'pending',
+            createdAt: new Date().toISOString()
+        };
+        orders.push(newOrder);
+        localStorage.setItem('orders', JSON.stringify(orders));
+
         alert('✅ Đặt hàng thành công!\nCảm ơn bạn đã mua hàng tại TRƯỜNG SPORT.');
         localStorage.removeItem('cart');
         updateCartBadge();
