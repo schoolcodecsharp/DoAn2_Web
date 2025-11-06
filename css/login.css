@@ -1,0 +1,142 @@
+/* CSS cho phần login */
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    background: linear-gradient(45deg, #dee2f2, #e4e2e7);
+    padding: 40px 20px;
+   
+}
+
+/* Form styling */
+.from, .form {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 400px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+/* Form mặc định ẩn (sẽ được JavaScript điều khiển) */
+
+/* Tiêu đề */
+.from h2, .form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* Input groups */
+.input-gruop, .input-group {
+    margin-bottom: 20px;
+}
+
+.input-gruop label, .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.input-gruop input, .input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.input-gruop input:focus, .input-group input:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #45a049, #3d8b40);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+    border: 2px solid #ddd;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+    border-color: #bbb;
+    transform: translateY(-1px);
+}
+
+/* Form links */
+.form-links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-links a {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.form-links a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .login {
+        padding: 20px 10px;
+        min-height: calc(100vh - 150px);
+    }
+    
+    .from, .form {
+        padding: 30px 20px;
+        width: 100%;
+    }
+    
+    .from h2, .form h2 {
+        font-size: 24px;
+    }
+    
+    .input-gruop input, .input-group input {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

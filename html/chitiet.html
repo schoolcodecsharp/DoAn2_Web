@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Chi Tiết Sản Phẩm - Trường Sport</title>
+    <link rel="stylesheet" href="../css/chitiet.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/chitiet.js"></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../img/logo2.png" alt="Trường Sport Logo">
+            </div>
+            <div class="header-main">
+                <form class="search-form">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+                <div class="header-right">
+                    <a href="#" class="header-icon">
+                        <i class="fas fa-headset"></i>
+                        <span>Hỗ Trợ</span>
+                    </a>
+                    <a href="../html/giohang.html" class="header-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Giỏ Hàng</span>
+                    </a>
+                    <a href="../html/login.html" class="header-icon">
+                        <i class="fas fa-user"></i>
+                        <span>Tài Khoản</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../index.html">Trang chủ</a> / 
+        <a href="#">Áo thể thao</a> / 
+        <span>Quần Áo Bóng Đá Thiết Kế RO-25</span>
+    </div>
+
+    <!-- Product Detail -->
+    <div class="product-detail">
+        <div class="product-container">
+            <!-- Images -->
+            <div class="product-images">
+                <div class="main-image">
+                    <img src="../img/tk1.jpg" alt="Quần Áo Bóng Đá" id="mainImage">
+                </div>
+                <div class="thumbnail-images">
+                    <div class="thumbnail active" onclick="changeImage('../img/tk1.jpg')">
+                        <img src="../img/tk1.jpg" alt="Image 1">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage('../img/product_2.jpg')">
+                        <img src="../img/product_2.jpg" alt="Image 2">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage('../img/product_3.jpg')">
+                        <img src="../img/product_3.jpg" alt="Image 3">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage('../img/product_4.jpg')">
+                        <img src="../img/product_4.jpg" alt="Image 4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1 class="product-title">Quần Áo Bóng Đá Thiết Kế RO-25 Màu Đỏ</h1>
+                
+                <div class="product-rating">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="rating-text">(4.5/5 - 128 đánh giá)</span>
+                </div>
+
+                <div>
+                    <span class="product-price">119,000₫</span>
+                    <span class="old-price">159,000₫</span>
+                    <span class="discount-badge">-25%</span>
+                </div>
+
+                <p class="product-description">
+                    Bộ quần áo bóng đá thiết kế cao cấp, chất liệu vải thể thao chuyên dụng, 
+                    thấm hút mồ hôi tốt, thoáng mát. Thiết kế trẻ trung, năng động, 
+                    phù hợp cho cả tập luyện và thi đấu.
+                </p>
+
+                <div class="product-options">
+                    <div class="option-group">
+                        <div class="option-label">Kích Thước:</div>
+                        <div class="size-options">
+                            <button class="option-btn" onclick="selectSize(this)">S</button>
+                            <button class="option-btn active" onclick="selectSize(this)">M</button>
+                            <button class="option-btn" onclick="selectSize(this)">L</button>
+                            <button class="option-btn" onclick="selectSize(this)">XL</button>
+                            <button class="option-btn" onclick="selectSize(this)">XXL</button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <div class="option-label">Màu Sắc:</div>
+                        <div class="color-options">
+                            <button class="option-btn active" onclick="selectColor(this)">Đỏ</button>
+                            <button class="option-btn" onclick="selectColor(this)">Xanh</button>
+                            <button class="option-btn" onclick="selectColor(this)">Vàng</button>
+                            <button class="option-btn" onclick="selectColor(this)">Đen</button>
+                        </div>
+                    </div>
+
+                    <div class="option-group">
+                        <div class="option-label">Số Lượng:</div>
+                        <div class="quantity-selector">
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="decreaseQty()">-</button>
+                                <input type="number" class="qty-input" value="1" min="1" id="quantity">
+                                <button class="qty-btn" onclick="increaseQty()">+</button>
+                            </div>
+                            <span style="color: #666;">Còn 50 sản phẩm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-actions">
+                    <button class="btn btn-add-cart" onclick="addToCartDetail()">
+                        <i class="fas fa-shopping-cart"></i> Thêm Vào Giỏ
+                    </button>
+                    <button class="btn btn-buy-now" onclick="buyNow()">
+                        <i class="fas fa-bolt"></i> Mua Ngay
+                    </button>
+                </div>
+
+                <div class="product-features">
+                    <div class="feature-item">
+                        <i class="fas fa-truck"></i>
+                        <span class="feature-text">Miễn phí vận chuyển đơn từ 500K</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span class="feature-text">Bảo hành chính hãng</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-sync-alt"></i>
+                        <span class="feature-text">Đổi trả trong 7 ngày</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="feature-text">Cam kết chất lượng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Tabs -->
+    <div class="product-tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="showTab('description')">Mô Tả</button>
+            <button class="tab-btn" onclick="showTab('specs')">Thông Số</button>
+            <button class="tab-btn" onclick="showTab('reviews')">Đánh Giá</button>
+        </div>
+        <div class="tab-content">
+            <div id="description" class="tab-panel active">
+                <h3 style="margin-bottom: 15px;">Chi Tiết Sản Phẩm</h3>
+                <p style="line-height: 1.8; color: #666;">
+                    Bộ quần áo bóng đá thiết kế RO-25 là sản phẩm cao cấp được thiết kế dành riêng 
+                    cho các vận động viên chuyên nghiệp và người yêu thích bóng đá. Với chất liệu 
+                    vải thể thao tiên tiến, sản phẩm mang lại cảm giác thoải mái tối đa khi vận động.
+                </p>
+                <br>
+                <p style="line-height: 1.8; color: #666;">
+                    <strong>Đặc điểm nổi bật:</strong><br>
+                    • Chất liệu: 100% Polyester cao cấp<br>
+                    • Công nghệ thấm hút mồ hôi Dri-FIT<br>
+                    • Thiết kế ôm body tôn dáng<br>
+                    • Màu sắc bền đẹp, không phai<br>
+                    • Phù hợp mọi điều kiện thời tiết
+                </p>
+            </div>
+            <div id="specs" class="tab-panel">
+                <h3 style="margin-bottom: 15px;">Thông Số Kỹ Thuật</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px; font-weight: bold; width: 200px;">Chất liệu</td>
+                        <td style="padding: 10px;">100% Polyester</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px; font-weight: bold;">Công nghệ</td>
+                        <td style="padding: 10px;">Dri-FIT thấm hút mồ hôi</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px; font-weight: bold;">Kiểu dáng</td>
+                        <td style="padding: 10px;">Slim fit</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px; font-weight: bold;">Size</td>
+                        <td style="padding: 10px;">S, M, L, XL, XXL</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 10px; font-weight: bold;">Xuất xứ</td>
+                        <td style="padding: 10px;">Việt Nam</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="reviews" class="tab-panel">
+                <h3 style="margin-bottom: 15px;">Đánh Giá Từ Khách Hàng</h3>
+                <p style="color: #666;">Chức năng đánh giá đang được phát triển...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="related-products">
+        <h2 class="section-title">🔥 Sản Phẩm Liên Quan</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="../img/tk1.jpg" alt="Product">
+                <div class="card-info">
+                    <div class="card-title">Áo Bóng Rổ Nike Chính Hãng</div>
+                    <div class="card-price">259,000₫</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="../img/tk2.jpg" alt="Product">
+                <div class="card-info">
+                    <div class="card-title">Giày Đá Bóng Kamito Velocidad</div>
+                    <div class="card-price">499,000₫</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="../img/tk10.jpg" alt="Product">
+                <div class="card-info">
+                    <div class="card-title">Quần Chạy Bộ Adidas Climacool</div>
+                    <div class="card-price">349,000₫</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="../img/tk2.jpg" alt="Product">
+                <div class="card-info">
+                    <div class="card-title">Áo Cầu Lông Yonex Chính Hãng</div>
+                    <div class="card-price">399,000₫</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

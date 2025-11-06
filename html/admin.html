@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Quản Trị - Trường Sport</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <script src="../js/admin.js" ></script>
+   
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>🏃 TRƯỜNG SPORT</h2>
+                <p>Admin Dashboard</p>
+            </div> 
+            <ul class="sidebar-menu">
+                <li class="sidebar-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-home"></i> Tổng Quan
+                </li>
+                <li class="sidebar-item" onclick="showSection('products')">
+                    <i class="fas fa-box"></i> Quản Lý Sản Phẩm
+                </li>
+                <li class="sidebar-item" onclick="showSection('orders')">
+                    <i class="fas fa-shopping-cart"></i> Đơn Hàng
+                </li>
+                <li class="sidebar-item" onclick="showSection('users')">
+                    <i class="fas fa-users"></i> Khách Hàng
+                </li>
+                <li class="sidebar-item" onclick="showSection('stats')">
+                    <i class="fas fa-chart-line"></i> Thống Kê
+                </li>
+                <li class="sidebar-item" onclick="showSection('settings')">
+                    <i class="fas fa-cog"></i> Cài Đặt
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Bảng Điều Khiển</h1>
+                <div class="user-info">
+                    <div class="user-avatar">A</div>
+                    <span>Admin</span>
+                    <button class="logout-btn" onclick="logout()">Đăng Xuất</button>
+                </div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Tổng Đơn Hàng</h3>
+                            <div class="stat-value" id="totalOrders">0</div>
+                        </div>
+                        <i class="fas fa-shopping-cart stat-icon"></i>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Sản Phẩm</h3>
+                            <div class="stat-value">0</div>
+                        </div>
+                        <i class="fas fa-box stat-icon"></i>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Khách Hàng</h3>
+                            <div class="stat-value" id="totalUsers">0</div>
+                        </div>
+                        <i class="fas fa-users stat-icon"></i>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Doanh Thu</h3>
+                            <div class="stat-value" id="totalRevenue">0₫</div>
+                        </div>
+                        <i class="fas fa-dollar-sign stat-icon"></i>
+                    </div>
+                </div>
+
+                <div class="content-section active">
+                    <div class="section-header">
+                        <h2>Đơn Hàng Gần Đây</h2>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mã ĐH</th>
+                                <th>Khách Hàng</th>
+                                <th>Sản Phẩm</th>
+                                <th>Tổng Tiền</th>
+                                <th>Trạng Thái</th>
+                                <th>Ngày</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrders">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #7f8c8d;">
+                                    Chưa có đơn hàng nào
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div id="products" class="content-section">
+                <div class="section-header">
+                    <h2>Quản Lý Sản Phẩm</h2>
+                    <button class="btn-primary" onclick="openAddProductModal()">
+                        <i class="fas fa-plus"></i> Thêm Sản Phẩm
+                    </button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Danh Mục</th>
+                            <th>Giá</th>
+                            <th>Tồn Kho</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Quần Áo Bóng Đá Thiết Kế RO-25</td>
+                            <td>Áo</td>
+                            <td>119,000₫</td>
+                            <td>50</td>
+                            <td>
+                                <button class="action-btn btn-view">Chi tiết</button>
+                                <button class="action-btn btn-edit">Sửa</button>
+                                <button class="action-btn btn-delete">Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="orders" class="content-section">
+                <div class="section-header">
+                    <h2>Quản Lý Đơn Hàng</h2>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mã ĐH</th>
+                            <th>Khách Hàng</th>
+                            <th>Email</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                            <th>Ngày Đặt</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTable">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #7f8c8d;">
+                                Chưa có đơn hàng nào
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Users Section -->
+            <div id="users" class="content-section">
+                <div class="section-header">
+                    <h2>Quản Lý Khách Hàng</h2>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Họ Tên</th>
+                            <th>Email</th>
+                            <th>Tên Đăng Nhập</th>
+                            <th>Ngày Đăng Ký</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Stats Section -->
+            <div id="stats" class="content-section">
+                <div class="section-header">
+                    <h2>Thống Kê Doanh Thu</h2>
+                </div>
+                <p style="color: #7f8c8d; text-align: center; padding: 40px;">
+                    📊 Tính năng thống kê đang được phát triển...
+                </p>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings" class="content-section">
+                <div class="section-header">
+                    <h2>Cài Đặt Hệ Thống</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tên Cửa Hàng</label>
+                        <input type="text" value="TRƯỜNG SPORT">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Liên Hệ</label>
+                        <input type="email" value="Truongdzqua171@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="tel" value="0964778132">
+                    </div>
+                    <div class="form-group">
+                        <label>Phí Vận Chuyển (₫)</label>
+                        <input type="number" value="30000">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Địa Chỉ</label>
+                        <textarea>Thanh Long Yên Mỹ Hưng Yên</textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <button class="btn-primary" style="width: 200px;">
+                            <i class="fas fa-save"></i> Lưu Cài Đặt
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Product -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Thêm Sản Phẩm Mới</h2>
+                <span class="close-modal" onclick="closeAddProductModal()">×</span>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Tên Sản Phẩm</label>
+                    <input type="text" placeholder="Nhập tên sản phẩm">
+                </div>
+                <div class="form-group">
+                    <label>Giá (₫)</label>
+                    <input type="number" placeholder="Nhập giá">
+                </div>
+                <div class="form-group">
+                    <label>Danh Mục</label>
+                    <select>
+                        <option>Áo</option>
+                        <option>Quần</option>
+                        <option>Giày</option>
+                        <option>Phụ Kiện</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Môn Thể Thao</label>
+                    <select>
+                        <option>Bóng Đá</option>
+                        <option>Bóng Rổ</option>
+                        <option>Bóng Chuyền</option>
+                        <option>Cầu Lông</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label>Mô Tả</label>
+                    <textarea placeholder="Nhập mô tả sản phẩm"></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <button class="btn-primary">
+                        <i class="fas fa-plus"></i> Thêm Sản Phẩm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</body>
+</html>

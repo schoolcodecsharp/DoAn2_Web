@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Trường Sport - Cửa Hàng Thể Thao</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/style.js" defer></script>
+    <script src="js/giohang.js"></script>
+    <script src="js/login.js"></script>
+    
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="img/logo2.png" alt="Trường Sport Logo">
+            </div>
+            
+            <div class="header-main">
+                <form class="search-form">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+
+                <div class="header-right">
+                    <a href="#" class="header-icon">
+                        <i class="fas fa-headset"></i>
+                        <span>Hỗ Trợ</span>
+                    </a>
+                    <a href="html/giohang.html" class="header-icon" style="position: relative;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
+                        <span>Giỏ Hàng</span>
+                    </a>
+                    <a href="html/login.html" class="header-icon" id="userAccountLink">
+                         <i class="fas fa-user"></i>
+                         <span id="userNameDisplay">Tài Khoản</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENU -->
+    <nav class="menu">
+        <div class="menu-container">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="index.html" class="menu-link">🏠 Trang Chủ</a>
+                </li>
+                <li class="menu-item">
+                    <a href="html/gioithieu.html" class="menu-link">📖 Giới Thiệu</a>
+                </li>
+                <li class="menu-item dropdown">
+                    <a href="#" class="menu-link">🛒 Sản Phẩm</a>
+                    <div class="submenu">
+                        <div class="submenu-section">
+                            <div class="submenu-title">👖 QUẦN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏃 Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🚴 Đạp Xe</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👕 ÁO</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏃 Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🚴 Đạp Xe</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👟 GIÀY</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏃 Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🚴 Đạp Xe</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">🎒 PHỤ KIỆN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Dụng Cụ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🧘 Yoga</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">📞 Liên Hệ</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- SLIDE -->
+    <div class="slide">
+        <div class="slide-container">
+            <div class="slide-track" id="slideTrack">
+                <img src="img/banner_1.webp" alt="Slide 1">
+                <img src="img/banner_2.webp" alt="Slide 2">
+                <img src="img/slide_1.png" alt="Slide 3">
+                <img src="img/slide_2.png" alt="Slide 4">
+                <img src="img/slide_3.png" alt="Slide 5">
+                <img src="img/slide_4.png" alt="Slide 6">
+            </div>
+            <div class="slide-controls">
+                <button id="prevBtn">‹</button>
+                <button id="nextBtn">›</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- Sản phẩm bán chạy -->
+        <h2 class="section-title">🔥 Sản Phẩm Bán Chạy</h2>
+        <div class="products-grid" id="hotProducts">
+            <div class="product-card" data-id="1" data-category="ao" data-sport="bongda" data-name="Quần Áo Bóng Đá Thiết Kế RO-25 Màu Đỏ" data-price="119000" data-image="../img/tk1.jpg">
+                <div class="product-image">
+                    <img src="img/tk1.jpg" alt="Áo Bóng Đá">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Áo Bóng Đá Thiết Kế RO-25 Màu Đỏ</h3>
+                    <div class="product-price">119,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(1)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(1)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="2" data-category="ao" data-sport="bongro" data-name="Áo Bóng Rổ Nike Chính Hãng" data-price="259000" data-image="img/aobongro.jpeg">
+                <div class="product-image">
+                    <img src="img/aobongro.jpeg" alt="Áo Bóng Rổ Nike">
+                </div>
+                <div class="product-info">
+                    <h3>Áo Bóng Rổ Nike Chính Hãng</h3>
+                    <div class="product-price">259,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(2)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(2)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="3" data-category="giay" data-sport="bongda" data-name="Giày Đá Bóng Kamito Velocidad" data-price="499000" data-image="img/product_3.jpg">
+                <div class="product-image">
+                    <img src="img/tk1.webp" alt="Giày Đá Bóng">
+                </div>
+                <div class="product-info">
+                    <h3>Giày Đá Bóng Kamito Velocidad</h3>
+                    <div class="product-price">499,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(3)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(3)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="4" data-category="phukien" data-sport="bongchuyen" data-name="Phụ Kiện Bóng Chuyền - Băng Cổ Tay" data-price="69000" data-image="img/bct1.webp">
+                <div class="product-image">
+                    <img src="img/bct1.webp" alt="Băng Cổ Tay">
+                </div>
+                <div class="product-info">
+                    <h3>Phụ Kiện Bóng Chuyền - Băng Cổ Tay</h3>
+                    <div class="product-price">69,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(4)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(4)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="5" data-category="quan" data-sport="chaybo" data-name="Quần Chạy Bộ Adidas Climacool" data-price="349000" data-image="img/product_5.jpg">
+                <div class="product-image">
+                    <img src="img/product_5.jpg" alt="Quần Chạy Bộ">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Chạy Bộ Adidas Climacool</h3>
+                    <div class="product-price">349,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(5)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(5)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="6" data-category="phukien" data-sport="dapxe" data-name="Mũ Bảo Hiểm Đạp Xe GVR" data-price="189000" data-image="img/product_6.jpg">
+                <div class="product-image">
+                    <img src="img/product_6.jpg" alt="Mũ Bảo Hiểm">
+                </div>
+                <div class="product-info">
+                    <h3>Mũ Bảo Hiểm Đạp Xe GVR</h3>
+                    <div class="product-price">189,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(6)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(6)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sản phẩm mới -->
+        <h2 class="section-title">✨ Sản Phẩm Mới Nhất</h2>
+        <div class="products-grid" id="newProducts">
+            <div class="product-card" data-id="7" data-category="ao" data-sport="caulong" data-name="Áo Cầu Lông Yonex Chính Hãng" data-price="399000" data-image="img/product_7.jpg">
+                <div class="product-image">
+                    <img src="img/product_7.jpg" alt="Áo Cầu Lông">
+                </div>
+                <div class="product-info">
+                    <h3>Áo Cầu Lông Yonex Chính Hãng</h3>
+                    <div class="product-price">399,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(7)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(7)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="8" data-category="giay" data-sport="bongro" data-name="Giày Bóng Rổ Jordan Air Max" data-price="599000" data-image="img/product_8.jpg">
+                <div class="product-image">
+                    <img src="img/product_8.jpg" alt="Giày Bóng Rổ">
+                </div>
+                <div class="product-info">
+                    <h3>Giày Bóng Rổ Jordan Air Max</h3>
+                    <div class="product-price">599,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(8)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(8)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="9" data-category="phukien" data-sport="yoga" data-name="Thảm Yoga PVC Chống Trơn" data-price="299000" data-image="img/product_9.jpg">
+                <div class="product-image">
+                    <img src="img/product_9.jpg" alt="Thảm Yoga">
+                </div>
+                <div class="product-info">
+                    <h3>Thảm Yoga PVC Chống Trơn</h3>
+                    <div class="product-price">299,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(9)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(9)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="10" data-category="dungcu" data-sport="bongban" data-name="Vợt Bóng Bàn DHS Chính Hãng" data-price="249000" data-image="img/product_10.jpg">
+                <div class="product-image">
+                    <img src="img/product_10.jpg" alt="Vợt Bóng Bàn">
+                </div>
+                <div class="product-info">
+                    <h3>Vợt Bóng Bàn DHS Chính Hãng</h3>
+                    <div class="product-price">249,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(10)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(10)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="11" data-category="quan" data-sport="bongro" data-name="Quần Bóng Rổ Nike Dri-FIT" data-price="279000" data-image="img/product_11.jpg">
+                <div class="product-image">
+                    <img src="img/product_11.jpg" alt="Quần Bóng Rổ">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Bóng Rổ Nike Dri-FIT</h3>
+                    <div class="product-price">279,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(11)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(11)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="12" data-category="dungcu" data-sport="bongchuyen" data-name="Bóng Chuyền Molten Chính Hãng" data-price="449000" data-image="img/product_12.jpg">
+                <div class="product-image">
+                    <img src="img/product_12.jpg" alt="Bóng Chuyền">
+                </div>
+                <div class="product-info">
+                    <h3>Bóng Chuyền Molten Chính Hãng</h3>
+                    <div class="product-price">449,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(12)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(12)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div id="backtop"><i class="fa fa-solid fa-angle-up"></i></div>
+            <script src="https://code.jquery.com/jquery-3.7.1.js"
+                 integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+                crossorigin="anonymous">
+            </script>
+            <script>
+                  $(document).ready(function () {
+                $(window).scroll(function () {
+                  if ($(this).scrollTop() > 0) {
+                    $("#backtop").fadeIn();
+                  } else {
+                    $("#backtop").fadeOut();
+                  }
+                });
+                $("#backtop").click(function () {
+                  $("html, body").animate(
+                    {
+                      scrollTop: 0,
+                    },
+                    400
+                  );
+                });
+              });
+            </script>
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div id="footer-a">
+            <div id="footer-left">
+                <h1 class="h">Hỗ trợ khách hàng</h1>
+                <ul class="u">
+                    <li class="l"><a href="#">Chính sách vận chuyển</a></li>
+                    <li class="l"><a href="#">Chính sách Đổi trả</a></li>
+                    <li class="l"><a href="#">Chính sách khuyến mại</a></li>
+                    <li class="l"><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li class="l"><a href="#">Câu hỏi thường gặp</a></li>
+                    <li class="l"><a href="#">Bảo mật thông tin</a></li>
+                </ul>
+            </div>
+            <div id="footer-mid">
+                <h1 class="h">Liên hệ</h1>
+                <ul class="u">
+                    <li class="l">📍 Địa chỉ: Thanh Long Yên Mỹ Hưng Yên</li>
+                    <li class="l">📱 Điện thoại: 0964778132</li>
+                    <li class="l">📧 Email: Truongdzqua171@gmail.com</li>
+                    <li class="l"><a href="https://www.facebook.com/nguyen.van.truong.904709"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li class="l"><a href="https://www.instagram.com/truong_kutes/"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li class="l"><a href="https://www.youtube.com/@NguyenTrương-i1p"><i class="fab fa-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+            <div id="footer-right">
+                <h1 class="h">Về chúng tôi</h1>
+                <div class="footer-logo">
+                    <img src="img/logo2.png" alt="Trường Sport Logo" class="logo">
+                </div>
+                <p>TRƯỜNG SPORT - Cửa hàng thể thao chuyên nghiệp hàng đầu Việt Nam. Chúng tôi cung cấp các sản phẩm thể thao chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div id="footer-extra">
+                <h1 class="h">Đăng ký nhận tin</h1>
+                <p>Đăng ký để nhận thông tin về sản phẩm mới và khuyến mãi</p>
+                <div class="footer-signup">
+                    <input type="email" placeholder="Email của bạn" class="footer-email">
+                    <button class="footer-btn">Đăng ký</button>
+                </div>
+                <div class="footer-payment">
+                    <h3>Thanh toán</h3>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
+        </div>
+    </footer>
+</body>
+</html>
