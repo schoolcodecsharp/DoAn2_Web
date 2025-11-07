@@ -105,6 +105,75 @@
             font-size: 24px;
         }
 
+        .account-dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .account-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+        }
+
+        .account-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .account-menu::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            transform: rotate(45deg);
+            box-shadow: -2px -2px 4px rgba(0,0,0,0.05);
+        }
+
+        .account-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-radius: 6px;
+            margin: 2px 0;
+            font-weight: 500;
+        }
+
+        .account-menu-item:hover {
+            background-color: #ff6b35;
+            color: white;
+        }
+
+        .account-menu-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .account-menu-divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 8px 0;
+        }
+
         .cart-badge {
             background-color: #ff6b35;
             color: white;

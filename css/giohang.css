@@ -324,3 +324,90 @@
                 position: static;
             }
         }
+
+        /* Voucher styles */
+        .voucher-section {
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            background: #f8f9fa;
+        }
+
+        .voucher-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .voucher-code-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .voucher-code-input:focus {
+            border-color: #ff6b35;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.1);
+        }
+
+        .voucher-apply-btn {
+            padding: 0 15px;
+            background: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+
+        .voucher-apply-btn:hover {
+            background: #e55a28;
+            transform: translateY(-1px);
+        }
+
+        #voucherMessage {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        #voucherMessage.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        #voucherMessage.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .discount-row {
+            background: #fff3e0;
+            margin: 0 -30px;
+            padding: 10px 30px;
+        }
+
+        .discount-value {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        .total-row {
+            border-top: 2px solid #333;
+            margin-top: 15px;
+            padding-top: 15px;
+        }

@@ -292,12 +292,154 @@ function logout() {
     }
 }
 
+// VOUCHERS
+function loadVouchers() { return getJSON('vouchers', []); }
+function saveVouchers(list) { setJSON('vouchers', list); }
+
+function renderVouchers() {
+    const tbody = document.getElementById('vouchersTable');
+    if (!tbody) return;
+    
+    const vouchers = loadVouchers();
+    if (vouchers.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#7f8c8d;">Chưa có mã giảm giá nào</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = vouchers.map(v => `
+        <tr>
+            <td>${v.code}</td>
+            <td>${v.description}</td>
+            <td>${v.type === 'percent' ? v.value + '%' : formatMoney(v.value)}</td>
+            <td>${v.minOrder > 0 ? 'Từ ' + formatMoney(v.minOrder) : 'Không'}</td>
+            <td>${new Date(v.expiry).toLocaleDateString('vi-VN')}</td>
+            <td>
+                <span class="badge ${getVoucherStatusClass(v)}">${getVoucherStatus(v)}</span>
+            </td>
+            <td>
+                <button class="action-btn btn-edit" onclick="editVoucher('${v.code}')">Sửa</button>
+                <button class="action-btn btn-delete" onclick="deleteVoucher('${v.code}')">Xóa</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function getVoucherStatus(voucher) {
+    const now = new Date();
+    const expiry = new Date(voucher.expiry);
+    
+    if (expiry < now) return 'Hết hạn';
+    if (voucher.quantity <= 0) return 'Đã dùng hết';
+    return 'Có hiệu lực';
+}
+
+function getVoucherStatusClass(voucher) {
+    const now = new Date();
+    const expiry = new Date(voucher.expiry);
+    
+    if (expiry < now) return 'badge-expired';
+    if (voucher.quantity <= 0) return 'badge-depleted';
+    return 'badge-active';
+}
+
+function openAddVoucherModal(editing = false) {
+    document.getElementById('addVoucherModal').classList.add('active');
+    document.getElementById('voucherModalTitle').textContent = editing ? 'Cập Nhật Mã Giảm Giá' : 'Thêm Mã Giảm Giá Mới';
+}
+
+function closeAddVoucherModal() {
+    document.getElementById('addVoucherModal').classList.remove('active');
+    clearVoucherForm();
+}
+
+function clearVoucherForm() {
+    document.getElementById('voucherIdInput').value = '';
+    document.getElementById('voucherCodeInput').value = '';
+    document.getElementById('voucherDescriptionInput').value = '';
+    document.getElementById('voucherTypeSelect').value = 'percent';
+    document.getElementById('voucherValueInput').value = '';
+    document.getElementById('voucherMinOrderInput').value = '';
+    document.getElementById('voucherExpiryInput').value = '';
+    document.getElementById('voucherQuantityInput').value = '';
+}
+
+function addOrUpdateVoucher() {
+    const code = document.getElementById('voucherCodeInput').value.trim();
+    const description = document.getElementById('voucherDescriptionInput').value.trim();
+    const type = document.getElementById('voucherTypeSelect').value;
+    const value = parseFloat(document.getElementById('voucherValueInput').value || '0');
+    const minOrder = parseInt(document.getElementById('voucherMinOrderInput').value || '0', 10);
+    const expiry = document.getElementById('voucherExpiryInput').value;
+    const quantity = parseInt(document.getElementById('voucherQuantityInput').value || '0', 10);
+
+    if (!code || !description || !value || !expiry || quantity <= 0) {
+        alert('Vui lòng điền đầy đủ thông tin mã giảm giá.');
+        return;
+    }
+
+    if (type === 'percent' && (value <= 0 || value > 100)) {
+        alert('Giá trị phần trăm phải từ 1-100%');
+        return;
+    }
+
+    let vouchers = loadVouchers();
+    const existingIndex = vouchers.findIndex(v => v.code === code);
+
+    const voucherData = {
+        code,
+        description,
+        type,
+        value,
+        minOrder,
+        expiry,
+        quantity,
+        createdAt: new Date().toISOString()
+    };
+
+    if (existingIndex >= 0) {
+        vouchers[existingIndex] = { ...vouchers[existingIndex], ...voucherData };
+        alert('✅ Cập nhật mã giảm giá thành công!');
+    } else {
+        vouchers.push(voucherData);
+        alert('✅ Thêm mã giảm giá thành công!');
+    }
+
+    saveVouchers(vouchers);
+    renderVouchers();
+    closeAddVoucherModal();
+}
+
+function editVoucher(code) {
+    const vouchers = loadVouchers();
+    const voucher = vouchers.find(v => v.code === code);
+    if (!voucher) return;
+
+    document.getElementById('voucherCodeInput').value = voucher.code;
+    document.getElementById('voucherDescriptionInput').value = voucher.description;
+    document.getElementById('voucherTypeSelect').value = voucher.type;
+    document.getElementById('voucherValueInput').value = voucher.value;
+    document.getElementById('voucherMinOrderInput').value = voucher.minOrder;
+    document.getElementById('voucherExpiryInput').value = voucher.expiry.split('T')[0];
+    document.getElementById('voucherQuantityInput').value = voucher.quantity;
+
+    openAddVoucherModal(true);
+}
+
+function deleteVoucher(code) {
+    if (!confirm('Bạn có chắc muốn xóa mã giảm giá này?')) return;
+    let vouchers = loadVouchers();
+    vouchers = vouchers.filter(v => v.code !== code);
+    saveVouchers(vouchers);
+    renderVouchers();
+}
+
 // INIT
 function loadData() {
     if (!ensureAdmin()) return;
     renderUsers();
     renderProducts();
     renderOrders();
+    renderVouchers();
     updateStats();
 }
 

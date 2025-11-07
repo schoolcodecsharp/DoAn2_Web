@@ -37,10 +37,18 @@
                 <li class="sidebar-item" onclick="showSection('stats')">
                     <i class="fas fa-chart-line"></i> Thống Kê
                 </li>
+                <li class="sidebar-item" onclick="showSection('vouchers')">
+                    <i class="fas fa-ticket-alt"></i> Mã Giảm Giá
+                </li>
                 <li class="sidebar-item" onclick="showSection('settings')">
                     <i class="fas fa-cog"></i> Cài Đặt
                 </li>
             </ul>
+            <div class="return-index">
+                <a href="../index.html" class="return-btn">
+                    <i class="fas fa-home"></i> Về Trang Chủ
+                </a>
+            </div>
         </div>
 
         <!-- Main Content -->
@@ -197,6 +205,36 @@
                 </p>
             </div>
 
+            <!-- Vouchers Section -->
+            <div id="vouchers" class="content-section">
+                <div class="section-header">
+                    <h2>Quản Lý Mã Giảm Giá</h2>
+                    <button class="btn-primary" onclick="openAddVoucherModal()">
+                        <i class="fas fa-plus"></i> Thêm Mã Giảm Giá
+                    </button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Mô Tả</th>
+                            <th>Giảm Giá</th>
+                            <th>Điều Kiện</th>
+                            <th>Ngày Hết Hạn</th>
+                            <th>Trạng Thái</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vouchersTable">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: #7f8c8d;">
+                                Chưa có mã giảm giá nào
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <!-- Settings Section -->
             <div id="settings" class="content-section">
                 <div class="section-header">
@@ -253,21 +291,29 @@
                 <div class="form-group">
                     <label>Danh Mục</label>
                     <select id="productCategorySelect">
-                        <option>Áo</option>
-                        <option>Quần</option>
-                        <option>Giày</option>
-                        <option>Phụ Kiện</option>
+                        <option value="ao">Áo</option>
+                        <option value="quan">Quần</option>
+                        <option value="giay">Giày</option>
+                        <option value="phukien">Phụ Kiện</option>
+                        <option value="balo">Ba Lô</option>
+                        <option value="dongho">Đồng Hồ Thể Thao</option>
+                        <option value="tatvo">Tất & Vớ</option>
+                        <option value="mu">Mũ & Nón</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Môn Thể Thao</label>
                     <select id="productSportSelect">
-                        <option>Bóng Đá</option>
-                        <option>Bóng Rổ</option>
-                        <option>Bóng Chuyền</option>
-                        <option>Cầu Lông</option>
-                        <option>Chạy Bộ</option>
-                        <option>Đạp Xe</option>
+                        <option value="bongda">Bóng Đá</option>
+                        <option value="bongro">Bóng Rổ</option>
+                        <option value="bongchuyen">Bóng Chuyền</option>
+                        <option value="caulongbadminton">Cầu Lông/Badminton</option>
+                        <option value="chaybo">Chạy Bộ</option>
+                        <option value="dapxe">Đạp Xe</option>
+                        <option value="boi">Bơi Lội</option>
+                        <option value="yoga">Yoga</option>
+                        <option value="gym">Gym/Fitness</option>
+                        <option value="tennis">Tennis</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -291,6 +337,53 @@
         </div>
     </div>
 
-   
+    <!-- Modal Add/Edit Voucher -->
+    <div id="addVoucherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="voucherModalTitle">Thêm Mã Giảm Giá Mới</h2>
+                <span class="close-modal" onclick="closeAddVoucherModal()">×</span>
+            </div>
+            <div class="form-grid">
+                <input type="hidden" id="voucherIdInput">
+                <div class="form-group">
+                    <label>Mã Giảm Giá</label>
+                    <input id="voucherCodeInput" type="text" placeholder="Ví dụ: SUMMER2023">
+                </div>
+                <div class="form-group">
+                    <label>Mô Tả</label>
+                    <input id="voucherDescriptionInput" type="text" placeholder="Mô tả ngắn gọn">
+                </div>
+                <div class="form-group">
+                    <label>Loại Giảm Giá</label>
+                    <select id="voucherTypeSelect">
+                        <option value="percent">Phần Trăm (%)</option>
+                        <option value="fixed">Số Tiền Cố Định (₫)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Giá Trị Giảm</label>
+                    <input id="voucherValueInput" type="number" min="0" placeholder="Nhập giá trị">
+                </div>
+                <div class="form-group">
+                    <label>Giá Trị Đơn Hàng Tối Thiểu (₫)</label>
+                    <input id="voucherMinOrderInput" type="number" min="0" placeholder="0 = Không giới hạn">
+                </div>
+                <div class="form-group">
+                    <label>Ngày Hết Hạn</label>
+                    <input id="voucherExpiryInput" type="date">
+                </div>
+                <div class="form-group full-width">
+                    <label>Số Lượng Mã</label>
+                    <input id="voucherQuantityInput" type="number" min="1" placeholder="Số lượng mã có thể sử dụng">
+                </div>
+                <div class="form-group full-width">
+                    <button class="btn-primary" onclick="addOrUpdateVoucher()" id="submitVoucherBtn">
+                        <i class="fas fa-plus"></i> Lưu Mã Giảm Giá
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

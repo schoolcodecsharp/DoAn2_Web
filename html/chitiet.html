@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../css/chitiet.css">
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/chitiet.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/account-menu.js"></script>
 </head>
 <body>
     <!-- HEADER -->
@@ -26,14 +28,28 @@
                         <i class="fas fa-headset"></i>
                         <span>Hỗ Trợ</span>
                     </a>
-                    <a href="../html/giohang.html" class="header-icon">
+                    <a href="../html/giohang.html" class="header-icon" style="position: relative;">
                         <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
                         <span>Giỏ Hàng</span>
                     </a>
-                    <a href="../html/login.html" class="header-icon">
-                        <i class="fas fa-user"></i>
-                        <span>Tài Khoản</span>
-                    </a>
+                    <div class="account-section">
+                        <a href="#" class="header-icon" id="accountBtn">
+                            <i class="fas fa-user"></i>
+                            <span id="userNameDisplay">Tài Khoản</span>
+                        </a>
+                        <div class="account-menu">
+                            <a href="profile.html" class="account-menu-item">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Thông tin cá nhân</span>
+                            </a>
+                            <div class="account-menu-divider"></div>
+                            <a href="#" class="account-menu-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

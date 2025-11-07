@@ -9,6 +9,7 @@
     <script src="js/style.js" defer></script>
     <script src="js/giohang.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/account-menu.js"></script>
     
 </head>
 <body>
@@ -35,10 +36,23 @@
                         <span class="cart-badge">0</span>
                         <span>Giỏ Hàng</span>
                     </a>
-                    <a href="html/login.html" class="header-icon" id="userAccountLink">
-                         <i class="fas fa-user"></i>
-                         <span id="userNameDisplay">Tài Khoản</span>
-                    </a>
+                    <div class="account-section">
+                        <a href="#" class="header-icon" id="accountBtn">
+                            <i class="fas fa-user"></i>
+                            <span id="userNameDisplay">Tài Khoản</span>
+                        </a>
+                        <div class="account-menu">
+                            <a href="html/profile.html" class="account-menu-item">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Thông tin cá nhân</span>
+                            </a>
+                            <div class="account-menu-divider"></div>
+                            <a href="#" class="account-menu-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

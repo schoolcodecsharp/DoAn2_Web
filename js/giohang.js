@@ -103,7 +103,14 @@ function renderCart() {
     // Tính toán
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = subtotal >= 500000 ? 0 : 30000;
-    const discount = 0;
+    
+    // Get applied voucher
+    let discount = 0;
+    const appliedVoucher = JSON.parse(sessionStorage.getItem('appliedVoucher'));
+    if (appliedVoucher) {
+        discount = appliedVoucher.discount;
+    }
+    
     const total = subtotal + shipping - discount;
 
     // Render sản phẩm
@@ -149,16 +156,25 @@ function renderCart() {
                     <span class="summary-label">Phí vận chuyển:</span>
                     <span class="summary-value">${shipping === 0 ? 'Miễn phí' : formatMoney(shipping)}</span>
                 </div>
-                
-                <div class="coupon-section">
-                    <label class="summary-label">Mã giảm giá:</label>
-                    <div class="coupon-input">
-                        <input type="text" placeholder="Nhập mã giảm giá" id="couponInput">
-                        <button class="coupon-btn" onclick="applyCoupon()">Áp dụng</button>
+
+                <div class="voucher-section">
+                    <div class="voucher-input">
+                        <input type="text" id="voucherCode" placeholder="Nhập mã giảm giá" class="voucher-code-input">
+                        <button onclick="applyVoucher()" class="voucher-apply-btn">
+                            <i class="fas fa-ticket-alt"></i> Áp dụng
+                        </button>
                     </div>
+                    <div id="voucherMessage"></div>
                 </div>
                 
-                <div class="summary-row">
+                ${appliedVoucher ? `
+                <div class="summary-row discount-row">
+                    <span class="summary-label">Giảm giá (${appliedVoucher.code}):</span>
+                    <span class="summary-value discount-value">-${formatMoney(discount)}</span>
+                </div>
+                ` : ''}
+                
+                <div class="summary-row total-row">
                     <span class="summary-label">Tổng cộng:</span>
                     <span class="summary-value summary-total">${formatMoney(total)}</span>
                 </div>
@@ -199,27 +215,74 @@ function removeItem(index) {
 }
 
 // Áp dụng mã giảm giá
-function applyCoupon() {
-    const couponInput = document.getElementById('couponInput');
-    const couponCode = couponInput ? couponInput.value.trim().toUpperCase() : '';
+function applyVoucher() {
+    const voucherInput = document.getElementById('voucherCode');
+    const code = voucherInput.value.trim().toUpperCase();
+    const voucherMessage = document.getElementById('voucherMessage');
     
-    if (couponCode === '') {
-        alert('⚠️ Vui lòng nhập mã giảm giá!');
+    if (code === '') {
+        showVoucherMessage('⚠️ Vui lòng nhập mã giảm giá!', 'error');
         return;
     }
 
-    const validCoupons = {
-        'GIAM10': 'Giảm 10%',
-        'GIAM50K': 'Giảm 50.000₫',
-        'FREESHIP': 'Miễn phí vận chuyển'
-    };
+    const cart = getCart();
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const vouchers = JSON.parse(localStorage.getItem('vouchers')) || [];
+    const voucher = vouchers.find(v => v.code === code);
 
-    if (validCoupons[couponCode]) {
-        alert(`✅ Áp dụng mã "${couponCode}" thành công!\n${validCoupons[couponCode]}`);
-        couponInput.value = '';
-    } else {
-        alert('❌ Mã giảm giá không hợp lệ!');
+    if (!voucher) {
+        showVoucherMessage('❌ Mã giảm giá không tồn tại!', 'error');
+        return;
     }
+
+    const now = new Date();
+    const expiry = new Date(voucher.expiry);
+    
+    if (expiry < now) {
+        showVoucherMessage('❌ Mã giảm giá đã hết hạn!', 'error');
+        return;
+    }
+
+    if (voucher.quantity <= 0) {
+        showVoucherMessage('❌ Mã giảm giá đã hết lượt sử dụng!', 'error');
+        return;
+    }
+
+    if (voucher.minOrder > 0 && subtotal < voucher.minOrder) {
+        showVoucherMessage(`❌ Đơn hàng tối thiểu ${formatMoney(voucher.minOrder)} để sử dụng mã này!`, 'error');
+        return;
+    }
+
+    // Calculate discount
+    let discountAmount;
+    if (voucher.type === 'percent') {
+        discountAmount = Math.floor(subtotal * (voucher.value / 100));
+    } else {
+        discountAmount = voucher.value;
+    }
+
+    // Save applied voucher to cart session
+    sessionStorage.setItem('appliedVoucher', JSON.stringify({
+        code: voucher.code,
+        discount: discountAmount
+    }));
+
+    // Update voucher quantity
+    voucher.quantity--;
+    localStorage.setItem('vouchers', JSON.stringify(vouchers));
+
+    showVoucherMessage(`✅ Áp dụng mã giảm giá thành công! Giảm ${formatMoney(discountAmount)}`, 'success');
+    renderCart(); // Re-render cart to show updated prices
+}
+
+function showVoucherMessage(message, type) {
+    const voucherMessage = document.getElementById('voucherMessage');
+    voucherMessage.textContent = message;
+    voucherMessage.className = type;
+    setTimeout(() => {
+        voucherMessage.textContent = '';
+        voucherMessage.className = '';
+    }, 5000);
 }
 
 // Thanh toán - Yêu cầu đăng nhập
@@ -240,10 +303,28 @@ function checkout() {
         return;
     }
 
-    const user = JSON.parse(currentUser);
+    // Kiểm tra thông tin cá nhân
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(u => u.username === currentUser);
+    if (!user || !user.fullName || !user.email || !user.phone) {
+        if (confirm('❌ Bạn cần cập nhật đầy đủ thông tin cá nhân (Họ tên, Email, Số điện thoại) để thanh toán!\n\nBấm OK để chuyển đến trang cập nhật thông tin.')) {
+            window.location.href = '../html/profile.html';
+        }
+        return;
+    }
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = subtotal >= 500000 ? 0 : 30000;
-    const total = subtotal + shipping;
+    
+    // Get applied voucher
+    let discount = 0;
+    let appliedVoucher = null;
+    const savedVoucher = JSON.parse(sessionStorage.getItem('appliedVoucher'));
+    if (savedVoucher) {
+        discount = savedVoucher.discount;
+        appliedVoucher = savedVoucher;
+    }
+    
+    const total = subtotal + shipping - discount;
 
     const orderSummary = `
 ✅ XÁC NHẬN ĐẶT HÀNG
@@ -254,6 +335,7 @@ Email: ${user.email}
 Số lượng: ${cart.reduce((sum, item) => sum + item.quantity, 0)} sản phẩm
 Tạm tính: ${formatMoney(subtotal)}
 Vận chuyển: ${shipping === 0 ? 'Miễn phí' : formatMoney(shipping)}
+${appliedVoucher ? `Giảm giá (${appliedVoucher.code}): -${formatMoney(discount)}` : ''}
 ━━━━━━━━━━━━━━━━━━━━
 TỔNG: ${formatMoney(total)}
 
@@ -270,12 +352,17 @@ Xác nhận đặt hàng?
             items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity, size: i.size, image: i.image })),
             subtotal: subtotal,
             shipping: shipping,
+            discount: discount,
+            voucher: appliedVoucher,
             total: total,
             status: 'pending',
             createdAt: new Date().toISOString()
         };
         orders.push(newOrder);
         localStorage.setItem('orders', JSON.stringify(orders));
+
+        // Clear the applied voucher
+        sessionStorage.removeItem('appliedVoucher');
 
         alert('✅ Đặt hàng thành công!\nCảm ơn bạn đã mua hàng tại TRƯỜNG SPORT.');
         localStorage.removeItem('cart');
