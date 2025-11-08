@@ -112,18 +112,18 @@
 
         .account-menu {
             position: absolute;
-            top: calc(100% + 10px);
-            right: 0;
+            top: calc(100% + 15px);
+            right: -10px;
             background-color: white;
-            min-width: 220px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            border-radius: 8px;
+            min-width: 240px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            border-radius: 12px;
             z-index: 1000;
-            padding: 8px;
+            padding: 10px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
-            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+            transition: all 0.3s ease;
         }
 
         .account-menu.show {
@@ -136,12 +136,30 @@
             content: '';
             position: absolute;
             top: -8px;
-            right: 20px;
+            right: 25px;
             width: 16px;
             height: 16px;
             background-color: white;
             transform: rotate(45deg);
             box-shadow: -2px -2px 4px rgba(0,0,0,0.05);
+        }
+
+        .account-menu-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 8px;
+        }
+
+        .account-menu-header .user-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .account-menu-header .user-email {
+            font-size: 13px;
+            color: #666;
         }
 
         .account-menu-item {
@@ -151,15 +169,17 @@
             padding: 12px 16px;
             color: #333;
             text-decoration: none;
-            transition: all 0.3s;
-            border-radius: 6px;
+            transition: all 0.2s ease;
+            border-radius: 8px;
             margin: 2px 0;
             font-weight: 500;
+            font-size: 14px;
         }
 
         .account-menu-item:hover {
             background-color: #ff6b35;
             color: white;
+            transform: translateX(4px);
         }
 
         .account-menu-item i {
@@ -168,10 +188,29 @@
             text-align: center;
         }
 
+        .account-menu-item.admin-link {
+            background-color: #f8f8f8;
+            color: #ff6b35;
+        }
+
+        .account-menu-item.admin-link:hover {
+            background-color: #ff6b35;
+            color: white;
+        }
+
         .account-menu-divider {
             height: 1px;
             background-color: #eee;
             margin: 8px 0;
+        }
+        
+        .account-menu-item.logout {
+            color: #dc3545;
+        }
+        
+        .account-menu-item.logout:hover {
+            background-color: #dc3545;
+            color: white;
         }
 
         .cart-badge {

@@ -26,6 +26,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     accountMenu.classList.toggle('show');
                 };
                 
+                // Update menu content
+                accountMenu.innerHTML = `
+                    <div class="account-menu-header">
+                        <div class="user-name">${user.fullName}</div>
+                        <div class="user-email">${user.email}</div>
+                    </div>
+                    <a href="${window.location.pathname.includes('/html/') ? '' : 'html/'}profile.html" class="account-menu-item">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Thông tin cá nhân</span>
+                    </a>
+                    ${user.role === 'admin' ? `
+                        <div class="account-menu-divider"></div>
+                        <a href="${window.location.pathname.includes('/html/') ? '' : 'html/'}admin.html" class="account-menu-item admin-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Quản lý Admin</span>
+                        </a>
+                    ` : ''}
+                    <div class="account-menu-divider"></div>
+                    <a href="#" class="account-menu-item logout" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                `;
+                
                 // Show menu
                 accountMenu.style.display = 'block';
             }

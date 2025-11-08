@@ -5,13 +5,23 @@
 
 // Lấy giỏ hàng từ localStorage
 function getCart() {
-    const cartData = localStorage.getItem('cart');
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) return [];
+    
+    const user = JSON.parse(currentUser);
+    const cartKey = `cart_${user.username}`;
+    const cartData = localStorage.getItem(cartKey);
     return cartData ? JSON.parse(cartData) : [];
 }
 
 // Lưu giỏ hàng vào localStorage
 function saveCart(cart) {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) return;
+    
+    const user = JSON.parse(currentUser);
+    const cartKey = `cart_${user.username}`;
+    localStorage.setItem(cartKey, JSON.stringify(cart));
     updateCartBadge();
 }
 
