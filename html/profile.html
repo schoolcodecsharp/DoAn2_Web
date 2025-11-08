@@ -10,165 +10,253 @@
     <script src="../js/account-menu.js"></script>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="../index.html">🏃 TRƯỜNG SPORT</a>
-        </div>
-        <nav class="menu">
-            <div class="menu-container">
-                <ul class="menu-list">
-                    <li><a href="../index.html">Trang Chủ</a></li>
-                    <li class="dropdown">
-                        <a href="#">Sản Phẩm <i class="fas fa-chevron-down"></i></a>
-                        <div class="submenu">
-                            <div class="submenu-section">
-                                <div class="submenu-title">👖 QUẦN</div>
-                                <ul class="submenu-list">
-                                    <li><a href="#">⚽ Bóng Đá</a></li>
-                                    <li><a href="#">🏀 Bóng Rổ</a></li>
-                                    <li><a href="#">🏐 Bóng Chuyền</a></li>
-                                    <li><a href="#">🎾 Cầu Lông</a></li>
-                                    <li><a href="#">🏃 Chạy Bộ</a></li>
-                                </ul>
-                            </div>
-                            <div class="submenu-section">
-                                <div class="submenu-title">👕 ÁO</div>
-                                <ul class="submenu-list">
-                                    <li><a href="#">⚽ Bóng Đá</a></li>
-                                    <li><a href="#">🏀 Bóng Rổ</a></li>
-                                    <li><a href="#">🏐 Bóng Chuyền</a></li>
-                                    <li><a href="#">🎾 Cầu Lông</a></li>
-                                    <li><a href="#">🏃 Chạy Bộ</a></li>
-                                </ul>
-                            </div>
-                            <div class="submenu-section">
-                                <div class="submenu-title">👟 GIÀY</div>
-                                <ul class="submenu-list">
-                                    <li><a href="#">⚽ Bóng Đá</a></li>
-                                    <li><a href="#">🏀 Bóng Rổ</a></li>
-                                    <li><a href="#">🏐 Bóng Chuyền</a></li>
-                                    <li><a href="#">🎾 Cầu Lông</a></li>
-                                    <li><a href="#">🏃 Chạy Bộ</a></li>
-                                </ul>
-                            </div>
-                            <div class="submenu-section">
-                                <div class="submenu-title">🎒 PHỤ KIỆN</div>
-                                <ul class="submenu-list">
-                                    <li><a href="#">⚽ Bóng Đá</a></li>
-                                    <li><a href="#">🏀 Bóng Rổ</a></li>
-                                    <li><a href="#">🏐 Bóng Chuyền</a></li>
-                                    <li><a href="#">🎾 Cầu Lông</a></li>
-                                    <li><a href="#">⚽ Dụng Cụ</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    <li><a href="gioithieu.html">Giới Thiệu</a></li>
-                    <li><a href="giohang.html">Giỏ Hàng <i class="fas fa-shopping-cart"></i></a></li>
-                </ul>
-                <div class="search-container">
-                    <input type="text" placeholder="Tìm kiếm..." id="searchInput">
-                    <button type="button" id="searchButton">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../img/logo2.png" alt="Trường Sport Logo">
             </div>
-        </nav>
-        <div class="user-section">
-            <div class="account-section">
-                <a href="#" id="accountBtn">
-                    <i class="fas fa-user"></i>
-                    <span>Tài Khoản</span>
-                </a>
-                <div class="account-menu">
-                    <a href="profile.html" class="account-menu-item active">
-                        <i class="fas fa-user-circle"></i>
-                        <span>Thông tin cá nhân</span>
+            
+            <div class="header-main">
+                <form class="search-form">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+
+                <div class="header-right">
+                    <a href="#" class="header-icon">
+                        <i class="fas fa-headset"></i>
+                        <span>Hỗ Trợ</span>
                     </a>
-                    <div class="account-menu-divider"></div>
-                    <a href="#" class="account-menu-item" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Đăng xuất</span>
+                    <a href="../html/giohang.html" class="header-icon" style="position: relative;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
+                        <span>Giỏ Hàng</span>
                     </a>
+                    <div class="account-section">
+                        <a href="#" class="header-icon" id="accountBtn">
+                            <i class="fas fa-user"></i>
+                            <span id="userNameDisplay">Tài Khoản</span>
+                        </a>
+                        <div class="account-menu">
+                            <a href="../html/profile.html" class="account-menu-item">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Thông tin cá nhân</span>
+                            </a>
+                            <div class="account-menu-divider"></div>
+                            <a href="#" class="account-menu-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="profile-container">
-        <div class="profile-card">
-            <h1>Thông Tin Cá Nhân</h1>
-            <form id="profileForm" class="profile-form">
-                <div class="form-group">
-                    <label for="fullName" class="required-field">Họ và Tên</label>
-                    <input type="text" id="fullName" name="fullName" required 
-                           placeholder="Nhập họ và tên của bạn">
-                </div>
-                <div class="form-group">
-                    <label for="email" class="required-field">Email</label>
-                    <input type="email" id="email" name="email" required 
-                           placeholder="Nhập địa chỉ email">
-                </div>
-                <div class="form-group">
-                    <label for="phone" class="required-field">Số Điện Thoại</label>
-                    <input type="tel" id="phone" name="phone" required 
-                           placeholder="Nhập số điện thoại (10 số)">
-                </div>
-                <div class="form-group">
-                    <label for="address">Địa Chỉ</label>
-                    <textarea id="address" name="address" 
-                            placeholder="Nhập địa chỉ giao hàng"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="birthday">Ngày Sinh</label>
-                    <input type="date" id="birthday" name="birthday">
-                </div>
-                <div class="form-group gender-group">
-                    <label>Giới Tính</label>
-                    <div class="radio-group">
-                        <input type="radio" id="male" name="gender" value="male">
-                        <label for="male">Nam</label>
-                        <input type="radio" id="female" name="gender" value="female">
-                        <label for="female">Nữ</label>
-                        <input type="radio" id="other" name="gender" value="other">
-                        <label for="other">Khác</label>
+    <!-- MENU -->
+    <nav class="menu">
+        <div class="menu-container">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="../index.html" class="menu-link">🏠 Trang Chủ</a>
+                </li>
+                <li class="menu-item">
+                    <a href="../html/gioithieu.html" class="menu-link">📖 Giới Thiệu</a>
+                </li>
+                <li class="menu-item dropdown">
+                    <a href="#" class="menu-link">🛒 Sản Phẩm</a>
+                    <div class="submenu">
+                        <div class="submenu-section">
+                            <div class="submenu-title">👖 QUẦN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏃 Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🚴 Đạp Xe</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👕 ÁO</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏃 Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🚴 Đạp Xe</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👟 GIÀY</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏃 Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🚴 Đạp Xe</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">🎒 PHỤ KIỆN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Bóng Đá</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏀 Bóng Rổ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🏐 Bóng Chuyền</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🎾 Cầu Lông</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">⚽ Dụng Cụ</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">🧘 Yoga</a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="save-btn">
-                        <i class="fas fa-save"></i> Lưu Thông Tin
-                    </button>
-                </div>
-            </form>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">📞 Liên Hệ</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <main id="profile-container">
+        <!-- Breadcrumb -->
+        <div id="profile-breadcrumb">
+            <a href="../index.html">Trang chủ</a> / <span>Thông tin cá nhân</span>
+        </div>
+
+        <div id="profile-card">
+            <div id="profile-header">
+                <h1>Thông Tin Cá Nhân</h1>
+                <div id="profile-status"></div>
+            </div>
+
+            <!-- Admin Back Button (shown only for admin) -->
+            <div id="admin-nav" style="display: none;">
+                <a href="admin.html" id="admin-back-btn">
+                    <i class="fas fa-arrow-left"></i> Quay lại trang Admin
+                </a>
+            </div>
+
+            <div id="profile-sections">
+                <!-- Basic Info and Additional Info Sections -->
+                <form id="profile-form">
+                    <div class="form-section">
+                        <h2>Thông tin cơ bản</h2>
+                        <div class="form-group">
+                            <label for="fullName" class="required-field">Họ và Tên</label>
+                            <input type="text" id="fullName" name="fullName" required 
+                                   placeholder="Nhập họ và tên của bạn">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="required-field">Email</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="Nhập địa chỉ email">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="required-field">Số Điện Thoại</label>
+                            <input type="tel" id="phone" name="phone" required 
+                                   placeholder="Nhập số điện thoại (10 số)">
+                        </div>
+                   
+                    
+                        <div class="form-group">
+                            <label for="address">Địa Chỉ</label>
+                            <textarea id="address" name="address" 
+                                    placeholder="Nhập địa chỉ giao hàng"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthday">Ngày Sinh</label>
+                            <input type="date" id="birthday" name="birthday">
+                        </div>
+                        <div class="form-group gender-group">
+                            <label>Giới Tính</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="male" name="gender" value="male">
+                                    <label for="male">Nam</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    <label for="female">Nữ</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="other" name="gender" value="other">
+                                    <label for="other">Khác</label>
+                                </div>
+                        </div>
+                       
+                    </div>
+
+                    <div id="form-actions">
+                        <button type="reset" id="reset-btn">
+                            <i class="fas fa-undo"></i> Đặt lại
+                        </button>
+                        <button type="submit" id="save-btn">
+                            <i class="fas fa-save"></i> Lưu Thông Tin
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Về TRƯỜNG SPORT</h3>
-                <p>Chuyên cung cấp các sản phẩm thể thao chất lượng cao</p>
+    <!-- Add script for profile -->
+    <script src="../js/profile.js"></script>
+
+   <footer id="footer">
+        <div id="footer-a">
+            <div id="footer-left">
+                <h1 class="h">Hỗ trợ khách hàng</h1>
+                <ul class="u">
+                    <li class="l"><a href="#">Chính sách vận chuyển</a></li>
+                    <li class="l"><a href="#">Chính sách Đổi trả</a></li>
+                    <li class="l"><a href="#">Chính sách khuyến mại</a></li>
+                    <li class="l"><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li class="l"><a href="#">Câu hỏi thường gặp</a></li>
+                    <li class="l"><a href="#">Bảo mật thông tin</a></li>
+                </ul>
             </div>
-            <div class="footer-section">
-                <h3>Liên Hệ</h3>
-                <p>Email: Truongdzqua171@gmail.com</p>
-                <p>SĐT: 0964778132</p>
-                <p>Địa chỉ: Thanh Long Yên Mỹ Hưng Yên</p>
+            <div id="footer-mid">
+                <h1 class="h">Liên hệ</h1>
+                <ul class="u">
+                    <li class="l">📍 Địa chỉ: Thanh Long Yên Mỹ Hưng Yên</li>
+                    <li class="l">📱 Điện thoại: 0964778132</li>
+                    <li class="l">📧 Email: Truongdzqua171@gmail.com</li>
+                    <li class="l"><a href="https://www.facebook.com/nguyen.van.truong.904709"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li class="l"><a href="https://www.instagram.com/truong_kutes/"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li class="l"><a href="https://www.youtube.com/@NguyenTrương-i1p"><i class="fab fa-youtube"></i> YouTube</a></li>
+                </ul>
             </div>
-            <div class="footer-section">
-                <h3>Theo Dõi</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+            <div id="footer-right">
+                <h1 class="h">Về chúng tôi</h1>
+                <div class="footer-logo">
+                    <img src="../img/logo2.png" alt="Trường Sport Logo" class="logo">
+                </div>
+                <p>TRƯỜNG SPORT - Cửa hàng thể thao chuyên nghiệp hàng đầu Việt Nam. Chúng tôi cung cấp các sản phẩm thể thao chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div id="footer-extra">
+                <h1 class="h">Đăng ký nhận tin</h1>
+                <p>Đăng ký để nhận thông tin về sản phẩm mới và khuyến mãi</p>
+                <div class="footer-signup">
+                    <input type="email" placeholder="Email của bạn" class="footer-email">
+                    <button class="footer-btn">Đăng ký</button>
+                </div>
+                <div class="footer-payment">
+                    <h3>Thanh toán</h3>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 TRƯỜNG SPORT. All rights reserved.</p>
+            <p>© 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
         </div>
     </footer>
-
-    <script src="../js/profile.js"></script>
 </body>
 </html>

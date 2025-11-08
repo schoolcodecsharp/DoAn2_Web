@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const profileForm = document.getElementById('profileForm');
+    const profileForm = document.getElementById('profile-form');
 
     // Check login status
     function checkLoginStatus() {
@@ -13,14 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // If admin user, show admin navigation
         if (user.role === 'admin') {
-            const adminNav = document.createElement('div');
-            adminNav.className = 'admin-nav';
-            adminNav.innerHTML = `
-                <a href="admin.html" class="admin-back-btn">
-                    <i class="fas fa-arrow-left"></i> Quay lại trang Admin
-                </a>
-            `;
-            document.querySelector('.profile-card').insertBefore(adminNav, document.querySelector('.profile-card h1'));
+            document.getElementById('admin-nav').style.display = 'block';
         }
 
         return user;
@@ -55,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const requiredFields = ['fullName', 'email', 'phone'];
         const missingFields = requiredFields.filter(field => !profile[field]);
         
-        const statusElement = document.createElement('div');
-        statusElement.className = 'profile-status ' + (missingFields.length === 0 ? 'complete' : 'incomplete');
+        const statusElement = document.getElementById('profile-status');
+        statusElement.className = missingFields.length === 0 ? 'complete' : 'incomplete';
         
         if (missingFields.length === 0) {
             statusElement.innerHTML = `
@@ -76,12 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }).join(', ')}</span>
             `;
         }
-
-        const existingStatus = document.querySelector('.profile-status');
-        if (existingStatus) {
-            existingStatus.remove();
-        }
-        document.querySelector('.profile-card h1').after(statusElement);
     }
 
     // Check if required profile fields are filled
@@ -134,11 +121,17 @@ document.addEventListener('DOMContentLoaded', function() {
             users[userIndex] = updatedProfile;
             localStorage.setItem('users', JSON.stringify(users));
             
-            // Update current user info
+            // Update current user info and show in header
             const currentUserData = JSON.parse(localStorage.getItem('currentUser'));
             currentUserData.fullName = updatedProfile.fullName;
             currentUserData.email = updatedProfile.email;
             localStorage.setItem('currentUser', JSON.stringify(currentUserData));
+            
+            // Update display name in header if it exists
+            const userNameDisplay = document.getElementById('userNameDisplay');
+            if (userNameDisplay) {
+                userNameDisplay.textContent = updatedProfile.fullName || 'Tài Khoản';
+            }
 
             // Update status display
             updateProfileStatus(updatedProfile);
@@ -183,4 +176,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize
     checkLoginStatus();
     loadProfileData();
-});
+;
