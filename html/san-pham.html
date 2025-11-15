@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh mục sản phẩm - Doãn Thể Thao</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/san-pham.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header id="header">
+        <div class="header-top">
+            <div class="header-container">
+                <div class="header-left">
+                    <a href="../index.html" class="logo">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>Doãn Thể Thao</span>
+                    </a>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="header-icons">
+                        <a href="giohang.html" class="header-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartCount">0</span>
+                        </a>
+                        <a href="#" class="header-icon" id="accountBtn">
+                            <i class="fas fa-user"></i>
+                            <span id="userNameDisplay">Tài Khoản</span>
+                        </a>
+                        <div class="account-menu">
+                            <a href="profile.html" class="account-menu-item">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Thông tin cá nhân</span>
+                            </a>
+                            <div class="account-menu-divider"></div>
+                            <a href="#" class="account-menu-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENU -->
+    <nav class="menu">
+        <div class="menu-container">
+            <ul class="menu-list">
+                <li class="menu-item">
+                    <a href="../index.html" class="menu-link">🏠 Trang Chủ</a>
+                </li>
+                <li class="menu-item">
+                    <a href="gioithieu.html" class="menu-link">📖 Giới Thiệu</a>
+                </li>
+                <li class="menu-item dropdown">
+                    <a href="#" class="menu-link">🛒 Sản Phẩm</a>
+                    <div class="submenu">
+                        <div class="submenu-section">
+                            <div class="submenu-title">👖 QUẦN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="quan-bong-da-nam.html" class="submenu-link">Quần Bóng Đá Nam</a></li>
+                                <li class="submenu-item"><a href="quan-bong-ro-nam.html" class="submenu-link">Quần Bóng Rổ Nam</a></li>
+                                <li class="submenu-item"><a href="quan-chay-bo.html" class="submenu-link">Quần Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="quan-tap-gym.html" class="submenu-link">Quần Tập Gym</a></li>
+                                <li class="submenu-item"><a href="quan-dap-xe.html" class="submenu-link">Quần Đạp Xe</a></li>
+                                <li class="submenu-item"><a href="quan-cau-long.html" class="submenu-link">Quần Cầu Lông</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👕 ÁO</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="ao-bong-da-nam.html" class="submenu-link">Áo Bóng Đá Nam</a></li>
+                                <li class="submenu-item"><a href="ao-bong-ro-nam.html" class="submenu-link">Áo Bóng Rổ Nam</a></li>
+                                <li class="submenu-item"><a href="ao-tap-luyen.html" class="submenu-link">Áo Tập Luyện</a></li>
+                                <li class="submenu-item"><a href="ao-dong-phuc.html" class="submenu-link">Áo Đồng Phục</a></li>
+                                <li class="submenu-item"><a href="ao-thoi-trang.html" class="submenu-link">Áo Thời Trang Thể Thao</a></li>
+                                <li class="submenu-item"><a href="ao-lifestyle.html" class="submenu-link">Áo Lifestyle</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👟 GIÀY</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="giay-bong-da-nam.html" class="submenu-link">Giày Bóng Đá Nam</a></li>
+                                <li class="submenu-item"><a href="giay-bong-ro-nam.html" class="submenu-link">Giày Bóng Rổ Nam</a></li>
+                                <li class="submenu-item"><a href="giay-chay-bo.html" class="submenu-link">Giày Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="giay-tap-gym.html" class="submenu-link">Giày Tập Gym</a></li>
+                                <li class="submenu-item"><a href="giay-da-ngoai.html" class="submenu-link">Giày Dã Ngoại</a></li>
+                                <li class="submenu-item"><a href="giay-casual.html" class="submenu-link">Giày Casual</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">🎒 PHỤ KIỆN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="phu-kien-bong-dung-cu.html" class="submenu-link">Bóng & Dụng Cụ</a></li>
+                                <li class="submenu-item"><a href="phu-kien-tui-balo.html" class="submenu-link">Túi & Balo</a></li>
+                                <li class="submenu-item"><a href="phu-kien-bao-ho.html" class="submenu-link">Bảo Hộ & Băng</a></li>
+                                <li class="submenu-item"><a href="phu-kien-vo-gang-tay.html" class="submenu-link">Vớ & Găng Tay</a></li>
+                                <li class="submenu-item"><a href="phu-kien-yoga.html" class="submenu-link">Yoga & Fitness</a></li>
+                                <li class="submenu-item"><a href="phu-kien-khac.html" class="submenu-link">Phụ Kiện Khác</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="gioithieu.html" class="menu-link">📞 Liên Hệ</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <div class="category-header">
+            <h1 id="categoryTitle">Danh mục sản phẩm</h1>
+            <p class="category-description" id="categoryDesc">Tìm kiếm sản phẩm chất lượng cao, thoải mái và độc đáo</p>
+        </div>
+
+        <div class="category-filters">
+            <div class="filter-group">
+                <label>Giá:</label>
+                <select id="priceFilter">
+                    <option value="">Tất cả giá</option>
+                    <option value="0-500000">Dưới 500,000₫</option>
+                    <option value="500000-1000000">500,000₫ - 1,000,000₫</option>
+                    <option value="1000000">Trên 1,000,000₫</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Sắp xếp:</label>
+                <select id="sortFilter">
+                    <option value="">Mặc định</option>
+                    <option value="price-asc">Giá từ thấp đến cao</option>
+                    <option value="price-desc">Giá từ cao đến thấp</option>
+                    <option value="newest">Mới nhất</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="products-grid" id="categoryProducts">
+            <!-- Sản phẩm sẽ được load bằng JavaScript -->
+        </div>
+
+        <div class="no-products" id="noProducts" style="display:none;">
+            <p>Không có sản phẩm nào trong danh mục này</p>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div id="footer-a">
+            <div id="footer-left">
+                <h1 class="h">Hỗ trợ khách hàng</h1>
+                <div id="footer-detail">
+                    <p><a href="">Trung tâm trợ giúp</a></p>
+                    <p><a href="">Liên hệ chúng tôi</a></p>
+                    <p><a href="">Chính sách bảo hành</a></p>
+                </div>
+            </div>
+            <div id="footer-center">
+                <h1 class="h">Về chúng tôi</h1>
+                <div id="footer-detail">
+                    <p><a href="">Giới thiệu</a></p>
+                    <p><a href="">Tuyển dụng</a></p>
+                    <p><a href="">Báo chí</a></p>
+                </div>
+            </div>
+            <div id="footer-right">
+                <h1 class="h">Chính sách</h1>
+                <div id="footer-detail">
+                    <p><a href="">Chính sách bảo mật</a></p>
+                    <p><a href="">Điều khoản dịch vụ</a></p>
+                    <p><a href="">Chính sách hoàn trả</a></p>
+                </div>
+            </div>
+        </div>
+        <div id="footer-b">
+            <div id="social">
+                <a href="" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="" class="social-link"><i class="fab fa-youtube"></i></a>
+                <a href="" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2024 Doãn Thể Thao. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="backtop"><i class="fa fa-solid fa-angle-up"></i></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous">
+    </script>
+    <script src="../js/style.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/giohang.js"></script>
+    <script src="../js/account-menu.js"></script>
+    <script src="../js/san-pham.js"></script>
+</body>
+</html>

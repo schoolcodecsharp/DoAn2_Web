@@ -118,6 +118,55 @@ function clearProductForm() {
     document.getElementById('productDescriptionInput').value = '';
 }
 
+function getCategoryPageMapping() {
+    return {
+        'quan-bong-da': 'quan-bong-da-nam.html',
+        'quan-bong-ro': 'quan-bong-ro-nam.html',
+        'quan-chay-bo': 'quan-chay-bo.html',
+        'quan-tap-gym': 'quan-tap-gym.html',
+        'quan-dap-xe': 'quan-dap-xe.html',
+        'quan-cau-long': 'quan-cau-long.html',
+        'ao-bong-da': 'ao-bong-da-nam.html',
+        'ao-bong-ro': 'ao-bong-ro-nam.html',
+        'ao-tap-luyen': 'ao-tap-luyen.html',
+        'ao-dong-phuc': 'ao-dong-phuc.html',
+        'ao-thoi-trang': 'ao-thoi-trang-the-thao.html',
+        'ao-lifestyle': 'ao-lifestyle.html',
+        'giay-bong-da': 'giay-bong-da-nam.html',
+        'giay-bong-ro': 'giay-bong-ro-nam.html',
+        'giay-chay-bo': 'giay-chay-bo.html',
+        'giay-tap-gym': 'giay-tap-gym.html',
+        'giay-da-ngoai': 'giay-da-ngoai.html',
+        'giay-casual': 'giay-casual.html',
+        'phukien-bong-dungcu': 'phukien-bong-dungcu.html',
+        'phukien-tui-balo': 'phukien-tui-balo.html',
+        'phukien-bao-ho': 'phukien-bao-ho.html',
+        'phukien-vo-gang': 'phukien-vo-gang.html',
+        'phukien-yoga-fitness': 'phukien-yoga-fitness.html',
+        'phukien-khac': 'phukien-khac.html'
+    };
+}
+
+function createProductCard(product) {
+    return `<div class="product-card" data-id="${product.id}">
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <div class="product-price">${formatMoney(product.price)}</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails('${product.id}')">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart('${product.id}')">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+}
+
 function addOrUpdateProduct() {
     const idHidden = document.getElementById('productIdInput').value;
     const name = document.getElementById('productNameInput').value.trim();
@@ -134,6 +183,8 @@ function addOrUpdateProduct() {
     }
 
     let products = loadProducts();
+    const isNew = !idHidden;
+    
     if (idHidden) {
         // Update
         const idx = products.findIndex(p => String(p.id) === String(idHidden));
@@ -143,14 +194,69 @@ function addOrUpdateProduct() {
         saveProducts(products);
         alert('✅ Cập nhật sản phẩm thành công!');
     } else {
-        // Create
+        // Create - Thêm vào trang category tương ứng
         const newId = Date.now();
-        products.push({ id: newId, name, price, category, sport, stock, image, description, createdAt: new Date().toISOString() });
+        const newProduct = { id: newId, name, price, category, sport, stock, image, description, createdAt: new Date().toISOString() };
+        products.push(newProduct);
         saveProducts(products);
+        
+        // Ghi thêm sản phẩm vào trang danh mục
+        addProductToCategoryPage(newProduct);
+        
         alert('✅ Thêm sản phẩm thành công!');
     }
     renderProducts();
     closeAddProductModal();
+}
+
+function addProductToCategoryPage(product) {
+    // Tạo key từ category + sport
+    const categoryKey = (product.category.toLowerCase() + '-' + (product.sport ? product.sport.toLowerCase().replace(/\s+/g, '-') : 'general')).substring(0, 50);
+    const mapping = getCategoryPageMapping();
+    
+    // Tìm trang phù hợp
+    let targetPage = null;
+    for (let [key, page] of Object.entries(mapping)) {
+        if (categoryKey.includes(key) || page.includes(product.category.toLowerCase())) {
+            targetPage = page;
+            break;
+        }
+    }
+    
+    if (!targetPage) targetPage = 'quan-bong-da-nam.html'; // Default
+    
+    const productCard = createProductCard(product);
+    
+    // Lưu vào localStorage để trang category sử dụng
+    let categoryProducts = getJSON(`category_${targetPage}`, []);
+    categoryProducts.push(product);
+    setJSON(`category_${targetPage}`, categoryProducts);
+}
+
+function getSportCategoryName(category, sport) {
+    if (category === 'quan') {
+        if (sport === 'bongda') return 'quan-bong-da-nam.html';
+        if (sport === 'bongro') return 'quan-bong-ro-nam.html';
+        if (sport === 'chaybo') return 'quan-chay-bo.html';
+        if (sport === 'gym') return 'quan-tap-gym.html';
+        if (sport === 'dapxe') return 'quan-dap-xe.html';
+        if (sport === 'caulongbadminton') return 'quan-cau-long.html';
+    }
+    if (category === 'ao') {
+        if (sport === 'bongda') return 'ao-bong-da-nam.html';
+        if (sport === 'bongro') return 'ao-bong-ro-nam.html';
+        if (sport === 'yoga') return 'ao-tap-luyen.html';
+        if (sport === 'gym') return 'ao-tap-luyen.html';
+        if (sport === 'chaybo') return 'ao-thoi-trang-the-thao.html';
+    }
+    if (category === 'giay') {
+        if (sport === 'bongda') return 'giay-bong-da-nam.html';
+        if (sport === 'bongro') return 'giay-bong-ro-nam.html';
+        if (sport === 'chaybo') return 'giay-chay-bo.html';
+        if (sport === 'gym') return 'giay-tap-gym.html';
+        if (sport === 'dapxe') return 'giay-da-ngoai.html';
+    }
+    return 'quan-bong-da-nam.html';
 }
 
 function editProduct(id) {
@@ -266,11 +372,123 @@ function deleteOrder(id) {
 // STATS
 function updateStats() {
     const orders = loadOrders();
+    const products = loadProducts();
+    
+    // Doanh thu tổng
     const revenue = orders
         .filter(o => o.status === 'completed' || o.status === 'shipped' || o.status === 'processing')
         .reduce((sum, o) => sum + (o.total || 0), 0);
     const totalRevenueEl = document.getElementById('totalRevenue');
     if (totalRevenueEl) totalRevenueEl.textContent = formatMoney(revenue);
+    
+    // Update stats page
+    updateDetailedStats(orders, products);
+}
+
+function updateDetailedStats(orders, products) {
+    // Thống kê tổng
+    const completedOrders = orders.filter(o => o.status === 'completed').length;
+    const pendingOrders = orders.filter(o => o.status === 'pending' || o.status === 'processing').length;
+    const totalRevenue = orders.filter(o => o.status === 'completed').reduce((sum, o) => sum + (o.total || 0), 0);
+    
+    if (document.getElementById('statsRevenue')) {
+        document.getElementById('statsRevenue').textContent = formatMoney(totalRevenue);
+        document.getElementById('statsCompletedOrders').textContent = completedOrders;
+        document.getElementById('statsPendingOrders').textContent = pendingOrders;
+    }
+    
+    // Sản phẩm bán chạy
+    const topProduct = getTopProduct(orders);
+    if (document.getElementById('statsTopProduct')) {
+        document.getElementById('statsTopProduct').textContent = topProduct || 'N/A';
+    }
+    
+    // Danh mục
+    renderStatsByCategory(products);
+    
+    // Môn thể thao
+    renderStatsBySport(products);
+    
+    // Doanh thu theo trạng thái
+    renderRevenueByStatus(orders);
+}
+
+function getTopProduct(orders) {
+    const productCounts = {};
+    orders.forEach(o => {
+        if (o.items) {
+            o.items.forEach(item => {
+                productCounts[item.name] = (productCounts[item.name] || 0) + item.quantity;
+            });
+        }
+    });
+    
+    let topName = null;
+    let maxCount = 0;
+    for (let name in productCounts) {
+        if (productCounts[name] > maxCount) {
+            maxCount = productCounts[name];
+            topName = name;
+        }
+    }
+    return topName ? `${topName} (${maxCount}x)` : 'N/A';
+}
+
+function renderStatsByCategory(products) {
+    const tbody = document.getElementById('statsCategoryTable');
+    if (!tbody) return;
+    
+    const categoryCount = {};
+    products.forEach(p => {
+        categoryCount[p.category] = (categoryCount[p.category] || 0) + 1;
+    });
+    
+    tbody.innerHTML = Object.entries(categoryCount).map(([cat, count]) => `
+        <tr>
+            <td>${cat}</td>
+            <td>${count}</td>
+        </tr>
+    `).join('');
+}
+
+function renderStatsBySport(products) {
+    const tbody = document.getElementById('statsSportTable');
+    if (!tbody) return;
+    
+    const sportCount = {};
+    products.forEach(p => {
+        const sport = p.sport || 'Khác';
+        sportCount[sport] = (sportCount[sport] || 0) + 1;
+    });
+    
+    tbody.innerHTML = Object.entries(sportCount).map(([sport, count]) => `
+        <tr>
+            <td>${sport}</td>
+            <td>${count}</td>
+        </tr>
+    `).join('');
+}
+
+function renderRevenueByStatus(orders) {
+    const tbody = document.getElementById('statsOrderStatusTable');
+    if (!tbody) return;
+    
+    const statusStats = {};
+    orders.forEach(o => {
+        if (!statusStats[o.status]) {
+            statusStats[o.status] = { count: 0, revenue: 0 };
+        }
+        statusStats[o.status].count += 1;
+        statusStats[o.status].revenue += o.total || 0;
+    });
+    
+    tbody.innerHTML = Object.entries(statusStats).map(([status, stats]) => `
+        <tr>
+            <td><strong>${status}</strong></td>
+            <td>${stats.count}</td>
+            <td>${formatMoney(stats.revenue)}</td>
+        </tr>
+    `).join('');
 }
 
 // SECTIONS

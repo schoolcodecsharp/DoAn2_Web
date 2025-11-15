@@ -200,9 +200,82 @@
                 <div class="section-header">
                     <h2>Thống Kê Doanh Thu</h2>
                 </div>
-                <p style="color: #7f8c8d; text-align: center; padding: 40px;">
-                    📊 Tính năng thống kê đang được phát triển...
-                </p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Tổng Doanh Thu</h3>
+                            <div class="stat-value" id="statsRevenue">0₫</div>
+                        </div>
+                        <i class="fas fa-chart-line stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Đơn Hoàn Thành</h3>
+                            <div class="stat-value" id="statsCompletedOrders">0</div>
+                        </div>
+                        <i class="fas fa-check-circle stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Đơn Đang Xử Lý</h3>
+                            <div class="stat-value" id="statsPendingOrders">0</div>
+                        </div>
+                        <i class="fas fa-hourglass-half stat-icon"></i>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Sản Phẩm Bán Chạy</h3>
+                            <div class="stat-value" id="statsTopProduct">N/A</div>
+                        </div>
+                        <i class="fas fa-fire stat-icon"></i>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <div class="section-header">
+                        <h2>Thống Kê Chi Tiết</h2>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                        <div>
+                            <h3>📦 Danh Mục Sản Phẩm</h3>
+                            <table class="data-table" style="margin-top: 15px;">
+                                <thead>
+                                    <tr>
+                                        <th>Danh Mục</th>
+                                        <th>Số Lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="statsCategoryTable"></tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <h3>⚽ Môn Thể Thao</h3>
+                            <table class="data-table" style="margin-top: 15px;">
+                                <thead>
+                                    <tr>
+                                        <th>Môn Thể Thao</th>
+                                        <th>Số Lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="statsSportTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section" style="margin-top: 30px;">
+                    <h3>� Doanh Thu Theo Trạng Thái Đơn Hàng</h3>
+                    <table class="data-table" style="margin-top: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Trạng Thái</th>
+                                <th>Số Đơn</th>
+                                <th>Tổng Doanh Thu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="statsOrderStatusTable"></tbody>
+                    </table>
+                </div>
             </div>
 
             <!-- Vouchers Section -->
