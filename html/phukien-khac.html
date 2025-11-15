@@ -10,6 +10,7 @@
     <script src="../js/giohang.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/account-menu.js"></script>
+    <script src="../js/products-data.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -121,7 +122,119 @@
             </ul>
         </div>
     </nav>
-<main class="main"><h2 class="section-title"> Phụ Kiện Khác</h2>        <div class="products-grid" id="hotProducts">            <div class="product-card" data-id="1">                <div class="product-image">                    <img src="#" alt="Mũ Thể Thao">                </div>                <div class="product-info">                    <h3>Mũ Thể Thao Cap Sport</h3>                    <div class="product-price">280,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(1)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(1)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="2">                <div class="product-image">                    <img src="#" alt="Khăn Thể Thao">                </div>                <div class="product-info">                    <h3>Khăn Thể Thao Quick Dry</h3>                    <div class="product-price">180,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(2)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(2)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="3">                <div class="product-image">                    <img src="#" alt="Bình Nước">                </div>                <div class="product-info">                    <h3>Bình Nước Sports Bottle 500ml</h3>                    <div class="product-price">220,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(3)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(3)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="4">                <div class="product-image">                    <img src="#" alt="Tất Thể Thao">                </div>                <div class="product-info">                    <h3>Tất Thể Thao Performance Socks</h3>                    <div class="product-price">120,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(4)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(4)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="5">                <div class="product-image">                    <img src="#" alt="Tai Nghe">                </div>                <div class="product-info">                    <h3>Tai Nghe Bluetooth Sport</h3>                    <div class="product-price">650,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(5)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(5)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="6">                <div class="product-image">                    <img src="#" alt="Dây Đeo">                </div>                <div class="product-info">                    <h3>Dây Đeo Điều Chỉnh Strap</h3>                    <div class="product-price">150,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(6)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(6)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>        </div>    </main>
+
+    <main class="main">
+        <h2 class="section-title">Phụ Kiện Khác</h2>
+        <div class="products-grid" id="hotProducts">
+            <div class="product-card" data-id="175" data-category="phukien" data-sport="khac" data-name="Mũ Thể Thao Cap Sport" data-price="280000" data-image="../img/product_175.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Mũ Thể Thao">
+                </div>
+                <div class="product-info">
+                    <h3>Mũ Thể Thao Cap Sport</h3>
+                    <div class="product-price">280,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(175)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(175)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="176" data-category="phukien" data-sport="khac" data-name="Khăn Thể Thao Quick Dry" data-price="180000" data-image="../img/product_176.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Khăn Thể Thao">
+                </div>
+                <div class="product-info">
+                    <h3>Khăn Thể Thao Quick Dry</h3>
+                    <div class="product-price">180,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(176)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(176)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="177" data-category="phukien" data-sport="khac" data-name="Bình Nước Sports Bottle 500ml" data-price="220000" data-image="../img/product_177.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Bình Nước">
+                </div>
+                <div class="product-info">
+                    <h3>Bình Nước Sports Bottle 500ml</h3>
+                    <div class="product-price">220,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(177)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(177)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="178" data-category="phukien" data-sport="khac" data-name="Tất Thể Thao Performance Socks" data-price="120000" data-image="../img/product_178.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Tất Thể Thao">
+                </div>
+                <div class="product-info">
+                    <h3>Tất Thể Thao Performance Socks</h3>
+                    <div class="product-price">120,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(178)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(178)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="179" data-category="phukien" data-sport="khac" data-name="Tai Nghe Bluetooth Sport" data-price="650000" data-image="../img/product_179.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Tai Nghe Bluetooth">
+                </div>
+                <div class="product-info">
+                    <h3>Tai Nghe Bluetooth Sport</h3>
+                    <div class="product-price">650,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(5)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(5)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="180" data-category="phukien" data-sport="khac" data-name="Dây Đeo Điều Chỉnh Strap" data-price="150000" data-image="../img/product_180.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Dây Đeo">
+                </div>
+                <div class="product-info">
+                    <h3>Dây Đeo Điều Chỉnh Strap</h3>
+                    <div class="product-price">150,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(180)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(180)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 <footer id="footer">
         <div id="footer-a">
             <div id="footer-left">

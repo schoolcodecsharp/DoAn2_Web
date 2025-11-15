@@ -10,6 +10,7 @@
     <script src="../js/giohang.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/account-menu.js"></script>
+    <script src="../js/products-data.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -121,7 +122,119 @@
             </ul>
         </div>
     </nav>
-<main class="main"><h2 class="section-title"> Quần Chạy Bộ</h2>        <div class="products-grid" id="hotProducts">            <div class="product-card" data-id="1">                <div class="product-image">                    <img src="#" alt="Quần Chạy Nike">                </div>                <div class="product-info">                    <h3>Quần Chạy Nike Flex</h3>                    <div class="product-price">420,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(1)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(1)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="2">                <div class="product-image">                    <img src="#" alt="Quần Chạy Adidas">                </div>                <div class="product-info">                    <h3>Quần Chạy Adidas Running</h3>                    <div class="product-price">380,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(2)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(2)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="3">                <div class="product-image">                    <img src="#" alt="Quần Chạy Puma">                </div>                <div class="product-info">                    <h3>Quần Chạy Puma Pace</h3>                    <div class="product-price">400,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(3)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(3)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="4">                <div class="product-image">                    <img src="#" alt="Quần Chạy Asics">                </div>                <div class="product-info">                    <h3>Quần Chạy Asics Performance</h3>                    <div class="product-price">440,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(4)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(4)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="5">                <div class="product-image">                    <img src="#" alt="Quần Chạy New Balance">                </div>                <div class="product-info">                    <h3>Quần Chạy New Balance</h3>                    <div class="product-price">390,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(5)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(5)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="6">                <div class="product-image">                    <img src="#" alt="Quần Chạy Under Armour">                </div>                <div class="product-info">                    <h3>Quần Chạy Under Armour</h3>                    <div class="product-price">480,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(6)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(6)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>        </div>    </main>
+
+    <main class="main">
+        <h2 class="section-title">Quần Chạy Bộ</h2>
+        <div class="products-grid" id="hotProducts">
+            <div class="product-card" data-id="13" data-category="quan" data-sport="chaybo" data-name="Quần Chạy Bộ Nike Flex" data-price="420000" data-image="../img/product_13.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Chạy Nike">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Chạy Bộ Nike Flex</h3>
+                    <div class="product-price">420,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(13)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(13)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="14" data-category="quan" data-sport="chaybo" data-name="Quần Chạy Bộ Adidas Running" data-price="380000" data-image="../img/product_14.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Chạy Adidas">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Chạy Bộ Adidas Running</h3>
+                    <div class="product-price">380,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(14)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(14)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="15" data-category="quan" data-sport="chaybo" data-name="Quần Chạy Bộ Puma Swift" data-price="400000" data-image="../img/product_15.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Chạy Puma">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Chạy Bộ Puma Swift</h3>
+                    <div class="product-price">400,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(15)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(15)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="16" data-category="quan" data-sport="chaybo" data-name="Quần Chạy Bộ Asics Lite" data-price="450000" data-image="../img/product_16.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Chạy Asics">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Chạy Bộ Asics Lite</h3>
+                    <div class="product-price">450,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(16)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(16)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="17" data-category="quan" data-sport="chaybo" data-name="Quần Chạy Bộ New Balance" data-price="480000" data-image="../img/product_17.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Chạy New Balance">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Chạy Bộ New Balance</h3>
+                    <div class="product-price">480,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(17)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(17)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="18" data-category="quan" data-sport="chaybo" data-name="Quần Chạy Bộ Under Armour Speedpocket" data-price="380000" data-image="../img/product_18.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Chạy Under Armour">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Chạy Bộ Under Armour Speedpocket</h3>
+                    <div class="product-price">380,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(18)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(18)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 <footer id="footer">
         <div id="footer-a">
             <div id="footer-left">

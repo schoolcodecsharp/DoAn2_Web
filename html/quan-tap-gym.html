@@ -10,6 +10,7 @@
     <script src="../js/giohang.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/account-menu.js"></script>
+    <script src="../js/products-data.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -121,7 +122,119 @@
             </ul>
         </div>
     </nav>
-<main class="main"><h2 class="section-title"> Quần Tập Gym</h2>        <div class="products-grid" id="hotProducts">            <div class="product-card" data-id="1">                <div class="product-image">                    <img src="#" alt="Quần Gym Nike">                </div>                <div class="product-info">                    <h3>Quần Gym Nike Tech</h3>                    <div class="product-price">450,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(1)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(1)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="2">                <div class="product-image">                    <img src="#" alt="Quần Gym Adidas">                </div>                <div class="product-info">                    <h3>Quần Gym Adidas Training</h3>                    <div class="product-price">400,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(2)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(2)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="3">                <div class="product-image">                    <img src="#" alt="Quần Gym Under Armour">                </div>                <div class="product-info">                    <h3>Quần Gym Under Armour</h3>                    <div class="product-price">520,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(3)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(3)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="4">                <div class="product-image">                    <img src="#" alt="Quần Gym Puma">                </div>                <div class="product-info">                    <h3>Quần Gym Puma Studio</h3>                    <div class="product-price">380,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(4)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(4)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="5">                <div class="product-image">                    <img src="#" alt="Quần Gym Lululemon">                </div>                <div class="product-info">                    <h3>Quần Gym Lululemon</h3>                    <div class="product-price">680,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(5)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(5)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>            <div class="product-card" data-id="6">                <div class="product-image">                    <img src="#" alt="Quần Gym Reebok">                </div>                <div class="product-info">                    <h3>Quần Gym Reebok Flex</h3>                    <div class="product-price">420,000₫</div>                    <div class="product-actions">                        <button class="btn-details" onclick="viewDetails(6)">                            <i class="fas fa-eye"></i> Chi Tiết                        </button>                        <button class="btn-cart" onclick="addToCart(6)">                            <i class="fas fa-shopping-cart"></i> Thêm                        </button>                    </div>                </div>            </div>        </div>    </main>
+
+    <main class="main">
+        <h2 class="section-title">Quần Tập Gym</h2>
+        <div class="products-grid" id="hotProducts">
+            <div class="product-card" data-id="19" data-category="quan" data-sport="tapgym" data-name="Quần Tập Gym Nike Flex" data-price="420000" data-image="../img/product_19.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Gym Nike">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Tập Gym Nike Flex</h3>
+                    <div class="product-price">420,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(19)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(19)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="20" data-category="quan" data-sport="tapgym" data-name="Quần Tập Gym Adidas Essentials" data-price="380000" data-image="../img/product_20.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Gym Adidas">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Tập Gym Adidas Essentials</h3>
+                    <div class="product-price">380,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(20)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(20)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="21" data-category="quan" data-sport="tapgym" data-name="Quần Tập Gym Under Armour" data-price="480000" data-image="../img/product_21.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Gym Under Armour">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Tập Gym Under Armour</h3>
+                    <div class="product-price">480,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(21)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(21)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="22" data-category="quan" data-sport="tapgym" data-name="Quần Tập Gym Puma Essential" data-price="400000" data-image="../img/product_22.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Gym Puma">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Tập Gym Puma Essential</h3>
+                    <div class="product-price">400,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(22)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(22)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="23" data-category="quan" data-sport="tapgym" data-name="Quần Tập Gym Lululemon" data-price="680000" data-image="../img/product_23.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Gym Lululemon">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Tập Gym Lululemon</h3>
+                    <div class="product-price">680,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(23)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(23)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" data-id="24" data-category="quan" data-sport="tapgym" data-name="Quần Tập Gym Reebok" data-price="380000" data-image="../img/product_24.jpg">
+                <div class="product-image">
+                    <img src="#" alt="Quần Gym Reebok">
+                </div>
+                <div class="product-info">
+                    <h3>Quần Tập Gym Reebok</h3>
+                    <div class="product-price">380,000₫</div>
+                    <div class="product-actions">
+                        <button class="btn-details" onclick="viewDetails(24)">
+                            <i class="fas fa-eye"></i> Chi Tiết
+                        </button>
+                        <button class="btn-cart" onclick="addToCart(24)">
+                            <i class="fas fa-shopping-cart"></i> Thêm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 <footer id="footer">
         <div id="footer-a">
             <div id="footer-left">
