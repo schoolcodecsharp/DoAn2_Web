@@ -316,12 +316,27 @@ function checkout() {
     // Kiểm tra thông tin cá nhân
     const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(u => u.username === currentUser);
-    if (!user || !user.fullName || !user.email || !user.phone) {
-        if (confirm('❌ Bạn cần cập nhật đầy đủ thông tin cá nhân (Họ tên, Email, Số điện thoại) để thanh toán!\n\nBấm OK để chuyển đến trang cập nhật thông tin.')) {
+    
+    if (!user) {
+        alert('❌ Không tìm thấy thông tin người dùng!');
+        return;
+    }
+    
+    // Kiểm tra từng trường thông tin
+    const missingFields = [];
+    if (!user.fullName || user.fullName.trim() === '') missingFields.push('Họ tên');
+    if (!user.email || user.email.trim() === '') missingFields.push('Email');
+    if (!user.phone || user.phone.trim() === '') missingFields.push('Số điện thoại');
+    if (!user.address || user.address.trim() === '') missingFields.push('Địa chỉ');
+    
+    if (missingFields.length > 0) {
+        const message = `❌ Bạn cần cập nhật đầy đủ thông tin cá nhân:\n\n✗ ${missingFields.join('\n✗ ')}\n\nBấm OK để chuyển đến trang cập nhật thông tin.`;
+        if (confirm(message)) {
             window.location.href = '../html/profile.html';
         }
         return;
     }
+
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const shipping = subtotal >= 500000 ? 0 : 30000;
     
@@ -341,6 +356,8 @@ function checkout() {
 
 Khách hàng: ${user.fullName}
 Email: ${user.email}
+Điện thoại: ${user.phone}
+Địa chỉ: ${user.address}
 
 Số lượng: ${cart.reduce((sum, item) => sum + item.quantity, 0)} sản phẩm
 Tạm tính: ${formatMoney(subtotal)}
@@ -358,7 +375,7 @@ Xác nhận đặt hàng?
         const orderId = 'OD' + Date.now();
         const newOrder = {
             id: orderId,
-            user: { fullName: user.fullName, email: user.email, username: user.username },
+            user: { fullName: user.fullName, email: user.email, username: user.username, phone: user.phone, address: user.address },
             items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity, size: i.size, image: i.image })),
             subtotal: subtotal,
             shipping: shipping,
@@ -374,10 +391,16 @@ Xác nhận đặt hàng?
         // Clear the applied voucher
         sessionStorage.removeItem('appliedVoucher');
 
-        alert('✅ Đặt hàng thành công!\nCảm ơn bạn đã mua hàng tại TRƯỜNG SPORT.');
-        localStorage.removeItem('cart');
+        alert('✅ Đặt hàng thành công!\n\nMã đơn hàng: ' + orderId + '\n\nCảm ơn bạn đã mua hàng tại TRƯỜNG SPORT.');
+        
+        // Clear cart for current user
+        const cartKey = `cart_${currentUser}`;
+        localStorage.removeItem(cartKey);
         updateCartBadge();
-        renderCart();
+        
+        if (document.getElementById('cartContent')) {
+            renderCart();
+        }
     }
 }
 
