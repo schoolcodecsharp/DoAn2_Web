@@ -69,12 +69,16 @@ function register() {
         return;
     }
 
-    // Tạo user mới
+    // Tạo user mới - thêm các field profile
     const newUser = { 
         fullName, 
         email, 
         username, 
         password,
+        phone: '',
+        address: '',
+        birthday: '',
+        gender: '',
         registeredAt: new Date().toISOString()
     };
     
@@ -113,6 +117,9 @@ function login() {
             role: 'admin'
         };
         localStorage.setItem("currentUser", JSON.stringify(adminInfo));
+        
+        // Clear cart for admin (admin không cần cart)
+        localStorage.removeItem('cart_admin');
         
         alert(`✅ Đăng nhập thành công!\nChào mừng Admin!`);
         

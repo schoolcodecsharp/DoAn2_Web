@@ -96,6 +96,20 @@ function renderCart() {
     const cartContent = document.getElementById('cartContent');
     if (!cartContent) return;
 
+    // Kiểm tra đã login chưa
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+        cartContent.innerHTML = `
+            <div class="empty-cart">
+                <i class="fa fa-user"></i>
+                <h2>Vui lòng đăng nhập</h2>
+                <p>Bạn cần đăng nhập để xem giỏ hàng</p>
+                <a href="../html/login.html" class="shop-now-btn">Đăng nhập ngay</a>
+            </div>
+        `;
+        return;
+    }
+
     let cart = getCart();
     
     if (cart.length === 0) {
@@ -295,7 +309,7 @@ function showVoucherMessage(message, type) {
     }, 5000);
 }
 
-// Thanh toán - Yêu cầu đăng nhập
+// Thanh toán - Hiển thị Modal
 function checkout() {
     const cart = getCart();
     
@@ -314,8 +328,9 @@ function checkout() {
     }
 
     // Kiểm tra thông tin cá nhân
+    const currentUserObj = JSON.parse(currentUser);
     const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(u => u.username === currentUser);
+    const user = users.find(u => u.username === currentUserObj.username);
     
     if (!user) {
         alert('❌ Không tìm thấy thông tin người dùng!');
@@ -351,56 +366,93 @@ function checkout() {
     
     const total = subtotal + shipping - discount;
 
-    const orderSummary = `
-✅ XÁC NHẬN ĐẶT HÀNG
+    // Populate modal with data
+    document.getElementById('checkoutFullName').value = user.fullName;
+    document.getElementById('checkoutEmail').value = user.email;
+    document.getElementById('checkoutPhone').value = user.phone;
+    document.getElementById('checkoutCity').value = user.city || 'Chưa cập nhật';
+    document.getElementById('checkoutAddress').value = user.address;
+    
+    document.getElementById('checkoutSubtotal').textContent = formatMoney(subtotal);
+    document.getElementById('checkoutShipping').textContent = shipping === 0 ? 'Miễn phí' : formatMoney(shipping);
+    document.getElementById('checkoutTotal').textContent = formatMoney(total);
+    
+    if (appliedVoucher) {
+        document.getElementById('checkoutDiscountRow').style.display = 'flex';
+        document.getElementById('checkoutDiscount').textContent = '-' + formatMoney(discount);
+    } else {
+        document.getElementById('checkoutDiscountRow').style.display = 'none';
+    }
 
-Khách hàng: ${user.fullName}
-Email: ${user.email}
-Điện thoại: ${user.phone}
-Địa chỉ: ${user.address}
+    // Store checkout data for confirmation
+    window.checkoutData = {
+        user: user,
+        cart: cart,
+        subtotal: subtotal,
+        shipping: shipping,
+        discount: discount,
+        appliedVoucher: appliedVoucher,
+        total: total
+    };
 
-Số lượng: ${cart.reduce((sum, item) => sum + item.quantity, 0)} sản phẩm
-Tạm tính: ${formatMoney(subtotal)}
-Vận chuyển: ${shipping === 0 ? 'Miễn phí' : formatMoney(shipping)}
-${appliedVoucher ? `Giảm giá (${appliedVoucher.code}): -${formatMoney(discount)}` : ''}
-━━━━━━━━━━━━━━━━━━━━
-TỔNG: ${formatMoney(total)}
+    // Show modal
+    document.getElementById('checkoutModal').classList.add('active');
+}
 
-Xác nhận đặt hàng?
-    `;
+function closeCheckoutModal() {
+    document.getElementById('checkoutModal').classList.remove('active');
+}
 
-    if (confirm(orderSummary)) {
-        // Lưu đơn hàng vào localStorage
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        const orderId = 'OD' + Date.now();
-        const newOrder = {
-            id: orderId,
-            user: { fullName: user.fullName, email: user.email, username: user.username, phone: user.phone, address: user.address },
-            items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, quantity: i.quantity, size: i.size, image: i.image })),
-            subtotal: subtotal,
-            shipping: shipping,
-            discount: discount,
-            voucher: appliedVoucher,
-            total: total,
-            status: 'pending',
-            createdAt: new Date().toISOString()
-        };
-        orders.push(newOrder);
-        localStorage.setItem('orders', JSON.stringify(orders));
+function confirmCheckout() {
+    const data = window.checkoutData;
+    
+    // Lưu đơn hàng vào localStorage
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const orderId = 'OD' + Date.now();
+    const newOrder = {
+        id: orderId,
+        user: { 
+            fullName: data.user.fullName, 
+            email: data.user.email, 
+            username: data.user.username, 
+            phone: data.user.phone, 
+            address: data.user.address 
+        },
+        items: data.cart.map(i => ({ 
+            id: i.id, 
+            name: i.name, 
+            price: i.price, 
+            quantity: i.quantity, 
+            size: i.size, 
+            image: i.image 
+        })),
+        subtotal: data.subtotal,
+        shipping: data.shipping,
+        discount: data.discount,
+        voucher: data.appliedVoucher,
+        total: data.total,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+    };
+    orders.push(newOrder);
+    localStorage.setItem('orders', JSON.stringify(orders));
 
-        // Clear the applied voucher
-        sessionStorage.removeItem('appliedVoucher');
+    // Clear the applied voucher
+    sessionStorage.removeItem('appliedVoucher');
 
-        alert('✅ Đặt hàng thành công!\n\nMã đơn hàng: ' + orderId + '\n\nCảm ơn bạn đã mua hàng tại TRƯỜNG SPORT.');
-        
-        // Clear cart for current user
-        const cartKey = `cart_${currentUser}`;
-        localStorage.removeItem(cartKey);
-        updateCartBadge();
-        
-        if (document.getElementById('cartContent')) {
-            renderCart();
-        }
+    // Close modal
+    closeCheckoutModal();
+    
+    alert('✅ Đặt hàng thành công!\n\nMã đơn hàng: ' + orderId + '\n\nCảm ơn bạn đã mua hàng tại TRƯỜNG SPORT.');
+    
+    // Clear cart for current user
+    const currentUserObj = JSON.parse(localStorage.getItem('currentUser'));
+    const cartKey = `cart_${currentUserObj.username}`;
+    localStorage.removeItem(cartKey);
+    updateCartBadge();
+    
+    if (document.getElementById('cartContent')) {
+        renderCart();
     }
 }
 

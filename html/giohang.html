@@ -208,5 +208,80 @@
         </div>
     </div>
 
+    <!-- Modal Checkout Form -->
+    <div id="checkoutModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h2>✓ Xác Nhận Đơn Hàng</h2>
+                <button class="modal-close-btn" onclick="closeCheckoutModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Customer Info -->
+                <div class="form-divider"></div>
+                <h3 style="font-size: 16px; color: #333; margin-bottom: 15px;">📋 Thông Tin Khách Hàng</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Họ Tên</label>
+                        <input type="text" id="checkoutFullName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="checkoutEmail" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="tel" id="checkoutPhone" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Thành Phố</label>
+                        <input type="text" id="checkoutCity" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row full">
+                    <div class="form-group">
+                        <label>Địa Chỉ Giao Hàng</label>
+                        <input type="text" id="checkoutAddress" readonly>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="form-divider"></div>
+                <h3 style="font-size: 16px; color: #333; margin-bottom: 15px;">💰 Chi Tiết Đơn Hàng</h3>
+                
+                <div class="order-summary-section">
+                    <div class="summary-item">
+                        <span class="summary-item-label">Tạm Tính:</span>
+                        <span class="summary-item-value" id="checkoutSubtotal">0₫</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-item-label">Vận Chuyển:</span>
+                        <span class="summary-item-value" id="checkoutShipping">30,000₫</span>
+                    </div>
+                    <div class="summary-item" id="checkoutDiscountRow" style="display:none;">
+                        <span class="summary-item-label">Giảm Giá:</span>
+                        <span class="summary-item-value" id="checkoutDiscount" style="color: #ff6b35;">-0₫</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span class="summary-item-label">Tổng Cộng:</span>
+                        <span class="summary-item-value" id="checkoutTotal">0₫</span>
+                    </div>
+                </div>
+
+                <div style="background: #fff3e0; padding: 15px; border-radius: 8px; font-size: 13px; color: #e65100; margin: 15px 0;">
+                    <i class="fas fa-info-circle"></i> Vui lòng kiểm tra thông tin trước khi xác nhận. Bạn sẽ nhận được email xác nhận đơn hàng.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeCheckoutModal()">Hủy</button>
+                <button class="btn-modal btn-confirm" onclick="confirmCheckout()">Xác Nhận Thanh Toán</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
