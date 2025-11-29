@@ -49,20 +49,51 @@ function renderUsers() {
             <td>${user.username}</td>
             <td>${new Date(user.registeredAt).toLocaleDateString('vi-VN')}</td>
             <td>
-                <button class="action-btn btn-view" onclick="alert('Email: ${user.email}\nTên: ${user.fullName}\nTài khoản: ${user.username}')">Xem</button>
-                <button class="action-btn btn-delete" onclick="deleteUser('${user.username}')">Xóa</button>
+                <button class="action-btn btn-view" onclick="viewUser('${user.username}')">Xem</button>
+                <button class="action-btn btn-delete" onclick="deleteUserConfirm('${user.username}')">Xóa</button>
             </td>
         </tr>
     `).join('');
 }
 
-function deleteUser(username) {
-    if (confirm('Bạn có chắc muốn xóa khách hàng này?')) {
+function viewUser(username) {
+    const users = getJSON('users', []);
+    const user = users.find(u => u.username === username);
+    if (!user) return;
+
+    // Populate modal
+    document.getElementById('viewUserFullName').value = user.fullName || '';
+    document.getElementById('viewUserUsername').value = user.username || '';
+    document.getElementById('viewUserEmail').value = user.email || '';
+    document.getElementById('viewUserPhone').value = user.phone || 'Chưa cập nhật';
+    document.getElementById('viewUserAddress').value = user.address || 'Chưa cập nhật';
+    document.getElementById('viewUserBirthday').value = user.birthday || 'Chưa cập nhật';
+    document.getElementById('viewUserGender').value = user.gender || 'Chưa cập nhật';
+    document.getElementById('viewUserRegisteredAt').value = new Date(user.registeredAt).toLocaleDateString('vi-VN');
+
+    // Store username for delete
+    window.currentViewUserId = username;
+
+    // Show modal
+    document.getElementById('viewUserModal').classList.add('active');
+}
+
+function closeViewUserModal() {
+    document.getElementById('viewUserModal').classList.remove('active');
+}
+
+function deleteUserFromView() {
+    deleteUserConfirm(window.currentViewUserId);
+}
+
+function deleteUserConfirm(username) {
+    if (confirm('Bạn có chắc muốn xóa khách hàng này? Hành động này không thể hoàn tác!')) {
         let users = getJSON('users', []);
         users = users.filter(u => u.username !== username);
         setJSON('users', users);
         renderUsers();
         updateStats();
+        closeViewUserModal();
         alert('✅ Đã xóa khách hàng!');
     }
 }
@@ -287,7 +318,32 @@ function viewProduct(id) {
     const products = loadProducts();
     const p = products.find(x => String(x.id) === String(id));
     if (!p) return;
-    alert(`Tên: ${p.name}\nGiá: ${formatMoney(p.price)}\nDanh mục: ${p.category}\nMôn: ${p.sport || '-'}\nTồn: ${p.stock ?? 0}`);
+    
+    // Populate modal
+    document.getElementById('viewProductId').value = p.id;
+    document.getElementById('viewProductImage').src = p.image;
+    document.getElementById('viewProductName').textContent = p.name;
+    document.getElementById('viewProductCategory').textContent = p.category;
+    document.getElementById('viewProductSport').textContent = p.sport || 'N/A';
+    document.getElementById('viewProductPrice').value = formatMoney(p.price);
+    document.getElementById('viewProductStock').value = p.stock ?? 0;
+    document.getElementById('viewProductDescription').value = p.description || 'Không có mô tả';
+    document.getElementById('viewProductCreatedAt').value = p.createdAt ? new Date(p.createdAt).toLocaleDateString('vi-VN') : 'N/A';
+    
+    // Store product ID for edit
+    window.currentViewProductId = p.id;
+    
+    // Show modal
+    document.getElementById('viewProductModal').classList.add('active');
+}
+
+function closeViewProductModal() {
+    document.getElementById('viewProductModal').classList.remove('active');
+}
+
+function editProductFromView() {
+    closeViewProductModal();
+    editProduct(window.currentViewProductId);
 }
 
 // ORDERS
@@ -356,12 +412,67 @@ function viewOrder(id) {
     const orders = loadOrders();
     const o = orders.find(x => String(x.id) === String(id));
     if (!o) return;
-    const itemsText = o.items.map(it => `• ${it.name} x ${it.quantity} — ${formatMoney(it.price * it.quantity)}`).join('\n');
-    alert(`ĐH #${o.id}\nKhách: ${o.user.fullName} (${o.user.email})\nTrạng thái: ${o.status}\nNgày: ${new Date(o.createdAt).toLocaleString('vi-VN')}\n\nSản phẩm:\n${itemsText}\n\nTổng: ${formatMoney(o.total)}`);
+
+    // Set order status
+    const statusLabels = {
+        'pending': '⏳ Đang Chờ Xử Lý',
+        'processing': '⚙️ Đang Xử Lý',
+        'shipped': '📦 Đã Gửi',
+        'completed': '✅ Hoàn Thành',
+        'canceled': '❌ Đã Hủy'
+    };
+
+    // Populate modal
+    document.getElementById('viewOrderId').textContent = `Mã đơn hàng: ${o.id}`;
+    document.getElementById('viewOrderStatus').textContent = statusLabels[o.status] || o.status;
+    
+    // Customer info
+    document.getElementById('viewOrderCustomerName').value = o.user.fullName || '';
+    document.getElementById('viewOrderCustomerEmail').value = o.user.email || '';
+    document.getElementById('viewOrderCustomerPhone').value = o.user.phone || '';
+    document.getElementById('viewOrderCustomerAddress').value = o.user.address || '';
+    
+    // Payment details
+    document.getElementById('viewOrderSubtotal').value = formatMoney(o.subtotal);
+    document.getElementById('viewOrderShipping').value = o.shipping === 0 ? 'Miễn phí' : formatMoney(o.shipping);
+    document.getElementById('viewOrderDiscount').value = o.discount > 0 ? formatMoney(o.discount) : 'Không';
+    document.getElementById('viewOrderTotal').value = formatMoney(o.total);
+    
+    // Status select
+    document.getElementById('viewOrderStatusSelect').value = o.status;
+
+    // Items list
+    const itemsHtml = o.items.map(it => `
+        <div style="padding: 12px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <p style="margin: 0 0 5px; font-weight: 600;">${it.name}</p>
+                <p style="margin: 0; font-size: 13px; color: #666;">x${it.quantity} • Size: ${it.size}</p>
+            </div>
+            <p style="margin: 0; font-weight: 600; color: #ff6b35;">${formatMoney(it.price * it.quantity)}</p>
+        </div>
+    `).join('');
+    document.getElementById('viewOrderItems').innerHTML = itemsHtml;
+
+    // Store order ID for update
+    window.currentViewOrderId = o.id;
+
+    // Show modal
+    document.getElementById('viewOrderModal').classList.add('active');
+}
+
+function closeViewOrderModal() {
+    document.getElementById('viewOrderModal').classList.remove('active');
+}
+
+function updateOrderStatusFromView() {
+    const newStatus = document.getElementById('viewOrderStatusSelect').value;
+    updateOrderStatus(window.currentViewOrderId, newStatus);
+    closeViewOrderModal();
+    alert('✅ Cập nhật trạng thái thành công!');
 }
 
 function deleteOrder(id) {
-    if (!confirm('Xóa đơn hàng này?')) return;
+    if (!confirm('Bạn có chắc muốn xóa đơn hàng này?')) return;
     let orders = loadOrders();
     orders = orders.filter(o => String(o.id) !== String(id));
     saveOrders(orders);
@@ -582,15 +693,15 @@ function clearVoucherForm() {
 }
 
 function addOrUpdateVoucher() {
-    const code = document.getElementById('voucherCodeInput').value.trim();
+    const code = document.getElementById('voucherCodeInput').value.trim().toUpperCase();
     const description = document.getElementById('voucherDescriptionInput').value.trim();
     const type = document.getElementById('voucherTypeSelect').value;
     const value = parseFloat(document.getElementById('voucherValueInput').value || '0');
     const minOrder = parseInt(document.getElementById('voucherMinOrderInput').value || '0', 10);
-    const expiry = document.getElementById('voucherExpiryInput').value;
+    const expiryDate = document.getElementById('voucherExpiryInput').value;
     const quantity = parseInt(document.getElementById('voucherQuantityInput').value || '0', 10);
 
-    if (!code || !description || !value || !expiry || quantity <= 0) {
+    if (!code || !description || !value || !expiryDate || quantity <= 0) {
         alert('Vui lòng điền đầy đủ thông tin mã giảm giá.');
         return;
     }
@@ -599,6 +710,9 @@ function addOrUpdateVoucher() {
         alert('Giá trị phần trăm phải từ 1-100%');
         return;
     }
+
+    // Convert date to ISO format (add 23:59:59)
+    const expiryDateTime = new Date(expiryDate + 'T23:59:59').toISOString();
 
     let vouchers = loadVouchers();
     const existingIndex = vouchers.findIndex(v => v.code === code);
@@ -609,7 +723,7 @@ function addOrUpdateVoucher() {
         type,
         value,
         minOrder,
-        expiry,
+        expiry: expiryDateTime,
         quantity,
         createdAt: new Date().toISOString()
     };

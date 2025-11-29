@@ -444,6 +444,29 @@
             background: #d0d0d0;
         }
 
+        /* Link Button Styles */
+        .link-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background: #f0f0f0;
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .link-btn:hover {
+            background: #ff6b35;
+            color: white;
+            border-color: #ff6b35;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+        }
+
         /* Return to index button */
         .return-index {
             padding: 20px;

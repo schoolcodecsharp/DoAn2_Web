@@ -252,7 +252,10 @@ function applyVoucher() {
     const cart = getCart();
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const vouchers = JSON.parse(localStorage.getItem('vouchers')) || [];
-    const voucher = vouchers.find(v => v.code === code);
+    
+    // Convert to uppercase to match stored codes
+    const codeUpper = code.toUpperCase();
+    const voucher = vouchers.find(v => v.code.toUpperCase() === codeUpper);
 
     if (!voucher) {
         showVoucherMessage('❌ Mã giảm giá không tồn tại!', 'error');
@@ -291,9 +294,12 @@ function applyVoucher() {
         discount: discountAmount
     }));
 
-    // Update voucher quantity
-    voucher.quantity--;
-    localStorage.setItem('vouchers', JSON.stringify(vouchers));
+    // Update voucher quantity - find the right index and update
+    const voucherIndex = vouchers.findIndex(v => v.code.toUpperCase() === codeUpper);
+    if (voucherIndex >= 0) {
+        vouchers[voucherIndex].quantity--;
+        localStorage.setItem('vouchers', JSON.stringify(vouchers));
+    }
 
     showVoucherMessage(`✅ Áp dụng mã giảm giá thành công! Giảm ${formatMoney(discountAmount)}`, 'success');
     renderCart(); // Re-render cart to show updated prices

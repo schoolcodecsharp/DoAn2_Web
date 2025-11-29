@@ -45,6 +45,9 @@
                 <li class="sidebar-item" onclick="showSection('settings')">
                     <i class="fas fa-cog"></i> Cài Đặt
                 </li>
+                <li class="sidebar-item" onclick="showSection('pages')">
+                    <i class="fas fa-link"></i> Trang Sản Phẩm
+                </li>
             </ul>
             <div class="return-index">
                 <a href="../index.html" class="return-btn">
@@ -343,6 +346,68 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Product Pages Links Section -->
+            <div id="pages" class="content-section">
+                <div class="section-header">
+                    <h2>📄 Các Trang Sản Phẩm</h2>
+                    <p style="color: #666; margin-top: 5px;">Truy cập trực tiếp đến các trang danh mục sản phẩm</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <!-- QUẦN -->
+                    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 12px; color: #2c3e50;">👖 QUẦN</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <a href="../html/quan-bong-da-nam.html" target="_blank" class="link-btn">Quần Bóng Đá Nam</a>
+                            <a href="../html/quan-bong-ro-nam.html" target="_blank" class="link-btn">Quần Bóng Rổ Nam</a>
+                            <a href="../html/quan-chay-bo.html" target="_blank" class="link-btn">Quần Chạy Bộ</a>
+                            <a href="../html/quan-tap-gym.html" target="_blank" class="link-btn">Quần Tập Gym</a>
+                            <a href="../html/quan-dap-xe.html" target="_blank" class="link-btn">Quần Đạp Xe</a>
+                            <a href="../html/quan-cau-long.html" target="_blank" class="link-btn">Quần Cầu Lông</a>
+                        </div>
+                    </div>
+
+                    <!-- ÁO -->
+                    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 12px; color: #2c3e50;">👕 ÁO</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <a href="../html/ao-bong-da-nam.html" target="_blank" class="link-btn">Áo Bóng Đá Nam</a>
+                            <a href="../html/ao-bong-ro-nam.html" target="_blank" class="link-btn">Áo Bóng Rổ Nam</a>
+                            <a href="../html/ao-tap-luyen.html" target="_blank" class="link-btn">Áo Tập Luyện</a>
+                            <a href="../html/ao-dong-phuc.html" target="_blank" class="link-btn">Áo Đồng Phục</a>
+                            <a href="../html/ao-thoi-trang-the-thao.html" target="_blank" class="link-btn">Áo Thời Trang Thể Thao</a>
+                            <a href="../html/ao-lifestyle.html" target="_blank" class="link-btn">Áo Lifestyle</a>
+                        </div>
+                    </div>
+
+                    <!-- GIÀY -->
+                    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 12px; color: #2c3e50;">👟 GIÀY</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <a href="../html/giay-bong-da-nam.html" target="_blank" class="link-btn">Giày Bóng Đá Nam</a>
+                            <a href="../html/giay-bong-ro-nam.html" target="_blank" class="link-btn">Giày Bóng Rổ Nam</a>
+                            <a href="../html/giay-chay-bo.html" target="_blank" class="link-btn">Giày Chạy Bộ</a>
+                            <a href="../html/giay-tap-gym.html" target="_blank" class="link-btn">Giày Tập Gym</a>
+                            <a href="../html/giay-da-ngoai.html" target="_blank" class="link-btn">Giày Dã Ngoại</a>
+                            <a href="../html/giay-casual.html" target="_blank" class="link-btn">Giày Casual</a>
+                        </div>
+                    </div>
+
+                    <!-- PHỤ KIỆN -->
+                    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <h3 style="margin-bottom: 12px; color: #2c3e50;">🎒 PHỤ KIỆN</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <a href="../html/phukien-bong-dungcu.html" target="_blank" class="link-btn">Bóng & Dụng Cụ</a>
+                            <a href="../html/phukien-tui-balo.html" target="_blank" class="link-btn">Túi & Balo</a>
+                            <a href="../html/phukien-bao-ho.html" target="_blank" class="link-btn">Bảo Hộ & Băng</a>
+                            <a href="../html/phukien-vo-gang.html" target="_blank" class="link-btn">Vớ & Găng Tay</a>
+                            <a href="../html/phukien-yoga-fitness.html" target="_blank" class="link-btn">Yoga & Fitness</a>
+                            <a href="../html/phukien-khac.html" target="_blank" class="link-btn">Phụ Kiện Khác</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -460,5 +525,208 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal View Product Detail -->
+    <div id="viewProductModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📦 Chi Tiết Sản Phẩm</h2>
+                <button class="close-modal" onclick="closeViewProductModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-preview">
+                    <img id="viewProductImage" src="" alt="Product" class="product-preview-image">
+                    <div>
+                        <p style="font-weight: bold; font-size: 16px; margin: 10px 0 0;" id="viewProductName"></p>
+                        <span class="info-badge" id="viewProductCategory"></span>
+                        <span class="info-badge" id="viewProductSport"></span>
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Giá Bán</label>
+                        <input type="text" id="viewProductPrice" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tồn Kho</label>
+                        <input type="text" id="viewProductStock" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>ID Sản Phẩm</label>
+                        <input type="text" id="viewProductId" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Mô Tả</label>
+                        <textarea id="viewProductDescription" readonly style="background: #f0f0f0;"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Ngày Tạo</label>
+                        <input type="text" id="viewProductCreatedAt" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeViewProductModal()">Đóng</button>
+                <button class="btn-modal btn-primary" id="editProductBtn" onclick="editProductFromView()">
+                    <i class="fas fa-edit"></i> Chỉnh Sửa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal View User Detail -->
+    <div id="viewUserModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👤 Chi Tiết Khách Hàng</h2>
+                <button class="close-modal" onclick="closeViewUserModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Họ Tên</label>
+                        <input type="text" id="viewUserFullName" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>Tài Khoản</label>
+                        <input type="text" id="viewUserUsername" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="viewUserEmail" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="tel" id="viewUserPhone" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Địa Chỉ</label>
+                        <textarea id="viewUserAddress" readonly style="background: #f0f0f0;"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Ngày Sinh</label>
+                        <input type="text" id="viewUserBirthday" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>Giới Tính</label>
+                        <input type="text" id="viewUserGender" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Ngày Đăng Ký</label>
+                        <input type="text" id="viewUserRegisteredAt" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeViewUserModal()">Đóng</button>
+                <button class="btn-modal btn-primary" onclick="deleteUserFromView()" style="background: #e74c3c;">
+                    <i class="fas fa-trash"></i> Xóa Khách Hàng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal View Order Detail -->
+    <div id="viewOrderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📦 Chi Tiết Đơn Hàng</h2>
+                <button class="close-modal" onclick="closeViewOrderModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="margin: 0; font-weight: 600; color: #2e7d32;" id="viewOrderId"></p>
+                    <p style="margin: 5px 0 0; font-size: 13px; color: #555;" id="viewOrderStatus"></p>
+                </div>
+
+                <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 12px; text-transform: uppercase;">Thông Tin Khách Hàng</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Họ Tên</label>
+                        <input type="text" id="viewOrderCustomerName" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="viewOrderCustomerEmail" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="tel" id="viewOrderCustomerPhone" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>Địa Chỉ Giao</label>
+                        <input type="text" id="viewOrderCustomerAddress" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <h3 style="font-size: 14px; font-weight: 600; margin: 20px 0 12px; text-transform: uppercase;">Chi Tiết Thanh Toán</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tạm Tính</label>
+                        <input type="text" id="viewOrderSubtotal" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>Vận Chuyển</label>
+                        <input type="text" id="viewOrderShipping" readonly style="background: #f0f0f0;">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Giảm Giá</label>
+                        <input type="text" id="viewOrderDiscount" readonly style="background: #f0f0f0;">
+                    </div>
+                    <div class="form-group">
+                        <label>Tổng Cộng</label>
+                        <input type="text" id="viewOrderTotal" readonly style="background: #f0f0f0; font-weight: 600; color: #ff6b35;">
+                    </div>
+                </div>
+
+                <h3 style="font-size: 14px; font-weight: 600; margin: 20px 0 12px; text-transform: uppercase;">Sản Phẩm</h3>
+                <div id="viewOrderItems" style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden;"></div>
+
+                <h3 style="font-size: 14px; font-weight: 600; margin: 20px 0 12px; text-transform: uppercase;">Trạng Thái Đơn Hàng</h3>
+                <select id="viewOrderStatusSelect" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px;">
+                    <option value="pending">Đang Chờ Xử Lý</option>
+                    <option value="processing">Đang Xử Lý</option>
+                    <option value="shipped">Đã Gửi</option>
+                    <option value="completed">Hoàn Thành</option>
+                    <option value="canceled">Đã Hủy</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeViewOrderModal()">Đóng</button>
+                <button class="btn-modal btn-primary" onclick="updateOrderStatusFromView()">
+                    <i class="fas fa-save"></i> Lưu Trạng Thái
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
+
