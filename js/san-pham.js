@@ -1,15 +1,14 @@
 // ===== PRODUCT DATA =====
 // This is a shared product database for the entire site
 const allProducts = [
-    // ID 1-6: Hot Products
+    
     { id: 1, category: "ao", sport: "bongda", name: "Quần Áo Bóng Đá Thiết Kế RO-25 Màu Đỏ", price: 119000, image: "img/tk1.jpg", isNew: false },
     { id: 2, category: "ao", sport: "bongro", name: "Áo Bóng Rổ Nike Chính Hãng", price: 259000, image: "img/aobongro.jpeg", isNew: false },
     { id: 3, category: "giay", sport: "bongda", name: "Giày Đá Bóng Kamito Velocidad", price: 499000, image: "img/tk1.webp", isNew: false },
     { id: 4, category: "phukien", sport: "bongchuyen", name: "Phụ Kiện Bóng Chuyền - Băng Cổ Tay", price: 69000, image: "img/bct1.webp", isNew: false },
     { id: 5, category: "quan", sport: "chaybo", name: "Quần Chạy Bộ Adidas Climacool", price: 349000, image: "img/product_5.jpg", isNew: false },
     { id: 6, category: "phukien", sport: "dapxe", name: "Mũ Bảo Hiểm Đạp Xe GVR", price: 189000, image: "img/product_6.jpg", isNew: false },
-    
-    // ID 7-12: New Products
+
     { id: 7, category: "ao", sport: "caulong", name: "Áo Cầu Lông Yonex Chính Hãng", price: 399000, image: "img/product_7.jpg", isNew: true },
     { id: 8, category: "giay", sport: "bongro", name: "Giày Bóng Rổ Jordan Air Max", price: 599000, image: "img/product_8.jpg", isNew: true },
     { id: 9, category: "phukien", sport: "yoga", name: "Thảm Yoga PVC Chống Trơn", price: 299000, image: "img/product_9.jpg", isNew: true },
@@ -18,7 +17,6 @@ const allProducts = [
     { id: 12, category: "phukien", sport: "bongchuyen", name: "Bóng Chuyền Molten Chính Hãng", price: 449000, image: "img/product_12.jpg", isNew: true }
 ];
 
-// Category mapping for page names
 const categoryMapping = {
     'quan-bong-da-nam': { category: 'quan', sport: 'bongda', title: 'Quần Bóng Đá Nam' },
     'quan-bong-ro-nam': { category: 'quan', sport: 'bongro', title: 'Quần Bóng Rổ Nam' },

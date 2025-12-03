@@ -33,7 +33,7 @@ function initSlideshow() {
     if (nextBtn) nextBtn.addEventListener('click', nextSlide);
     if (prevBtn) prevBtn.addEventListener('click', prevSlide);
 
-    // Tự động chuyển slide mỗi 4 giây
+
     setInterval(nextSlide, 4000);
 }
 
