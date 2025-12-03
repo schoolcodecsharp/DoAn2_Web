@@ -362,15 +362,15 @@ function renderOrders() {
             tbody.innerHTML = orders.map(o => `
                 <tr>
                     <td>${o.id}</td>
-                    <td>${o.user.fullName}</td>
-                    <td>${o.user.email}</td>
+                    <td>${o.customerName || (o.user && o.user.fullName) || 'N/A'}</td>
+                    <td>${o.customerEmail || (o.user && o.user.email) || 'N/A'}</td>
                     <td>${formatMoney(o.total)}</td>
                     <td>
                         <select onchange="updateOrderStatus('${o.id}', this.value)">
-                            ${['pending','processing','shipped','completed','canceled'].map(s => `<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
+                            ${['pending','processing','shipping','completed','cancelled'].map(s => `<option value="${s}" ${o.status===s?'selected':''}>${s}</option>`).join('')}
                         </select>
                     </td>
-                    <td>${new Date(o.createdAt).toLocaleString('vi-VN')}</td>
+                    <td>${new Date(o.date || o.createdAt).toLocaleString('vi-VN')}</td>
                     <td>
                         <button class="action-btn btn-view" onclick="viewOrder('${o.id}')">Chi tiết</button>
                         <button class="action-btn btn-delete" onclick="deleteOrder('${o.id}')">Xóa</button>
@@ -387,11 +387,11 @@ function renderOrders() {
             recent.innerHTML = latest.map(o => `
                 <tr>
                     <td>${o.id}</td>
-                    <td>${o.user.fullName}</td>
+                    <td>${o.customerName || (o.user && o.user.fullName) || 'N/A'}</td>
                     <td>${o.items.length} SP</td>
                     <td>${formatMoney(o.total)}</td>
                     <td>${o.status}</td>
-                    <td>${new Date(o.createdAt).toLocaleDateString('vi-VN')}</td>
+                    <td>${new Date(o.date || o.createdAt).toLocaleDateString('vi-VN')}</td>
                 </tr>
             `).join('');
         }
@@ -417,20 +417,20 @@ function viewOrder(id) {
     const statusLabels = {
         'pending': '⏳ Đang Chờ Xử Lý',
         'processing': '⚙️ Đang Xử Lý',
-        'shipped': '📦 Đã Gửi',
+        'shipping': '📦 Đang Gửi',
         'completed': '✅ Hoàn Thành',
-        'canceled': '❌ Đã Hủy'
+        'cancelled': '❌ Đã Hủy'
     };
 
     // Populate modal
     document.getElementById('viewOrderId').textContent = `Mã đơn hàng: ${o.id}`;
     document.getElementById('viewOrderStatus').textContent = statusLabels[o.status] || o.status;
     
-    // Customer info
-    document.getElementById('viewOrderCustomerName').value = o.user.fullName || '';
-    document.getElementById('viewOrderCustomerEmail').value = o.user.email || '';
-    document.getElementById('viewOrderCustomerPhone').value = o.user.phone || '';
-    document.getElementById('viewOrderCustomerAddress').value = o.user.address || '';
+    // Customer info - hỗ trợ cả hai định dạng cũ và mới
+    document.getElementById('viewOrderCustomerName').value = o.customerName || (o.user && o.user.fullName) || '';
+    document.getElementById('viewOrderCustomerEmail').value = o.customerEmail || (o.user && o.user.email) || '';
+    document.getElementById('viewOrderCustomerPhone').value = o.customerPhone || (o.user && o.user.phone) || '';
+    document.getElementById('viewOrderCustomerAddress').value = o.customerAddress || (o.user && o.user.address) || '';
     
     // Payment details
     document.getElementById('viewOrderSubtotal').value = formatMoney(o.subtotal);

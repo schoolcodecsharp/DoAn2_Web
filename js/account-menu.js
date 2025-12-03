@@ -32,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="user-name">${user.fullName}</div>
                         <div class="user-email">${user.email}</div>
                     </div>
+                    <a href="${window.location.pathname.includes('/html/') ? '' : 'html/'}donhang.html" class="account-menu-item">
+                        <i class="fas fa-box"></i>
+                        <span>Đơn hàng của tôi</span>
+                    </a>
                     <a href="${window.location.pathname.includes('/html/') ? '' : 'html/'}profile.html" class="account-menu-item">
                         <i class="fas fa-user-circle"></i>
                         <span>Thông tin cá nhân</span>
