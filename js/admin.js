@@ -693,7 +693,7 @@ function clearVoucherForm() {
 }
 
 function addOrUpdateVoucher() {
-    const code = document.getElementById('voucherCodeInput').value.trim().toUpperCase();
+    const code = document.getElementById('voucherCodeInput').value.trim();
     const description = document.getElementById('voucherDescriptionInput').value.trim();
     const type = document.getElementById('voucherTypeSelect').value;
     const value = parseFloat(document.getElementById('voucherValueInput').value || '0');
@@ -701,6 +701,7 @@ function addOrUpdateVoucher() {
     const expiryDate = document.getElementById('voucherExpiryInput').value;
     const quantity = parseInt(document.getElementById('voucherQuantityInput').value || '0', 10);
 
+    // Validation
     if (!code || !description || !value || !expiryDate || quantity <= 0) {
         alert('Vui lòng điền đầy đủ thông tin mã giảm giá.');
         return;
@@ -711,27 +712,38 @@ function addOrUpdateVoucher() {
         return;
     }
 
+    if (type === 'fixed' && value <= 0) {
+        alert('Giá trị giảm giá phải lớn hơn 0');
+        return;
+    }
+
     // Convert date to ISO format (add 23:59:59)
     const expiryDateTime = new Date(expiryDate + 'T23:59:59').toISOString();
 
     let vouchers = loadVouchers();
-    const existingIndex = vouchers.findIndex(v => v.code === code);
+    // Case-insensitive comparison for code (but store original case)
+    const existingIndex = vouchers.findIndex(v => v.code && v.code.toLowerCase() === code.toLowerCase());
 
     const voucherData = {
-        code,
-        description,
-        type,
-        value,
-        minOrder,
+        code: code,
+        description: description,
+        type: type,
+        value: value,
+        minOrder: minOrder,
         expiry: expiryDateTime,
-        quantity,
+        quantity: quantity,
         createdAt: new Date().toISOString()
     };
 
     if (existingIndex >= 0) {
-        vouchers[existingIndex] = { ...vouchers[existingIndex], ...voucherData };
+        // Update existing voucher - preserve createdAt if it exists
+        if (vouchers[existingIndex].createdAt) {
+            voucherData.createdAt = vouchers[existingIndex].createdAt;
+        }
+        vouchers[existingIndex] = voucherData;
         alert('✅ Cập nhật mã giảm giá thành công!');
     } else {
+        // Add new voucher
         vouchers.push(voucherData);
         alert('✅ Thêm mã giảm giá thành công!');
     }
@@ -743,7 +755,8 @@ function addOrUpdateVoucher() {
 
 function editVoucher(code) {
     const vouchers = loadVouchers();
-    const voucher = vouchers.find(v => v.code === code);
+    // Case-insensitive comparison for code
+    const voucher = vouchers.find(v => v.code && v.code.toLowerCase() === code.toLowerCase());
     if (!voucher) return;
 
     document.getElementById('voucherCodeInput').value = voucher.code;
@@ -760,7 +773,8 @@ function editVoucher(code) {
 function deleteVoucher(code) {
     if (!confirm('Bạn có chắc muốn xóa mã giảm giá này?')) return;
     let vouchers = loadVouchers();
-    vouchers = vouchers.filter(v => v.code !== code);
+    // Case-insensitive comparison for code
+    vouchers = vouchers.filter(v => !(v.code && v.code.toLowerCase() === code.toLowerCase()));
     saveVouchers(vouchers);
     renderVouchers();
 }

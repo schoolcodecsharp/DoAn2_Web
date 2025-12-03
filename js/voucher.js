@@ -104,8 +104,8 @@ function renderVouchers() {
                 </div>
 
                 <div class="voucher-card-footer">
-                    <button class="voucher-btn voucher-btn-copy" onclick="copyVoucherCode('${voucher.code}')">
-                        <i class="fas fa-copy"></i> Sao chép
+                    <button class="voucher-btn voucher-btn-copy" onclick="useVoucherNow('${voucher.code}')">
+                        <i class="fas fa-shopping-cart"></i> Dùng Ngay
                     </button>
                 </div>
             </div>
@@ -144,9 +144,31 @@ function copyVoucherCode(code) {
             btn.innerHTML = originalHtml;
             btn.disabled = false;
         }, 2000);
+        
+        // Redirect to cart after 1 second
+        setTimeout(() => {
+            showCopyToast('🛒 Chuyển đến giỏ hàng...');
+            setTimeout(() => {
+                window.location.href = 'giohang.html';
+            }, 500);
+        }, 1000);
     }).catch(() => {
         alert('Lỗi khi sao chép mã!');
     });
+}
+
+// Dùng mã giảm giá ngay
+function useVoucherNow(code) {
+    // Lưu mã giảm giá vào sessionStorage để trang giohang.html dùng
+    sessionStorage.setItem('voucherToApply', code);
+    
+    // Hiển thị toast thông báo
+    showCopyToast(`✅ Sẽ áp dụng mã ${code} khi tới giỏ hàng`);
+    
+    // Redirect to cart
+    setTimeout(() => {
+        window.location.href = 'giohang.html';
+    }, 500);
 }
 
 // Hiển thị toast thông báo

@@ -2,6 +2,17 @@
    VOUCHER PAGE STYLES
    ============================================ */
 
+.main {
+    min-height: calc(100vh - 400px);
+    padding: 40px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .voucher-header {
     text-align: center;
     margin: 40px 0;
@@ -70,6 +81,7 @@
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .voucher-card:hover {
@@ -201,6 +213,10 @@
     background: #ccc;
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+.voucher-btn-copy i {
+    margin-right: 6px;
 }
 
 /* Empty State */

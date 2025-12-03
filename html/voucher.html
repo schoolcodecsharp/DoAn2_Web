@@ -4,38 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mã Giảm Giá - TRƯỜNG SPORT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/voucher.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../js/style.js" defer></script>
+    <script src="../js/giohang.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/account-menu.js"></script>
 </head>
 <body>
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="header">
-        <div class="header-top">
-            <div class="container header-content">
-                <div class="logo">
-                    <a href="../index.html">
-                        <img src="../img/logo2.png" alt="TRƯỜNG SPORT">
-                        <span>TRƯỜNG SPORT</span>
-                    </a>
-                </div>
-                <div class="search-bar">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../img/logo2.png" alt="Trường Sport Logo">
+            </div>
+            
+            <div class="header-main">
+                <form class="search-form">
                     <input type="text" placeholder="Tìm kiếm sản phẩm...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <div class="header-actions">
-                    <div class="action-item">
-                        <button id="accountBtn" class="btn-account">
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+
+                <div class="header-right">
+                    <a href="#" class="header-icon">
+                        <i class="fas fa-headset"></i>
+                        <span>Hỗ Trợ</span>
+                    </a>
+                    <a href="giohang.html" class="header-icon" style="position: relative;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
+                        <span>Giỏ Hàng</span>
+                    </a>
+                    <div class="account-section">
+                        <a href="#" class="header-icon" id="accountBtn">
                             <i class="fas fa-user"></i>
                             <span id="userNameDisplay">Tài Khoản</span>
-                        </button>
-                        <div class="account-menu"></div>
-                    </div>
-                    <div class="action-item">
-                        <a href="giohang.html" class="btn-cart">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span id="cartBadge" class="badge">0</span>
                         </a>
+                        <div class="account-menu">
+                            <a href="profile.html" class="account-menu-item">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Thông tin cá nhân</span>
+                            </a>
+                            <div class="account-menu-divider"></div>
+                            <a href="#" class="account-menu-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,8 +127,8 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- Main -->
+    <main class="main">
         <div class="container">
             <div class="voucher-header">
                 <h1>🎟️ Mã Giảm Giá Đang Hoạt Động</h1>
@@ -138,30 +154,57 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-section">
-                <h3>Về Chúng Tôi</h3>
-                <p>TRƯỜNG SPORT là cửa hàng cung cấp các sản phẩm thể thao chất lượng cao với giá cả cạnh tranh.</p>
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div id="footer-a">
+            <div id="footer-left">
+                <h1 class="h">Hỗ trợ khách hàng</h1>
+                <ul class="u">
+                    <li class="l"><a href="#">Chính sách vận chuyển</a></li>
+                    <li class="l"><a href="#">Chính sách Đổi trả</a></li>
+                    <li class="l"><a href="#">Chính sách khuyến mại</a></li>
+                    <li class="l"><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li class="l"><a href="#">Câu hỏi thường gặp</a></li>
+                    <li class="l"><a href="#">Bảo mật thông tin</a></li>
+                </ul>
             </div>
-            <div class="footer-section">
-                <h3>Liên Hệ</h3>
-                <p>Địa chỉ: 123 Đường Thể Thao, Thành Phố</p>
-                <p>Điện thoại: 0123-456-789</p>
-                <p>Email: support@truongsport.com</p>
+            <div id="footer-mid">
+                <h1 class="h">Liên hệ</h1>
+                <ul class="u">
+                    <li class="l">📍 Địa chỉ: Thanh Long Yên Mỹ Hưng Yên</li>
+                    <li class="l">📱 Điện thoại: 0964778132</li>
+                    <li class="l">📧 Email: Truongdzqua171@gmail.com</li>
+                    <li class="l"><a href="https://www.facebook.com/nguyen.van.truong.904709"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li class="l"><a href="https://www.instagram.com/truong_kutes/"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li class="l"><a href="https://www.youtube.com/@NguyenTrương-i1p"><i class="fab fa-youtube"></i> YouTube</a></li>
+                </ul>
             </div>
-            <div class="footer-section">
-                <h3>Theo Dõi</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+            <div id="footer-right">
+                <h1 class="h">Về chúng tôi</h1>
+                <div class="footer-logo">
+                    <img src="../img/logo2.png" alt="Trường Sport Logo" class="logo">
+                </div>
+                <p>TRƯỜNG SPORT - Cửa hàng thể thao chuyên nghiệp hàng đầu Việt Nam. Chúng tôi cung cấp các sản phẩm thể thao chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div id="footer-extra">
+                <h1 class="h">Đăng ký nhận tin</h1>
+                <p>Đăng ký để nhận thông tin về sản phẩm mới và khuyến mãi</p>
+                <div class="footer-signup">
+                    <input type="email" placeholder="Email của bạn" class="footer-email">
+                    <button class="footer-btn">Đăng ký</button>
+                </div>
+                <div class="footer-payment">
+                    <h3>Thanh toán</h3>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 TRƯỜNG SPORT. All rights reserved.</p>
+            <p>© 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
         </div>
     </footer>
 

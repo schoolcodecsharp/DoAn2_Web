@@ -241,7 +241,7 @@ function removeItem(index) {
 // Áp dụng mã giảm giá
 function applyVoucher() {
     const voucherInput = document.getElementById('voucherCode');
-    const code = voucherInput.value.trim().toUpperCase();
+    const code = voucherInput.value.trim();
     const voucherMessage = document.getElementById('voucherMessage');
     
     if (code === '') {
@@ -250,15 +250,26 @@ function applyVoucher() {
     }
 
     const cart = getCart();
+    if (cart.length === 0) {
+        showVoucherMessage('⚠️ Giỏ hàng trống! Vui lòng thêm sản phẩm trước.', 'error');
+        return;
+    }
+
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const vouchers = JSON.parse(localStorage.getItem('vouchers')) || [];
     
-    // Convert to uppercase to match stored codes
-    const codeUpper = code.toUpperCase();
-    const voucher = vouchers.find(v => v.code.toUpperCase() === codeUpper);
+    // Case-insensitive comparison
+    const codeLower = code.toLowerCase();
+    const voucher = vouchers.find(v => v.code && v.code.toLowerCase() === codeLower);
 
     if (!voucher) {
-        showVoucherMessage('❌ Mã giảm giá không tồn tại!', 'error');
+        showVoucherMessage('❌ Mã giảm giá không tồn tại hoặc đã bị xóa!', 'error');
+        return;
+    }
+
+    // Check if voucher has valid type
+    if (!voucher.type || (voucher.type !== 'percent' && voucher.type !== 'fixed')) {
+        showVoucherMessage('❌ Mã giảm giá không hợp lệ. Vui lòng liên hệ admin!', 'error');
         return;
     }
 
@@ -284,8 +295,11 @@ function applyVoucher() {
     let discountAmount;
     if (voucher.type === 'percent') {
         discountAmount = Math.floor(subtotal * (voucher.value / 100));
+    } else if (voucher.type === 'fixed') {
+        discountAmount = Math.min(voucher.value, subtotal); // Don't discount more than subtotal
     } else {
-        discountAmount = voucher.value;
+        showVoucherMessage('❌ Loại mã giảm giá không được hỗ trợ!', 'error');
+        return;
     }
 
     // Save applied voucher to cart session
@@ -295,7 +309,7 @@ function applyVoucher() {
     }));
 
     // Update voucher quantity - find the right index and update
-    const voucherIndex = vouchers.findIndex(v => v.code.toUpperCase() === codeUpper);
+    const voucherIndex = vouchers.findIndex(v => v.code && v.code.toLowerCase() === codeLower);
     if (voucherIndex >= 0) {
         vouchers[voucherIndex].quantity--;
         localStorage.setItem('vouchers', JSON.stringify(vouchers));
@@ -465,5 +479,21 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (document.getElementById('cartContent')) {
         renderCart();
+    }
+
+    // Auto-apply voucher từ trang voucher.html
+    const voucherToApply = sessionStorage.getItem('voucherToApply');
+    if (voucherToApply) {
+        // Đặt mã voucher vào input
+        const voucherInput = document.getElementById('voucherCode');
+        if (voucherInput) {
+            voucherInput.value = voucherToApply;
+            // Tự động áp dụng mã
+            setTimeout(() => {
+                applyVoucher();
+                // Xóa mã để không áp dụng lại
+                sessionStorage.removeItem('voucherToApply');
+            }, 500);
+        }
     }
 });
