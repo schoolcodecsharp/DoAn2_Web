@@ -4,11 +4,20 @@
 // ============================================
 
 let currentFilter = 'all';
+let updateCheckInterval; // Interval để check cập nhật từ admin
 
 // Khởi tạo khi trang load
 document.addEventListener('DOMContentLoaded', function() {
     checkLogin();
     renderOrders();
+    startAutoRefresh(); // Bắt đầu kiểm tra cập nhật từ admin
+});
+
+// Dừng auto refresh khi rời khỏi trang
+window.addEventListener('beforeunload', function() {
+    if (updateCheckInterval) {
+        clearInterval(updateCheckInterval);
+    }
 });
 
 // Kiểm tra đăng nhập
@@ -19,6 +28,35 @@ function checkLogin() {
         window.location.href = 'login.html';
         return;
     }
+}
+
+// Bắt đầu tự động kiểm tra cập nhật từ admin
+function startAutoRefresh() {
+    let lastOrdersData = JSON.stringify(localStorage.getItem('orders'));
+    
+    updateCheckInterval = setInterval(function() {
+        const currentOrdersData = JSON.stringify(localStorage.getItem('orders'));
+        
+        // Nếu dữ liệu orders thay đổi, render lại
+        if (currentOrdersData !== lastOrdersData) {
+            lastOrdersData = currentOrdersData;
+            renderOrders();
+            
+            // Cập nhật modal nếu nó đang mở
+            const modal = document.getElementById('orderDetailModal');
+            if (modal && modal.classList.contains('active')) {
+                // Lấy order ID từ modal (nếu có)
+                const modalTitle = modal.querySelector('.modal-header');
+                if (modalTitle) {
+                    // Reload modal với dữ liệu mới
+                    const orders = getUserOrders();
+                    if (orders.length > 0) {
+                        showOrderDetail(orders[0].id); // Cập nhật với đơn hàng đầu tiên
+                    }
+                }
+            }
+        }
+    }, 2000); // Check mỗi 2 giây
 }
 
 // Lấy danh sách đơn hàng của khách hàng
@@ -322,5 +360,21 @@ document.addEventListener('click', function(e) {
     const modal = document.getElementById('orderDetailModal');
     if (e.target === modal.querySelector('.modal-overlay')) {
         closeOrderDetail();
+    }
+});
+
+// Lắng nghe sự thay đổi từ localStorage (cập nhật cross-tab)
+window.addEventListener('storage', function(e) {
+    if (e.key === 'orders') {
+        renderOrders();
+        
+        // Cập nhật modal nếu mở
+        const modal = document.getElementById('orderDetailModal');
+        if (modal && modal.classList.contains('active')) {
+            const orders = getUserOrders();
+            if (orders.length > 0) {
+                showOrderDetail(orders[0].id);
+            }
+        }
     }
 });
