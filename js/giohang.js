@@ -417,13 +417,10 @@ function confirmCheckout() {
     const orderId = 'OD' + Date.now();
     const newOrder = {
         id: orderId,
-        user: { 
-            fullName: data.user.fullName, 
-            email: data.user.email, 
-            username: data.user.username, 
-            phone: data.user.phone, 
-            address: data.user.address 
-        },
+        customerName: data.user.fullName,
+        customerEmail: data.user.email,
+        customerPhone: data.user.phone,
+        customerAddress: data.user.address,
         items: data.cart.map(i => ({ 
             id: i.id, 
             name: i.name, 
@@ -438,7 +435,7 @@ function confirmCheckout() {
         voucher: data.appliedVoucher,
         total: data.total,
         status: 'pending',
-        createdAt: new Date().toISOString()
+        date: new Date().toISOString()
     };
     orders.push(newOrder);
     localStorage.setItem('orders', JSON.stringify(orders));
