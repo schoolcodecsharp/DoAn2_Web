@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Kết Quả Tìm Kiếm - Trường Sport</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/search.css">
+    <script src="../js/products-data.js" defer></script>
+</head>
+<body style="font-family: Arial, sans-serif;">
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <img src="../img/logo2.png" alt="Trường Sport Logo">
+            </div>
+            
+            <div class="header-main">
+                <form class="search-form" onsubmit="handleSearch(event)">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+                    <button type="submit">Tìm kiếm</button>
+                </form>
+
+                <div class="header-right">
+                    <a href="#" class="header-icon">
+                        <i class="fas fa-headset"></i>
+                        <span>Hỗ Trợ</span>
+                    </a>
+                    <a href="giohang.html" class="header-icon" style="position: relative;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge">0</span>
+                        <span>Giỏ Hàng</span>
+                    </a>
+                    <div class="account-section">
+                        <a href="#" class="header-icon" id="accountBtn">
+                            <i class="fas fa-user"></i>
+                            <span id="userNameDisplay">Tài Khoản</span>
+                        </a>
+                        <div class="account-menu">
+                            <a href="profile.html" class="account-menu-item">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Thông tin cá nhân</span>
+                            </a>
+                            <div class="account-menu-divider"></div>
+                            <a href="#" class="account-menu-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="navbar">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="../index.html" class="menu-link">🏠 Trang Chủ</a>
+                </li>
+                <li class="menu-item">
+                    <a href="gioithieu.html" class="menu-link">📖 Giới Thiệu</a>
+                </li>
+                <li class="menu-item has-submenu">
+                    <a href="san-pham.html" class="menu-link">🛒 Sản Phẩm</a>
+                    <div class="submenu">
+                        <div class="submenu-section">
+                            <div class="submenu-title">👖 QUẦN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="quan-bong-da-nam.html" class="submenu-link">Quần Bóng Đá Nam</a></li>
+                                <li class="submenu-item"><a href="quan-bong-ro-nam.html" class="submenu-link">Quần Bóng Rổ Nam</a></li>
+                                <li class="submenu-item"><a href="quan-chay-bo.html" class="submenu-link">Quần Chạy Bộ Nam</a></li>
+                                <li class="submenu-item"><a href="quan-tap-gym.html" class="submenu-link">Quần Tập Gym</a></li>
+                                <li class="submenu-item"><a href="quan-dap-xe.html" class="submenu-link">Quần Đạp Xe</a></li>
+                                <li class="submenu-item"><a href="quan-cau-long.html" class="submenu-link">Quần Cầu Lông</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👕 ÁO</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="ao-bong-da-nam.html" class="submenu-link">Áo Bóng Đá Nam</a></li>
+                                <li class="submenu-item"><a href="ao-bong-ro-nam.html" class="submenu-link">Áo Bóng Rổ Nam</a></li>
+                                <li class="submenu-item"><a href="ao-tap-luyen.html" class="submenu-link">Áo Tập Luyện</a></li>
+                                <li class="submenu-item"><a href="ao-dong-phuc.html" class="submenu-link">Áo Đồng Phục</a></li>
+                                <li class="submenu-item"><a href="ao-thoi-trang-the-thao.html" class="submenu-link">Áo Thời Trang Thể Thao</a></li>
+                                <li class="submenu-item"><a href="ao-lifestyle.html" class="submenu-link">Áo Lifestyle</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">👟 GIÀY</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="giay-bong-da-nam.html" class="submenu-link">Giày Bóng Đá Nam</a></li>
+                                <li class="submenu-item"><a href="giay-bong-ro-nam.html" class="submenu-link">Giày Bóng Rổ Nam</a></li>
+                                <li class="submenu-item"><a href="giay-chay-bo.html" class="submenu-link">Giày Chạy Bộ</a></li>
+                                <li class="submenu-item"><a href="giay-tap-gym.html" class="submenu-link">Giày Tập Gym</a></li>
+                                <li class="submenu-item"><a href="giay-da-ngoai.html" class="submenu-link">Giày Dã Ngoại</a></li>
+                                <li class="submenu-item"><a href="giay-casual.html" class="submenu-link">Giày Casual</a></li>
+                            </ul>
+                        </div>
+                        <div class="submenu-section">
+                            <div class="submenu-title">🎒 PHỤ KIỆN</div>
+                            <ul class="submenu-list">
+                                <li class="submenu-item"><a href="phukien-bong-dungcu.html" class="submenu-link">Bóng & Dụng Cụ</a></li>
+                                <li class="submenu-item"><a href="phukien-tui-balo.html" class="submenu-link">Túi & Balo</a></li>
+                                <li class="submenu-item"><a href="phukien-bao-ho.html" class="submenu-link">Bảo Hộ & Băng</a></li>
+                                <li class="submenu-item"><a href="phukien-vo-gang.html" class="submenu-link">Vớ & Găng Tay</a></li>
+                                <li class="submenu-item"><a href="phukien-yoga-fitness.html" class="submenu-link">Yoga & Fitness</a></li>
+                                <li class="submenu-item"><a href="phukien-khac.html" class="submenu-link">Phụ Kiện Khác</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="menu-item">
+                    <a href="voucher.html" class="menu-link">🎟️ Mã Giảm Giá</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">📞 Liên Hệ</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="search-container">
+        <div class="search-content">
+            <div class="search-header">
+                <h2>Kết Quả Tìm Kiếm</h2>
+                <p>Tìm kiếm cho: <span id="searchTerm" class="search-term"></span></p>
+            </div>
+
+            <div id="resultsContainer"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Hỗ trợ khách hàng</h4>
+                <ul>
+                    <li><a href="#">Chính sách vận chuyển</a></li>
+                    <li><a href="#">Chính sách đổi trả</a></li>
+                    <li><a href="#">Hướng dẫn thanh toán</a></li>
+                    <li><a href="#">Câu hỏi thường gặp</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Về chúng tôi</h4>
+                <ul>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Theo dõi chúng tôi</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
+        </div>
+    </footer>
+
+    <script src="../js/login.js"></script>
+    <script src="../js/account-menu.js"></script>
+    <script src="../js/search.js"></script>
+</body>
+</html>

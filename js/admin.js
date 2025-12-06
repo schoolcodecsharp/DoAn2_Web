@@ -115,8 +115,7 @@ function renderProducts() {
         <tr>
             <td>${p.id}</td>
             <td>${p.name}</td>
-            <td>${p.category}</td>
-            <td>${p.sport || '-'}</td>
+            <td>${getCategoryDisplayName(p.category, p.sport)}</td>
             <td>${formatMoney(p.price)}</td>
             <td>${p.stock ?? 0}</td>
             <td>
@@ -142,8 +141,8 @@ function clearProductForm() {
     document.getElementById('productIdInput').value = '';
     document.getElementById('productNameInput').value = '';
     document.getElementById('productPriceInput').value = '';
-    document.getElementById('productCategorySelect').value = 'Áo';
-    document.getElementById('productSportSelect').value = 'Bóng Đá';
+    document.getElementById('productCategorySelect').value = 'ao';
+    document.getElementById('productSportSelect').value = 'bongda';
     document.getElementById('productStockInput').value = '';
     document.getElementById('productImageInput').value = '';
     document.getElementById('productDescriptionInput').value = '';
@@ -176,6 +175,50 @@ function getCategoryPageMapping() {
         'phukien-yoga-fitness': 'phukien-yoga-fitness.html',
         'phukien-khac': 'phukien-khac.html'
     };
+}
+
+// Hàm chuyển đổi category và sport thành tên hiển thị đẹp
+function getCategoryDisplayName(category, sport) {
+    const categoryNames = {
+        'ao': 'Áo',
+        'quan': 'Quần',
+        'giay': 'Giày',
+        'phukien': 'Phụ Kiện'
+    };
+    
+    const sportNames = {
+        'bongda': 'Bóng Đá',
+        'bongro': 'Bóng Rổ',
+        'bongchuyen': 'Bóng Chuyền',
+        'caulong': 'Cầu Lông',
+        'caulongbadminton': 'Cầu Lông/Badminton',
+        'chaybo': 'Chạy Bộ',
+        'dapxe': 'Đạp Xe',
+        'boi': 'Bơi Lội',
+        'yoga': 'Yoga',
+        'yogafitness': 'Yoga & Fitness',
+        'gym': 'Gym/Fitness',
+        'tapgym': 'Tập Gym',
+        'tennis': 'Tennis',
+        'taplyuen': 'Tập Luyện',
+        'dongphuc': 'Đồng Phục',
+        'lifestyle': 'Lifestyle',
+        'thoidung': 'Thời Dùng',
+        'thoitrangthethao': 'Thời Trang Thể Thao',
+        'dagongoai': 'Dã Ngoại',
+        'casual': 'Casual',
+        'bongdungcu': 'Bóng & Dụng Cụ',
+        'tuibalo': 'Túi & Balo',
+        'baoho': 'Bảo Hộ',
+        'vogang': 'Võ & Găng',
+        'vogangtay': 'Vớ & Găng Tay',
+        'khac': 'Khác'
+    };
+    
+    const catName = categoryNames[category] || category;
+    const sportName = sportNames[sport] || sport;
+    
+    return `${catName} - ${sportName}`;
 }
 
 function createProductCard(product) {
@@ -298,7 +341,7 @@ function editProduct(id) {
     document.getElementById('productNameInput').value = p.name;
     document.getElementById('productPriceInput').value = p.price;
     document.getElementById('productCategorySelect').value = p.category;
-    document.getElementById('productSportSelect').value = p.sport || 'Bóng Đá';
+    document.getElementById('productSportSelect').value = p.sport || 'bongda';
     document.getElementById('productStockInput').value = p.stock ?? 0;
     document.getElementById('productImageInput').value = p.image || '';
     document.getElementById('productDescriptionInput').value = p.description || '';
@@ -323,8 +366,7 @@ function viewProduct(id) {
     document.getElementById('viewProductId').value = p.id;
     document.getElementById('viewProductImage').src = p.image;
     document.getElementById('viewProductName').textContent = p.name;
-    document.getElementById('viewProductCategory').textContent = p.category;
-    document.getElementById('viewProductSport').textContent = p.sport || 'N/A';
+    document.getElementById('viewProductCategory').textContent = getCategoryDisplayName(p.category, p.sport);
     document.getElementById('viewProductPrice').value = formatMoney(p.price);
     document.getElementById('viewProductStock').value = p.stock ?? 0;
     document.getElementById('viewProductDescription').value = p.description || 'Không có mô tả';
@@ -779,9 +821,54 @@ function deleteVoucher(code) {
     renderVouchers();
 }
 
+// INIT PRODUCTS FROM productsData & allProducts
+function initProductsFromData() {
+    const existing = JSON.parse(localStorage.getItem('products')) || [];
+    // Nếu đã có sản phẩm rồi thì không init lại
+    if (existing.length > 0) return;
+    
+    let allProducts = [];
+    
+    // 1. Load từ productsData (products-data.js) - 180 sản phẩm
+    if (typeof productsData !== 'undefined') {
+        for (const [category, products] of Object.entries(productsData)) {
+            allProducts = allProducts.concat(products.map(p => ({
+                ...p,
+                stock: p.stock ?? 10, // Mặc định stock = 10 nếu không có
+                createdAt: new Date().toISOString()
+            })));
+        }
+    }
+    
+    // 2. Load từ allProducts (san-pham.js) - các sản phẩm demo
+    if (typeof window.allProducts !== 'undefined' && Array.isArray(window.allProducts)) {
+        // Chỉ thêm những sản phẩm chưa có
+        window.allProducts.forEach(p => {
+            if (!allProducts.find(ap => ap.id === p.id)) {
+                allProducts.push({
+                    id: p.id,
+                    name: p.name,
+                    price: p.price,
+                    category: p.category,
+                    sport: p.sport,
+                    image: p.image,
+                    stock: 10,
+                    createdAt: new Date().toISOString()
+                });
+            }
+        });
+    }
+    
+    if (allProducts.length > 0) {
+        localStorage.setItem('products', JSON.stringify(allProducts));
+        console.log('✅ Khởi tạo', allProducts.length, 'sản phẩm từ productsData & allProducts');
+    }
+}
+
 // INIT
 function loadData() {
     if (!ensureAdmin()) return;
+    initProductsFromData();
     renderUsers();
     renderProducts();
     renderOrders();

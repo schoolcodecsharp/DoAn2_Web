@@ -116,36 +116,66 @@
 
         .product-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            grid-template-columns: 400px 1fr;
+            gap: 40px;
             padding: 40px;
+            align-items: start;
         }
 
         /* Images */
         .product-images {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
+            position: sticky;
+            top: 20px;
         }
 
         .main-image {
             width: 100%;
-            height: 500px;
+            height: 380px;
             border-radius: 10px;
             overflow: hidden;
             border: 2px solid #eee;
+            background: #f9f9f9;
         }
 
         .main-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            padding: 10px;
         }
 
         .thumbnail-images {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 8px;
+        }
+        
+        .thumbnail-images .thumbnail {
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: #f9f9f9;
+            transition: all 0.3s;
+        }
+        
+        .thumbnail-images .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+        
+        .thumbnail-images .thumbnail.active {
+            border-color: #ff6b35;
+        }
+        
+        .thumbnail-images .thumbnail:hover {
+            border-color: #ddd;
         }
 
         .thumbnail {
@@ -324,9 +354,15 @@
             color: white;
         }
 
-        .btn-add-cart:hover {
+        .btn-add-cart:hover:not(:disabled) {
             background: #e55a28;
             transform: translateY(-2px);
+        }
+        
+        .btn-add-cart:disabled {
+            background: #ccc;
+            color: #999;
+            cursor: not-allowed;
         }
 
         .btn-buy-now {
@@ -334,9 +370,15 @@
             color: white;
         }
 
-        .btn-buy-now:hover {
+        .btn-buy-now:hover:not(:disabled) {
             background: #27ae60;
             transform: translateY(-2px);
+        }
+        
+        .btn-buy-now:disabled {
+            background: #ccc;
+            color: #999;
+            cursor: not-allowed;
         }
 
         /* Product Features */

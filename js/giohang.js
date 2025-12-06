@@ -59,6 +59,22 @@ function addToCart(productId) {
         quantity: 1
     };
 
+    // Lấy stock từ localStorage.products
+    const allProducts = JSON.parse(localStorage.getItem('products')) || [];
+    const dbProduct = allProducts.find(p => String(p.id) === String(productData.id));
+    
+    if (dbProduct) {
+        productData.stock = dbProduct.stock ?? 10;
+        
+        // Kiểm tra stock trước khi thêm
+        if (!dbProduct.stock || dbProduct.stock <= 0) {
+            alert('❌ Sản phẩm này hiện đã hết hàng!');
+            return;
+        }
+    } else {
+        productData.stock = 10; // Mặc định
+    }
+
     let cart = getCart();
     
     // Kiểm tra sản phẩm đã có trong giỏ chưa
@@ -67,7 +83,13 @@ function addToCart(productId) {
     );
 
     if (existingIndex > -1) {
-        cart[existingIndex].quantity += 1;
+        // Kiểm tra tổng số lượng với stock
+        const newQty = cart[existingIndex].quantity + 1;
+        if (newQty > productData.stock) {
+            alert(`❌ Chỉ còn ${productData.stock} sản phẩm trong kho!`);
+            return;
+        }
+        cart[existingIndex].quantity = newQty;
         alert(`✅ Đã tăng số lượng "${productData.name}" trong giỏ hàng!`);
     } else {
         cart.push(productData);
@@ -139,7 +161,23 @@ function renderCart() {
 
     // Render sản phẩm
     let cartItemsHTML = '';
+    let hasStockWarning = false;
+    
     cart.forEach((item, index) => {
+        // Kiểm tra stock từ database
+        const allProducts = JSON.parse(localStorage.getItem('products')) || [];
+        const dbProduct = allProducts.find(p => String(p.id) === String(item.id));
+        const currentStock = dbProduct ? (dbProduct.stock ?? 10) : (item.stock ?? 10);
+        
+        let stockWarning = '';
+        if (item.quantity > currentStock) {
+            hasStockWarning = true;
+            stockWarning = `<div style="color: #dc3545; font-size: 12px; margin-top: 5px;">⚠️ Số lượng vượt tồn kho (${currentStock} sản phẩm)</div>`;
+        } else if (currentStock <= 0) {
+            hasStockWarning = true;
+            stockWarning = `<div style="color: #dc3545; font-size: 12px; margin-top: 5px;">❌ Sản phẩm này đã hết hàng</div>`;
+        }
+        
         cartItemsHTML += `
             <div class="cart-item" data-id="${item.id}">
                 <img src="${item.image}" alt="${item.name}" class="item-image">
@@ -147,6 +185,7 @@ function renderCart() {
                     <div class="item-name">${item.name}</div>
                     <div class="item-details">Size: ${item.size}</div>
                     <div class="item-price">${formatMoney(item.price)}</div>
+                    ${stockWarning}
                 </div>
                 <div class="item-actions">
                     <button class="remove-btn" onclick="removeItem(${index})" title="Xóa sản phẩm">
@@ -154,7 +193,7 @@ function renderCart() {
                     </button>
                     <div class="quantity-control">
                         <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                        <input type="number" class="qty-input" value="${item.quantity}" min="1" readonly>
+                        <input type="number" class="qty-input" value="${item.quantity}" min="1" max="${currentStock}" readonly>
                         <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
                     </div>
                 </div>
@@ -218,10 +257,20 @@ function renderCart() {
 // Cập nhật số lượng sản phẩm
 function updateQuantity(index, change) {
     let cart = getCart();
-    cart[index].quantity += change;
+    const newQty = cart[index].quantity + change;
     
-    if (cart[index].quantity < 1) {
+    // Kiểm tra stock từ database
+    const allProducts = JSON.parse(localStorage.getItem('products')) || [];
+    const dbProduct = allProducts.find(p => String(p.id) === String(cart[index].id));
+    const maxStock = dbProduct ? (dbProduct.stock ?? 10) : (cart[index].stock ?? 10);
+    
+    if (newQty < 1) {
         cart[index].quantity = 1;
+    } else if (newQty > maxStock) {
+        alert(`❌ Chỉ còn ${maxStock} sản phẩm trong kho!`);
+        cart[index].quantity = Math.min(maxStock, newQty - 1);
+    } else {
+        cart[index].quantity = newQty;
     }
     
     saveCart(cart);

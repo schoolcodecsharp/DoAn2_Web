@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>quan cau long - Tr�?ng Sport</title>
+    <title>Quần Cầu Lông - Trường Sport</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/style.js" defer></script>
     <script src="../js/giohang.js"></script>
@@ -12,43 +12,45 @@
     <script src="../js/account-menu.js"></script>
     <script src="../js/products-data.js" defer></script>
 </head>
-<body>
-<header class="header">
+
+<body style="font-family: Arial, sans-serif;">
+    <!-- HEADER -->
+    <header class="header">
         <div class="header-container">
             <div class="logo">
-                <img src="../img/logo2.png" alt="Tr�?ng Sport Logo">
+                <img src="../img/logo2.png" alt="Trường Sport Logo">
             </div>
-            
+
             <div class="header-main">
-                <form class="search-form">
-                    <input type="text" placeholder="T?m ki?m s?n ph?m...">
-                    <button type="submit">T?m ki?m</button>
+                <form class="search-form" onsubmit="handleSearchRedirect(event)">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+                    <button type="submit">Tìm kiếm</button>
                 </form>
 
                 <div class="header-right">
                     <a href="#" class="header-icon">
                         <i class="fas fa-headset"></i>
-                        <span>H? Tr?</span>
+                        <span>Hỗ Trợ</span>
                     </a>
                     <a href="giohang.html" class="header-icon" style="position: relative;">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-badge">0</span>
-                        <span>Gi? H�ng</span>
+                        <span>Giỏ Hàng</span>
                     </a>
                     <div class="account-section">
                         <a href="#" class="header-icon" id="accountBtn">
                             <i class="fas fa-user"></i>
-                            <span id="userNameDisplay">T�i Kho?n</span>
+                            <span id="userNameDisplay">Tài Khoản</span>
                         </a>
                         <div class="account-menu">
                             <a href="profile.html" class="account-menu-item">
                                 <i class="fas fa-user-circle"></i>
-                                <span>Th�ng tin c� nh�n</span>
+                                <span>Thông tin cá nhân</span>
                             </a>
                             <div class="account-menu-divider"></div>
                             <a href="#" class="account-menu-item" onclick="logout()">
                                 <i class="fas fa-sign-out-alt"></i>
-                                <span>��ng xu?t</span>
+                                <span>Đăng xuất</span>
                             </a>
                         </div>
                     </div>
@@ -62,219 +64,282 @@
         <div class="menu-container">
             <ul class="menu-list">
                 <li class="menu-item">
-                    <a href="../index.html" class="menu-link">?? Trang Ch?</a>
+                    <a href="../index.html" class="menu-link">🏠 Trang Chủ</a>
                 </li>
                 <li class="menu-item">
-                    <a href="gioithieu.html" class="menu-link">?? Gi?i Thi?u</a>
+                    <a href="gioithieu.html" class="menu-link">📖 Giới Thiệu</a>
                 </li>
                 <li class="menu-item dropdown">
-                    <a href="#" class="menu-link">?? S?n Ph?m</a>
+                    <a href="#" class="menu-link">🛒 Sản Phẩm</a>
                     <div class="submenu">
+                        <!-- QUẦN Section -->
                         <div class="submenu-section">
-                            <div class="submenu-title">?? QU?N</div>
+                            <div class="submenu-title">👖 QUẦN</div>
                             <ul class="submenu-list">
-                                <li class="submenu-item"><a href="quan-bong-da-nam.html" class="submenu-link">Qu?n B�ng �� Nam</a></li>
-                                <li class="submenu-item"><a href="quan-bong-ro-nam.html" class="submenu-link">Qu?n B�ng R? Nam</a></li>
-                                <li class="submenu-item"><a href="quan-chay-bo.html" class="submenu-link">Qu?n Ch?y B?</a></li>
-                                <li class="submenu-item"><a href="quan-tap-gym.html" class="submenu-link">Qu?n T?p Gym</a></li>
-                                <li class="submenu-item"><a href="quan-dap-xe.html" class="submenu-link">Qu?n �?p Xe</a></li>
-                                <li class="submenu-item"><a href="quan-cau-long.html" class="submenu-link">Qu?n C?u L�ng</a></li>
+                                <li class="submenu-item">
+                                    <a href="quan-bong-da-nam.html" class="submenu-link">Quần Bóng Đá Nam</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="quan-bong-ro-nam.html" class="submenu-link">Quần Bóng Rổ Nam</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="quan-chay-bo.html" class="submenu-link">Quần Chạy Bộ</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="quan-tap-gym.html" class="submenu-link">Quần Tập Gym</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="quan-dap-xe.html" class="submenu-link">Quần Đạp Xe</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="quan-cau-long.html" class="submenu-link">Quần Cầu Lông</a>
+                                </li>
                             </ul>
                         </div>
+
+                        <!-- ÁO Section -->
                         <div class="submenu-section">
-                            <div class="submenu-title">?? �O</div>
+                            <div class="submenu-title">👕 ÁO</div>
                             <ul class="submenu-list">
-                                <li class="submenu-item"><a href="ao-bong-da-nam.html" class="submenu-link">�o B�ng �� Nam</a></li>
-                                <li class="submenu-item"><a href="ao-bong-ro-nam.html" class="submenu-link">�o B�ng R? Nam</a></li>
-                                <li class="submenu-item"><a href="ao-tap-luyen.html" class="submenu-link">�o T?p Luy?n</a></li>
-                                <li class="submenu-item"><a href="ao-dong-phuc.html" class="submenu-link">�o �?ng Ph?c</a></li>
-                                <li class="submenu-item"><a href="ao-thoi-trang-the-thao.html" class="submenu-link">�o Th?i Trang Th? Thao</a></li>
-                                <li class="submenu-item"><a href="ao-lifestyle.html" class="submenu-link">�o Lifestyle</a></li>
+                                <li class="submenu-item">
+                                    <a href="ao-bong-da-nam.html" class="submenu-link">Áo Bóng Đá Nam</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="ao-bong-ro-nam.html" class="submenu-link">Áo Bóng Rổ Nam</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="ao-tap-luyen.html" class="submenu-link">Áo Tập Luyện</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="ao-dong-phuc.html" class="submenu-link">Áo Đồng Phục</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="ao-thoi-trang-the-thao.html" class="submenu-link">Áo Thời Trang Thể Thao</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="ao-lifestyle.html" class="submenu-link">Áo Lifestyle</a>
+                                </li>
                             </ul>
                         </div>
+
+                        <!-- GIÀY Section -->
                         <div class="submenu-section">
-                            <div class="submenu-title">?? GI�Y</div>
+                            <div class="submenu-title">👟 GIÀY</div>
                             <ul class="submenu-list">
-                                <li class="submenu-item"><a href="giay-bong-da-nam.html" class="submenu-link">Gi�y B�ng �� Nam</a></li>
-                                <li class="submenu-item"><a href="giay-bong-ro-nam.html" class="submenu-link">Gi�y B�ng R? Nam</a></li>
-                                <li class="submenu-item"><a href="giay-chay-bo.html" class="submenu-link">Gi�y Ch?y B?</a></li>
-                                <li class="submenu-item"><a href="giay-tap-gym.html" class="submenu-link">Gi�y T?p Gym</a></li>
-                                <li class="submenu-item"><a href="giay-da-ngoai.html" class="submenu-link">Gi�y D? Ngo?i</a></li>
-                                <li class="submenu-item"><a href="giay-casual.html" class="submenu-link">Gi�y Casual</a></li>
+                                <li class="submenu-item">
+                                    <a href="giay-bong-da-nam.html" class="submenu-link">Giày Bóng Đá Nam</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="giay-bong-ro-nam.html" class="submenu-link">Giày Bóng Rổ Nam</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="giay-chay-bo.html" class="submenu-link">Giày Chạy Bộ</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="giay-tap-gym.html" class="submenu-link">Giày Tập Gym</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="giay-da-ngoai.html" class="submenu-link">Giày Dã Ngoại</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="giay-casual.html" class="submenu-link">Giày Casual</a>
+                                </li>
                             </ul>
                         </div>
+
+                        <!-- PHỤ KIỆN Section -->
                         <div class="submenu-section">
-                            <div class="submenu-title">?? PH? KI?N</div>
+                            <div class="submenu-title">🎒 PHỤ KIỆN</div>
                             <ul class="submenu-list">
-                                <li class="submenu-item"><a href="phukien-bong-dungcu.html" class="submenu-link">B�ng & D?ng C?</a></li>
-                                <li class="submenu-item"><a href="phukien-tui-balo.html" class="submenu-link">T�i & Balo</a></li>
-                                <li class="submenu-item"><a href="phukien-bao-ho.html" class="submenu-link">B?o H? & B�ng</a></li>
-                                <li class="submenu-item"><a href="phukien-vo-gang.html" class="submenu-link">V? & G�ng Tay</a></li>
-                                <li class="submenu-item"><a href="phukien-yoga-fitness.html" class="submenu-link">Yoga & Fitness</a></li>
-                                <li class="submenu-item"><a href="phukien-khac.html" class="submenu-link">Ph? Ki?n Kh�c</a></li>
+                                <li class="submenu-item">
+                                    <a href="phukien-bong-dungcu.html" class="submenu-link">Bóng & Dụng Cụ</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="phukien-tui-balo.html" class="submenu-link">Túi & Balo</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="phukien-bao-ho.html" class="submenu-link">Bảo Hộ & Băng</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="phukien-vo-gang.html" class="submenu-link">Vớ & Găng Tay</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="phukien-yoga-fitness.html" class="submenu-link">Yoga & Fitness</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="phukien-khac.html" class="submenu-link">Phụ Kiện Khác</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">?? Li�n H?</a>
+                    <a href="voucher.html" class="menu-link">🎟️ Mã Giảm Giá</a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="menu-link">📞 Liên Hệ</a>
                 </li>
             </ul>
         </div>
     </nav>
 
+    <!-- MAIN CONTENT -->
     <main class="main">
-        <h2 class="section-title">Qu?n C?u L�ng</h2>
-        <div class="products-grid" id="hotProducts">
-            <div class="product-card" data-id="31" data-category="quan" data-sport="caulong" data-name="Qu?n C?u L�ng Yonex" data-price="480000" data-image="../img/product_31.jpg">
+        <h2 class="section-title">Quần Cầu Lông</h2>
+        <div class="products-grid">
+
+            <!-- Product 1: Quần Cầu Lông Yonex -->
+            <div class="product-card" data-id="103" data-category="quan" data-sport="caulong" data-name="Quần Cầu Lông Yonex" data-price="350000" data-image="../img/tk1.jpg">
                 <div class="product-image">
-                    <img src="../img/tk1.jpg" alt="Qu?n C?u L�ng Yonex">
+                    <img src="../img/tk1.jpg" alt="Quần Cầu Lông Yonex">
                 </div>
                 <div class="product-info">
-                    <h3>Qu?n C?u L�ng Yonex</h3>
-                    <div class="product-price">480,000�</div>
+                    <h3>Quần Cầu Lông Yonex</h3>
+                    <div class="product-price">350,000₫</div>
                     <div class="product-actions">
-                        <button class="btn-details" onclick="viewDetails(31)">
-                            <i class="fas fa-eye"></i> Chi Ti?t
-                        </button>
-                        <button class="btn-cart" onclick="addToCart(31)">
-                            <i class="fas fa-shopping-cart"></i> Th�m
-                        </button>
+                        <button class="btn-details" onclick="viewDetails(103)">Chi Tiết</button>
+                        <button class="btn-cart" onclick="addToCart(103)">Thêm</button>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card" data-id="32" data-category="quan" data-sport="caulong" data-name="Qu?n C?u L�ng Victor" data-price="450000" data-image="../img/product_32.jpg">
+            <!-- Product 2: Quần Cầu Lông Lining -->
+            <div class="product-card" data-id="104" data-category="quan" data-sport="caulong" data-name="Quần Cầu Lông Lining" data-price="340000" data-image="../img/tk1.jpg">
                 <div class="product-image">
-                    <img src="../img/tk1.jpg" alt="Qu?n C?u L�ng Victor">
+                    <img src="../img/tk1.jpg" alt="Quần Cầu Lông Lining">
                 </div>
                 <div class="product-info">
-                    <h3>Qu?n C?u L�ng Victor</h3>
-                    <div class="product-price">450,000�</div>
+                    <h3>Quần Cầu Lông Lining</h3>
+                    <div class="product-price">340,000₫</div>
                     <div class="product-actions">
-                        <button class="btn-details" onclick="viewDetails(32)">
-                            <i class="fas fa-eye"></i> Chi Ti?t
-                        </button>
-                        <button class="btn-cart" onclick="addToCart(32)">
-                            <i class="fas fa-shopping-cart"></i> Th�m
-                        </button>
+                        <button class="btn-details" onclick="viewDetails(104)">Chi Tiết</button>
+                        <button class="btn-cart" onclick="addToCart(104)">Thêm</button>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card" data-id="33" data-category="quan" data-sport="caulong" data-name="Qu?n C?u L�ng Adidas" data-price="420000" data-image="../img/product_33.jpg">
+            <!-- Product 3: Quần Cầu Lông Victor -->
+            <div class="product-card" data-id="105" data-category="quan" data-sport="caulong" data-name="Quần Cầu Lông Victor" data-price="360000" data-image="../img/tk1.jpg">
                 <div class="product-image">
-                    <img src="../img/tk1.jpg" alt="Qu?n C?u L�ng Adidas">
+                    <img src="../img/tk1.jpg" alt="Quần Cầu Lông Victor">
                 </div>
                 <div class="product-info">
-                    <h3>Qu?n C?u L�ng Adidas</h3>
-                    <div class="product-price">420,000�</div>
+                    <h3>Quần Cầu Lông Victor</h3>
+                    <div class="product-price">360,000₫</div>
                     <div class="product-actions">
-                        <button class="btn-details" onclick="viewDetails(33)">
-                            <i class="fas fa-eye"></i> Chi Ti?t
-                        </button>
-                        <button class="btn-cart" onclick="addToCart(33)">
-                            <i class="fas fa-shopping-cart"></i> Th�m
-                        </button>
+                        <button class="btn-details" onclick="viewDetails(105)">Chi Tiết</button>
+                        <button class="btn-cart" onclick="addToCart(105)">Thêm</button>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card" data-id="34" data-category="quan" data-sport="caulong" data-name="Qu?n C?u L�ng Lining" data-price="520000" data-image="../img/product_34.jpg">
+            <!-- Product 4: Quần Cầu Lông Babolat -->
+            <div class="product-card" data-id="106" data-category="quan" data-sport="caulong" data-name="Quần Cầu Lông Babolat" data-price="380000" data-image="../img/tk1.jpg">
                 <div class="product-image">
-                    <img src="../img/tk1.jpg" alt="Qu?n C?u L�ng Lining">
+                    <img src="../img/tk1.jpg" alt="Quần Cầu Lông Babolat">
                 </div>
                 <div class="product-info">
-                    <h3>Qu?n C?u L�ng Lining</h3>
-                    <div class="product-price">520,000�</div>
+                    <h3>Quần Cầu Lông Babolat</h3>
+                    <div class="product-price">380,000₫</div>
                     <div class="product-actions">
-                        <button class="btn-details" onclick="viewDetails(34)">
-                            <i class="fas fa-eye"></i> Chi Ti?t
-                        </button>
-                        <button class="btn-cart" onclick="addToCart(34)">
-                            <i class="fas fa-shopping-cart"></i> Th�m
-                        </button>
+                        <button class="btn-details" onclick="viewDetails(106)">Chi Tiết</button>
+                        <button class="btn-cart" onclick="addToCart(106)">Thêm</button>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card" data-id="35" data-category="quan" data-sport="caulong" data-name="Qu?n C?u L�ng Babolat" data-price="380000" data-image="../img/product_35.jpg">
+            <!-- Product 5: Quần Cầu Lông Pro -->
+            <div class="product-card" data-id="107" data-category="quan" data-sport="caulong" data-name="Quần Cầu Lông Pro" data-price="400000" data-image="../img/tk1.jpg">
                 <div class="product-image">
-                    <img src="../img/tk1.jpg" alt="Qu?n C?u L�ng Babolat">
+                    <img src="../img/tk1.jpg" alt="Quần Cầu Lông Pro">
                 </div>
                 <div class="product-info">
-                    <h3>Qu?n C?u L�ng Babolat</h3>
-                    <div class="product-price">380,000�</div>
+                    <h3>Quần Cầu Lông Pro</h3>
+                    <div class="product-price">400,000₫</div>
                     <div class="product-actions">
-                        <button class="btn-details" onclick="viewDetails(35)">
-                            <i class="fas fa-eye"></i> Chi Ti?t
-                        </button>
-                        <button class="btn-cart" onclick="addToCart(35)">
-                            <i class="fas fa-shopping-cart"></i> Th�m
-                        </button>
+                        <button class="btn-details" onclick="viewDetails(107)">Chi Tiết</button>
+                        <button class="btn-cart" onclick="addToCart(107)">Thêm</button>
                     </div>
                 </div>
             </div>
 
-            <div class="product-card" data-id="36" data-category="quan" data-sport="caulong" data-name="Qu?n C?u L�ng Dunlop" data-price="450000" data-image="../img/product_36.jpg">
+            <!-- Product 6: Quần Cầu Lông Premium -->
+            <div class="product-card" data-id="108" data-category="quan" data-sport="caulong" data-name="Quần Cầu Lông Premium" data-price="420000" data-image="../img/tk1.jpg">
                 <div class="product-image">
-                    <img src="../img/tk1.jpg" alt="Qu?n C?u L�ng Dunlop">
+                    <img src="../img/tk1.jpg" alt="Quần Cầu Lông Premium">
                 </div>
                 <div class="product-info">
-                    <h3>Qu?n C?u L�ng Dunlop</h3>
-                    <div class="product-price">450,000�</div>
+                    <h3>Quần Cầu Lông Premium</h3>
+                    <div class="product-price">420,000₫</div>
                     <div class="product-actions">
-                        <button class="btn-details" onclick="viewDetails(36)">
-                            <i class="fas fa-eye"></i> Chi Ti?t
-                        </button>
-                        <button class="btn-cart" onclick="addToCart(36)">
-                            <i class="fas fa-shopping-cart"></i> Th�m
-                        </button>
+                        <button class="btn-details" onclick="viewDetails(108)">Chi Tiết</button>
+                        <button class="btn-cart" onclick="addToCart(108)">Thêm</button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-<footer id="footer">
+
+    <!-- FOOTER -->
+    <footer id="footer">
         <div id="footer-a">
+            <!-- Footer Left: Hỗ trợ khách hàng -->
             <div id="footer-left">
-                <h1 class="h">H? tr? kh�ch h�ng</h1>
+                <h1 class="h">Hỗ trợ khách hàng</h1>
                 <ul class="u">
-                    <li class="l"><a href="#">Ch�nh s�ch v?n chuy?n</a></li>
-                    <li class="l"><a href="#">Ch�nh s�ch �?i tr?</a></li>
-                    <li class="l"><a href="#">Ch�nh s�ch khuy?n m?i</a></li>
-                    <li class="l"><a href="#">H�?ng d?n mua h�ng</a></li>
-                    <li class="l"><a href="#">C�u h?i th�?ng g?p</a></li>
-                    <li class="l"><a href="#">B?o m?t th�ng tin</a></li>
+                    <li class="l"><a href="#">Chính sách vận chuyển</a></li>
+                    <li class="l"><a href="#">Chính sách Đổi trả</a></li>
+                    <li class="l"><a href="#">Chính sách khuyến mại</a></li>
+                    <li class="l"><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li class="l"><a href="#">Câu hỏi thường gặp</a></li>
+                    <li class="l"><a href="#">Bảo mật thông tin</a></li>
                 </ul>
             </div>
+
+            <!-- Footer Middle: Liên hệ -->
             <div id="footer-mid">
-                <h1 class="h">Li�n h?</h1>
+                <h1 class="h">Liên hệ</h1>
                 <ul class="u">
-                    <li class="l">?? �?a ch?: Thanh Long Y�n M? H�ng Y�n</li>
-                    <li class="l">?? �i?n tho?i: 0964778132</li>
-                    <li class="l">?? Email: Truongdzqua171@gmail.com</li>
-                    <li class="l"><a href="https://www.facebook.com/nguyen.van.truong.904709"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li class="l"><a href="https://www.instagram.com/truong_kutes/"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li class="l"><a href="https://www.youtube.com/@NguyenTr��ng-i1p"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    <li class="l">📍 Địa chỉ: Thanh Long Yên Mỹ Hưng Yên</li>
+                    <li class="l">📱 Điện thoại: 0964778132</li>
+                    <li class="l">📧 Email: Truongdzqua171@gmail.com</li>
+                    <li class="l">
+                        <a href="https://www.facebook.com/nguyen.van.truong.904709">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                    </li>
+                    <li class="l">
+                        <a href="https://www.instagram.com/truong_kutes/">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </li>
+                    <li class="l">
+                        <a href="https://www.youtube.com/@NguyenTrương-i1p">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </li>
                 </ul>
             </div>
+
+            <!-- Footer Right: Về chúng tôi -->
             <div id="footer-right">
-                <h1 class="h">V? ch�ng t�i</h1>
+                <h1 class="h">Về chúng tôi</h1>
                 <div class="footer-logo">
-                    <img src="../img/logo2.png" alt="Tr�?ng Sport Logo" class="logo">
+                    <img src="../img/logo2.png" alt="Trường Sport Logo" class="logo">
                 </div>
-                <p>TR�?NG SPORT - C?a h�ng th? thao chuy�n nghi?p h�ng �?u Vi?t Nam. Ch�ng t�i cung c?p c�c s?n ph?m th? thao ch?t l�?ng cao v?i gi� c? h?p l?.</p>
+                <p>TRƯỜNG SPORT - Cửa hàng thể thao chuyên nghiệp hàng đầu Việt Nam. Chúng tôi cung cấp các sản phẩm thể thao chất lượng cao với giá cả hợp lý.</p>
             </div>
+
+            <!-- Footer Extra: Đăng ký nhận tin -->
             <div id="footer-extra">
-                <h1 class="h">��ng k? nh?n tin</h1>
-                <p>��ng k? �? nh?n th�ng tin v? s?n ph?m m?i v� khuy?n m?i</p>
+                <h1 class="h">Đăng ký nhận tin</h1>
+                <p>Đăng ký để nhận thông tin về sản phẩm mới và khuyến mãi</p>
                 <div class="footer-signup">
-                    <input type="email" placeholder="Email c?a b?n" class="footer-email">
-                    <button class="footer-btn">��ng k?</button>
+                    <input type="email" placeholder="Email của bạn" class="footer-email">
+                    <button class="footer-btn">Đăng ký</button>
                 </div>
                 <div class="footer-payment">
-                    <h3>Thanh to�n</h3>
+                    <h3>Thanh toán</h3>
                     <div class="payment-icons">
                         <i class="fab fa-cc-visa"></i>
                         <i class="fab fa-cc-mastercard"></i>
@@ -283,13 +348,27 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer Bottom -->
         <div class="footer-bottom">
-            <p>� 2025 TR�?NG SPORT - B�n h�ng th? thao ch?t l�?ng cao</p>
+            <p>© 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
         </div>
     </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        function handleSearchRedirect(event) {
+            event.preventDefault();
+            const keyword = document.getElementById('searchInput').value.trim();
+            if (keyword === '') {
+                alert('Vui lòng nhập từ khóa');
+                return;
+            }
+            window.location.href = 'search.html?q=' + encodeURIComponent(keyword);
+        }
+    </script>
 </body>
-</html>
-</body>
+
 </html>
 
 

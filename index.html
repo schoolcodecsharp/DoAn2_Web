@@ -21,8 +21,8 @@
             </div>
             
             <div class="header-main">
-                <form class="search-form">
-                    <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <form class="search-form" onsubmit="handleSearchRedirect(event, 'index')">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
                     <button type="submit">Tìm kiếm</button>
                 </form>
 
@@ -449,5 +449,21 @@
             <p>© 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
         </div>
     </footer>
+
+    <script>
+        // Hàm xử lý chuyển hướng tìm kiếm
+        function handleSearchRedirect(event, from) {
+            event.preventDefault();
+            const keyword = document.getElementById('searchInput').value.trim();
+            
+            if (keyword === '') {
+                alert('Vui lòng nhập từ khóa tìm kiếm');
+                return;
+            }
+            
+            // Chuyển hướng đến trang tìm kiếm
+            window.location.href = 'html/search.html?q=' + encodeURIComponent(keyword);
+        }
+    </script>
 </body>
 </html>

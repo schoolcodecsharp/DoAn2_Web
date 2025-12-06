@@ -141,7 +141,7 @@
                         <div class="quantity-selector">
                             <div class="qty-control">
                                 <button class="qty-btn" onclick="decreaseQty()">-</button>
-                                <input type="number" class="qty-input" value="1" min="1" id="quantity">
+                                <input type="number" class="qty-input" value="1" min="1" id="quantity" onchange="validateQuantity()">
                                 <button class="qty-btn" onclick="increaseQty()">+</button>
                             </div>
                             <span style="color: #666;">Còn 50 sản phẩm</span>
@@ -150,10 +150,10 @@
                 </div>
 
                 <div class="product-actions">
-                    <button class="btn btn-add-cart" onclick="addToCartDetail()">
+                    <button class="btn btn-add-cart" id="addToCartBtn" onclick="addToCartDetail()">
                         <i class="fas fa-shopping-cart"></i> Thêm Vào Giỏ
                     </button>
-                    <button class="btn btn-buy-now" onclick="buyNow()">
+                    <button class="btn btn-buy-now" id="buyNowBtn" onclick="buyNow()">
                         <i class="fas fa-bolt"></i> Mua Ngay
                     </button>
                 </div>
