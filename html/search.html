@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Kết Quả Tìm Kiếm - Trường Sport</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/search.css">
     <script src="../js/products-data.js" defer></script>
     <script src="../js/giohang.js"></script>
     <script src="../js/login.js"></script>
     <script src="../js/account-menu.js"></script>
     <script src="../js/search.js"></script>
-<body style="font-family: Arial, sans-serif;">
+</head>
+<body>
     <header class="header">
         <div class="header-container">
             <div class="logo">
@@ -55,24 +55,27 @@
                 </div>
             </div>
         </div>
+    </header>
 
-        <nav class="navbar">
-            <ul class="menu">
+
+        <nav class="menu">
+        <div class="menu-container">
+            <ul class="menu-list">
                 <li class="menu-item">
                     <a href="../index.html" class="menu-link">🏠 Trang Chủ</a>
                 </li>
                 <li class="menu-item">
                     <a href="gioithieu.html" class="menu-link">📖 Giới Thiệu</a>
                 </li>
-                <li class="menu-item has-submenu">
-                    <a href="san-pham.html" class="menu-link">🛒 Sản Phẩm</a>
+                <li class="menu-item dropdown">
+                    <a href="#" class="menu-link">🛒 Sản Phẩm</a>
                     <div class="submenu">
                         <div class="submenu-section">
                             <div class="submenu-title">👖 QUẦN</div>
                             <ul class="submenu-list">
                                 <li class="submenu-item"><a href="quan-bong-da-nam.html" class="submenu-link">Quần Bóng Đá Nam</a></li>
                                 <li class="submenu-item"><a href="quan-bong-ro-nam.html" class="submenu-link">Quần Bóng Rổ Nam</a></li>
-                                <li class="submenu-item"><a href="quan-chay-bo.html" class="submenu-link">Quần Chạy Bộ Nam</a></li>
+                                <li class="submenu-item"><a href="quan-chay-bo.html" class="submenu-link">Quần Chạy Bộ</a></li>
                                 <li class="submenu-item"><a href="quan-tap-gym.html" class="submenu-link">Quần Tập Gym</a></li>
                                 <li class="submenu-item"><a href="quan-dap-xe.html" class="submenu-link">Quần Đạp Xe</a></li>
                                 <li class="submenu-item"><a href="quan-cau-long.html" class="submenu-link">Quần Cầu Lông</a></li>
@@ -120,9 +123,9 @@
                     <a href="#" class="menu-link">📞 Liên Hệ</a>
                 </li>
             </ul>
-        </nav>
-    </header>
-
+        </div>
+    </nav>
+    
     <main class="main">
         <h2 class="section-title">🔍 Kết Quả Tìm Kiếm</h2>
         <p class="search-info">Tìm kiếm cho: <span id="searchTerm" class="search-term"></span></p>
@@ -131,37 +134,56 @@
             <!-- Sản phẩm sẽ được hiển thị tại đây -->
         </div>
     </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Hỗ trợ khách hàng</h4>
-                <ul>
-                    <li><a href="#">Chính sách vận chuyển</a></li>
-                    <li><a href="#">Chính sách đổi trả</a></li>
-                    <li><a href="#">Hướng dẫn thanh toán</a></li>
-                    <li><a href="#">Câu hỏi thường gặp</a></li>
+ <footer id="footer">
+        <div id="footer-a">
+            <div id="footer-left">
+                <h1 class="h">Hỗ trợ khách hàng</h1>
+                <ul class="u">
+                    <li class="l"><a href="#">Chính sách vận chuyển</a></li>
+                    <li class="l"><a href="#">Chính sách Đổi trả</a></li>
+                    <li class="l"><a href="#">Chính sách khuyến mại</a></li>
+                    <li class="l"><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li class="l"><a href="#">Câu hỏi thường gặp</a></li>
+                    <li class="l"><a href="#">Bảo mật thông tin</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
-                <h4>Về chúng tôi</h4>
-                <ul>
-                    <li><a href="#">Giới thiệu</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                    <li><a href="#">Blog</a></li>
+            <div id="footer-mid">
+                <h1 class="h">Liên hệ</h1>
+                <ul class="u">
+                    <li class="l">📍 Địa chỉ: Thanh Long Yên Mỹ Hưng Yên</li>
+                    <li class="l">📱 Điện thoại: 0964778132</li>
+                    <li class="l">📧 Email: Truongdzqua171@gmail.com</li>
+                    <li class="l"><a href="https://www.facebook.com/nguyen.van.truong.904709"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li class="l"><a href="https://www.instagram.com/truong_kutes/"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li class="l"><a href="https://www.youtube.com/@NguyenTrương-i1p"><i class="fab fa-youtube"></i> YouTube</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
-                <h4>Theo dõi chúng tôi</h4>
-                <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Twitter</a></li>
-                </ul>
+            <div id="footer-right">
+                <h1 class="h">Về chúng tôi</h1>
+                <div class="footer-logo">
+                    <img src="../img/logo2.png" alt="Trường Sport Logo" class="logo">
+                </div>
+                <p>TRƯỜNG SPORT - Cửa hàng thể thao chuyên nghiệp hàng đầu Việt Nam. Chúng tôi cung cấp các sản phẩm thể thao chất lượng cao với giá cả hợp lý.</p>
+            </div>
+            <div id="footer-extra">
+                <h1 class="h">Đăng ký nhận tin</h1>
+                <p>Đăng ký để nhận thông tin về sản phẩm mới và khuyến mãi</p>
+                <div class="footer-signup">
+                    <input type="email" placeholder="Email của bạn" class="footer-email">
+                    <button class="footer-btn">Đăng ký</button>
+                </div>
+                <div class="footer-payment">
+                    <h3>Thanh toán</h3>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
+            <p>© 2025 TRƯỜNG SPORT - Bán hàng thể thao chất lượng cao</p>
         </div>
     </footer>
 

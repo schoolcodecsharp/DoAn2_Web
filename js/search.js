@@ -1,6 +1,6 @@
 // ============= SEARCH FUNCTIONALITY =============
 
-// Hàm tìm kiếm sản phẩm theo data-name
+// Hàm tìm kiếm sản phẩm theo name, sport, category - TOÀN DIỆN
 function searchProducts(keyword) {
     const lowerKeyword = keyword.toLowerCase().trim();
     
@@ -10,9 +10,111 @@ function searchProducts(keyword) {
         allProducts = productsData;
     }
     
-    // Tìm kiếm theo name (case-insensitive)
+    // Mapping tên Vietnamese sang code - CHO TẤT CẢ CATEGORIES
+    const categoryVieMap = {
+        'quần': 'quan',
+        'áo': 'ao',
+        'ao': 'ao',
+        'giày': 'giay',
+        'giay': 'giay',
+        'phụ kiện': 'phukien',
+        'phukien': 'phukien',
+        'phụ kiến': 'phukien'
+    };
+    
+    // Mapping tên Vietnamese sang code - CHO TẤT CẢ SPORTS
+    const sportVieMap = {
+        // Chung
+        'bóng đá': 'bongda',
+        'bongda': 'bongda',
+        'bóng rổ': 'bongro',
+        'bongro': 'bongro',
+        'chạy bộ': 'chaybo',
+        'chaybo': 'chaybo',
+        'tập gym': 'tapgym',
+        'tapgym': 'tapgym',
+        'đạp xe': 'dapxe',
+        'dapxe': 'dapxe',
+        'cầu lông': 'caulong',
+        'caulong': 'caulong',
+        
+        // Giày
+        'dã ngoài': 'dangoai',
+        'dangoai': 'dangoai',
+        'casual': 'casual',
+        
+        // Áo
+        'tập luyện': 'taplyuen',
+        'taplyuen': 'taplyuen',
+        'đồng phục': 'dongphuc',
+        'dongphuc': 'dongphuc',
+        'thời trang thể thao': 'thoitrangthethao',
+        'thoitrangthethao': 'thoitrangthethao',
+        'lifestyle': 'lifestyle',
+        
+        // Phụ kiện
+        'bóng': 'bong',
+        'bongdungcu': 'bongdungcu',
+        'túi': 'tui',
+        'tuibalo': 'tuibalo',
+        'bảo hộ': 'baoho',
+        'baoho': 'baoho',
+        'vớ': 'vo',
+        'vo': 'vo',
+        'yoga': 'yoga',
+        'fitness': 'fitness',
+        'khác': 'khac',
+        'khac': 'khac'
+    };
+    
+    // Tìm kiếm - LOGIC TOÀN DIỆN
     const results = allProducts.filter(product => {
-        return product.name.toLowerCase().includes(lowerKeyword);
+        const name = product.name.toLowerCase();
+        const category = product.category.toLowerCase();
+        const sport = product.sport.toLowerCase();
+        
+        // 1. Tìm kiếm theo TÊN sản phẩm
+        if (name.includes(lowerKeyword)) {
+            return true;
+        }
+        
+        // 2. Tìm kiếm theo CATEGORY (code hoặc tiếng Việt)
+        if (category.includes(lowerKeyword)) {
+            return true;
+        }
+        
+        if (categoryVieMap[lowerKeyword] && category === categoryVieMap[lowerKeyword]) {
+            return true;
+        }
+        
+        // 3. Tìm kiếm theo SPORT/LOẠI (code hoặc tiếng Việt)
+        if (sport.includes(lowerKeyword)) {
+            return true;
+        }
+        
+        if (sportVieMap[lowerKeyword] && sport === sportVieMap[lowerKeyword]) {
+            return true;
+        }
+        
+        // 4. Tìm kiếm từ khóa chứa category hoặc sport
+        if (lowerKeyword.includes(category) || category.includes(lowerKeyword)) {
+            return true;
+        }
+        
+        if (lowerKeyword.includes(sport) || sport.includes(lowerKeyword)) {
+            return true;
+        }
+        
+        // 5. Tìm kiếm theo thương hiệu (Nike, Adidas, Puma, v.v.)
+        const brands = ['nike', 'adidas', 'puma', 'reebok', 'asics', 'new balance', 'under armour', 'lululemon', 'vans', 'converse', 'timberland', 'skechers', 'dc shoes', 'lacoste', 'yonex', 'victor', 'lining', 'babolat', 'dunlop', 'spalding', 'peak', 'joma', 'shimano', 'merrell', 'salomon', 'keen', 'columbia', 'the north face'];
+        
+        for (let brand of brands) {
+            if (lowerKeyword === brand && name.includes(brand)) {
+                return true;
+            }
+        }
+        
+        return false;
     });
     
     return results;
@@ -65,19 +167,14 @@ function createProductCard(product) {
 // Hàm hiển thị khi không có kết quả
 function displayNoResults(resultsContainer) {
     resultsContainer.innerHTML = `
-        <div class="no-results">
-            <i class="fas fa-search"></i>
-            <h3>Không tìm thấy sản phẩm</h3>
-            <p>Xin lỗi, không có sản phẩm nào phù hợp với yêu cầu của bạn. Hãy thử từ khóa khác.</p>
-        </div>
-        <div class="search-suggestions">
-            <h4>🔍 Gợi ý danh mục:</h4>
-            <a href="quan-bong-da-nam.html" class="suggestion-link">👖 Quần Bóng Đá Nam</a>
-            <a href="ao-bong-da-nam.html" class="suggestion-link">👕 Áo Bóng Đá Nam</a>
-            <a href="giay-bong-da-nam.html" class="suggestion-link">👟 Giày Bóng Đá Nam</a>
-            <a href="phukien-bong-dungcu.html" class="suggestion-link">🎒 Phụ Kiện Bóng Đá</a>
-            <a href="san-pham.html" class="suggestion-link">🛒 Xem Tất Cả Sản Phẩm</a>
-            <a href="../index.html" class="suggestion-link">🏠 Về Trang Chủ</a>
+        <div style="grid-column: 1/-1; text-align: center; padding: 40px 20px;">
+            <i class="fas fa-search" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+            <h3 style="color: #666; margin: 20px 0;">Không tìm thấy sản phẩm</h3>
+            <p style="color: #999; margin-bottom: 30px;">Xin lỗi, không có sản phẩm nào phù hợp với yêu cầu của bạn. Hãy thử từ khóa khác.</p>
+            <div style="margin-top: 20px;">
+                <a href="san-pham.html" style="background: #007bff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin: 5px;">Xem Tất Cả Sản Phẩm</a>
+                <a href="../index.html" style="background: #6c757d; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; margin: 5px;">Về Trang Chủ</a>
+            </div>
         </div>
     `;
 }
@@ -94,24 +191,6 @@ function handleSearch(event) {
     
     const results = searchProducts(keyword);
     displayResults(results, keyword);
-}
-
-// Hàm xem chi tiết sản phẩm
-function viewProductDetail(category, productId) {
-    // Xác định file theo category
-    const categoryFileMap = {
-        'ao': 'ao-bong-da-nam.html',
-        'quan': 'quan-bong-da-nam.html',
-        'giay': 'giay-bong-da-nam.html',
-        'phukien': 'phukien-bong-dungcu.html'
-    };
-    
-    const fileName = categoryFileMap[category];
-    if (fileName) {
-        // Lưu product ID vào sessionStorage để trang chi tiết có thể truy cập
-        sessionStorage.setItem('viewProductId', productId);
-        window.location.href = fileName;
-    }
 }
 
 // Hàm xử lý chuyển hướng tìm kiếm từ các trang khác
