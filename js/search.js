@@ -1,6 +1,6 @@
 // ============= SEARCH FUNCTIONALITY =============
 
-// Hàm tìm kiếm sản phẩm
+// Hàm tìm kiếm sản phẩm theo data-name
 function searchProducts(keyword) {
     const lowerKeyword = keyword.toLowerCase().trim();
     
@@ -10,10 +10,9 @@ function searchProducts(keyword) {
         allProducts = productsData;
     }
     
-    // Tìm kiếm theo ID hoặc tên sản phẩm
+    // Tìm kiếm theo name (case-insensitive)
     const results = allProducts.filter(product => {
-        return product.id.toString().includes(lowerKeyword) || 
-               product.name.toLowerCase().includes(lowerKeyword);
+        return product.name.toLowerCase().includes(lowerKeyword);
     });
     
     return results;
@@ -31,40 +30,33 @@ function displayResults(products, keyword) {
         return;
     }
     
-    let html = '<div class="products-grid">';
+    let html = '';
     
     products.forEach(product => {
         html += createProductCard(product);
     });
     
-    html += '</div>';
     resultsContainer.innerHTML = html;
 }
 
-// Hàm tạo card sản phẩm
+// Hàm tạo card sản phẩm (giống index.html)
 function createProductCard(product) {
-    const categoryMap = {
-        'ao': '👕 Áo',
-        'quan': '👖 Quần',
-        'giay': '👟 Giày',
-        'phukien': '🎒 Phụ Kiện'
-    };
-    
-    const categoryDisplay = categoryMap[product.category] || product.category;
-    const stockStatus = product.stock > 0 ? `Còn lại: ${product.stock}` : 'Hết hàng';
-    const stockClass = product.stock > 0 ? '' : 'out-of-stock';
-    
     return `
-        <div class="product-item">
+        <div class="product-card" data-id="${product.id}" data-category="${product.category}" data-sport="${product.sport}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">
             <div class="product-image">
-                <i class="fas fa-image"></i>
+                <img src="${product.image}" alt="${product.name}">
             </div>
             <div class="product-info">
-                <p class="product-category">${categoryDisplay}</p>
-                <p class="product-name">${product.name}</p>
-                <p class="product-price">${product.price.toLocaleString('vi-VN')} đ</p>
-                <p class="product-stock ${stockClass}">${stockStatus}</p>
-                <button class="btn-details" onclick="viewProductDetail('${product.category}', '${product.id}')">Chi Tiết</button>
+                <h3>${product.name}</h3>
+                <div class="product-price">${product.price.toLocaleString('vi-VN')}₫</div>
+                <div class="product-actions">
+                    <button class="btn-details" onclick="viewDetails(${product.id})">
+                        <i class="fas fa-eye"></i> Chi Tiết
+                    </button>
+                    <button class="btn-cart" onclick="addToCart(${product.id})">
+                        <i class="fas fa-shopping-cart"></i> Thêm
+                    </button>
+                </div>
             </div>
         </div>
     `;

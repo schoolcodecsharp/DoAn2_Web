@@ -42,7 +42,29 @@ function formatMoney(amount) {
 
 // Thêm sản phẩm vào giỏ hàng
 function addToCart(productId) {
-    const product = document.querySelector(`[data-id="${productId}"]`);
+    // Tìm sản phẩm trong DOM trước
+    let product = document.querySelector(`[data-id="${productId}"]`);
+    
+    // Nếu không tìm thấy trong DOM, tìm trong productsData
+    if (!product && typeof productsData !== 'undefined') {
+        const foundProduct = productsData.find(p => p.id == productId);
+        if (foundProduct) {
+            product = {
+                getAttribute: (attr) => {
+                    const attrMap = {
+                        'data-id': foundProduct.id,
+                        'data-name': foundProduct.name,
+                        'data-price': foundProduct.price,
+                        'data-image': foundProduct.image,
+                        'data-category': foundProduct.category,
+                        'data-sport': foundProduct.sport
+                    };
+                    return attrMap[attr];
+                }
+            };
+        }
+    }
+    
     if (!product) {
         alert('Không tìm thấy sản phẩm!');
         return;

@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/search.css">
     <script src="../js/products-data.js" defer></script>
-</head>
+    <script src="../js/giohang.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/account-menu.js"></script>
+    <script src="../js/search.js"></script>
 <body style="font-family: Arial, sans-serif;">
     <header class="header">
         <div class="header-container">
@@ -120,14 +123,12 @@
         </nav>
     </header>
 
-    <main class="search-container">
-        <div class="search-content">
-            <div class="search-header">
-                <h2>Kết Quả Tìm Kiếm</h2>
-                <p>Tìm kiếm cho: <span id="searchTerm" class="search-term"></span></p>
-            </div>
+    <main class="main">
+        <h2 class="section-title">🔍 Kết Quả Tìm Kiếm</h2>
+        <p class="search-info">Tìm kiếm cho: <span id="searchTerm" class="search-term"></span></p>
 
-            <div id="resultsContainer"></div>
+        <div class="products-grid" id="resultsContainer">
+            <!-- Sản phẩm sẽ được hiển thị tại đây -->
         </div>
     </main>
 
@@ -166,6 +167,7 @@
 
     <script src="../js/login.js"></script>
     <script src="../js/account-menu.js"></script>
+    <script src="../js/giohang.js"></script>
     <script src="../js/search.js"></script>
 </body>
 </html>
