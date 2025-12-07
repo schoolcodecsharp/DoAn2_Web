@@ -146,7 +146,7 @@ function login() {
         alert(`✅ Đăng nhập thành công!\nXin chào ${foundUser.fullName}!`);
         
         // Chuyển về trang chủ
-        window.location.href = "../index.html";
+        window.location.href = "./index.html";
     } else {
         alert("❌ Sai tài khoản hoặc mật khẩu!");
     }
