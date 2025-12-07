@@ -145,8 +145,8 @@ function login() {
         
         alert(`✅ Đăng nhập thành công!\nXin chào ${foundUser.fullName}!`);
         
-        // Chuyển về trang chủ
-        window.location.href = "./index.html";
+        // Chuyển về trang chủ (lên một cấp vì đang ở /html/)
+        window.location.href = "../index.html";
     } else {
         alert("❌ Sai tài khoản hoặc mật khẩu!");
     }
@@ -221,9 +221,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const user = JSON.parse(currentUser);
             if (confirm(`Bạn đã đăng nhập với tài khoản: ${user.fullName}\n\nChuyển về trang chủ?`)) {
                 if (user.role === 'admin') {
-                    window.location.href = '/html/admin.html';
+                    window.location.href = './admin.html';
                 } else {
-                    window.location.href = '/index.html';
+                    window.location.href = '../index.html';
                 }
             }
         }
