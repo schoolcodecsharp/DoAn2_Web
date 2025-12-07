@@ -3,6 +3,25 @@
 // File: js/login.js
 // ============================================
 
+// Hàm helper để xác định đường dẫn chính xác
+function getHomePath() {
+    const currentPath = window.location.pathname;
+    // Nếu đang ở /html/ thì lên một cấp, nếu ở root thì ở nguyên chỗ
+    if (currentPath.includes('/html/')) {
+        return '../index.html';
+    }
+    return './index.html';
+}
+
+// Hàm helper để xác định đường dẫn admin
+function getAdminPath() {
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/html/')) {
+        return './admin.html';
+    }
+    return './html/admin.html';
+}
+
 // Hiển thị form đăng ký
 function showRegister() {
     document.getElementById('loginfrom').style.display = 'none';
@@ -124,7 +143,7 @@ function login() {
         alert(`✅ Đăng nhập thành công!\nChào mừng Admin!`);
         
         // Chuyển đến trang quản trị
-        window.location.href = "./admin.html";
+        window.location.href = getAdminPath();
         return;
     }
 
@@ -145,8 +164,8 @@ function login() {
         
         alert(`✅ Đăng nhập thành công!\nXin chào ${foundUser.fullName}!`);
         
-        // Chuyển về trang chủ (lên một cấp vì đang ở /html/)
-        window.location.href = "./../index.html";
+        // Chuyển về trang chủ
+        window.location.href = getHomePath();
     } else {
         alert("❌ Sai tài khoản hoặc mật khẩu!");
     }
@@ -221,9 +240,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const user = JSON.parse(currentUser);
             if (confirm(`Bạn đã đăng nhập với tài khoản: ${user.fullName}\n\nChuyển về trang chủ?`)) {
                 if (user.role === 'admin') {
-                    window.location.href = './admin.html';
+                    window.location.href = getAdminPath();
                 } else {
-                    window.location.href = '../index.html';
+                    window.location.href = getHomePath();
                 }
             }
         }
