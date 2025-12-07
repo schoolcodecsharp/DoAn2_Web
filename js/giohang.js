@@ -3,25 +3,36 @@
 // File: js/giohang.js
 // ============================================
 
-// Lấy giỏ hàng từ localStorage
+// Lấy giỏ hàng từ localStorage (sử dụng giỏ chung hoặc giỏ theo user)
 function getCart() {
     const currentUser = localStorage.getItem('currentUser');
-    if (!currentUser) return [];
     
-    const user = JSON.parse(currentUser);
-    const cartKey = `cart_${user.username}`;
-    const cartData = localStorage.getItem(cartKey);
-    return cartData ? JSON.parse(cartData) : [];
+    if (currentUser) {
+        // Nếu đã đăng nhập, sử dụng giỏ hàng cá nhân
+        const user = JSON.parse(currentUser);
+        const cartKey = `cart_${user.username}`;
+        const cartData = localStorage.getItem(cartKey);
+        return cartData ? JSON.parse(cartData) : [];
+    } else {
+        // Nếu chưa đăng nhập, sử dụng giỏ hàng chung
+        const cartData = localStorage.getItem('cart');
+        return cartData ? JSON.parse(cartData) : [];
+    }
 }
 
-// Lưu giỏ hàng vào localStorage
+// Lưu giỏ hàng vào localStorage (sử dụng giỏ chung hoặc giỏ theo user)
 function saveCart(cart) {
     const currentUser = localStorage.getItem('currentUser');
-    if (!currentUser) return;
     
-    const user = JSON.parse(currentUser);
-    const cartKey = `cart_${user.username}`;
-    localStorage.setItem(cartKey, JSON.stringify(cart));
+    if (currentUser) {
+        // Nếu đã đăng nhập, lưu giỏ hàng cá nhân
+        const user = JSON.parse(currentUser);
+        const cartKey = `cart_${user.username}`;
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+    } else {
+        // Nếu chưa đăng nhập, lưu giỏ hàng chung
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
     updateCartBadge();
 }
 
@@ -40,62 +51,52 @@ function formatMoney(amount) {
     return amount.toLocaleString('vi-VN') + '₫';
 }
 
-// Thêm sản phẩm vào giỏ hàng
-function addToCart(productId) {
-    // Tìm sản phẩm trong DOM trước
-    let product = document.querySelector(`[data-id="${productId}"]`);
+// Hàm tìm sản phẩm từ ID (dùng chung với chitiet.js)
+function findProductById(id) {
+    const numId = parseInt(id);
     
-    // Nếu không tìm thấy trong DOM, tìm trong productsData
-    if (!product && typeof productsData !== 'undefined') {
-        const foundProduct = productsData.find(p => p.id == productId);
-        if (foundProduct) {
-            product = {
-                getAttribute: (attr) => {
-                    const attrMap = {
-                        'data-id': foundProduct.id,
-                        'data-name': foundProduct.name,
-                        'data-price': foundProduct.price,
-                        'data-image': foundProduct.image,
-                        'data-category': foundProduct.category,
-                        'data-sport': foundProduct.sport
-                    };
-                    return attrMap[attr];
-                }
-            };
-        }
+    // 1. Tìm từ products-data.js (tĩnh, ID 1-144)
+    if (typeof productsData !== 'undefined' && Array.isArray(productsData)) {
+        const found = productsData.find(p => p.id == numId);
+        if (found) return found;
     }
     
-    if (!product) {
-        alert('Không tìm thấy sản phẩm!');
+    // 2. Tìm từ localStorage (admin, ID >= 1000)
+    const adminProducts = JSON.parse(localStorage.getItem('products')) || [];
+    const adminFound = adminProducts.find(p => p.id == numId);
+    if (adminFound) return adminFound;
+    
+    return null;
+}
+
+// Thêm sản phẩm vào giỏ hàng
+function addToCart(productId) {
+    // Tìm sản phẩm từ hàm chung
+    const foundProduct = findProductById(productId);
+    
+    if (!foundProduct) {
+        alert('❌ Không tìm thấy sản phẩm!');
+        return;
+    }
+
+    // Kiểm tra stock
+    const currentStock = foundProduct.stock ?? 50;
+    if (!currentStock || currentStock <= 0) {
+        alert('❌ Sản phẩm này hiện đã hết hàng!');
         return;
     }
 
     const productData = {
-        id: product.getAttribute('data-id'),
-        name: product.getAttribute('data-name'),
-        price: parseInt(product.getAttribute('data-price')),
-        image: product.getAttribute('data-image'),
-        category: product.getAttribute('data-category'),
-        sport: product.getAttribute('data-sport'),
+        id: foundProduct.id,
+        name: foundProduct.name,
+        price: foundProduct.price || 0,
+        image: foundProduct.image || '../img/logo2.png',
+        category: foundProduct.category || '-',
+        sport: foundProduct.sport || '-',
         size: 'M', // Mặc định size M
-        quantity: 1
+        quantity: 1,
+        stock: currentStock
     };
-
-    // Lấy stock từ localStorage.products
-    const allProducts = JSON.parse(localStorage.getItem('products')) || [];
-    const dbProduct = allProducts.find(p => String(p.id) === String(productData.id));
-    
-    if (dbProduct) {
-        productData.stock = dbProduct.stock ?? 10;
-        
-        // Kiểm tra stock trước khi thêm
-        if (!dbProduct.stock || dbProduct.stock <= 0) {
-            alert('❌ Sản phẩm này hiện đã hết hàng!');
-            return;
-        }
-    } else {
-        productData.stock = 10; // Mặc định
-    }
 
     let cart = getCart();
     
@@ -107,8 +108,8 @@ function addToCart(productId) {
     if (existingIndex > -1) {
         // Kiểm tra tổng số lượng với stock
         const newQty = cart[existingIndex].quantity + 1;
-        if (newQty > productData.stock) {
-            alert(`❌ Chỉ còn ${productData.stock} sản phẩm trong kho!`);
+        if (newQty > currentStock) {
+            alert(`❌ Chỉ còn ${currentStock} sản phẩm trong kho!`);
             return;
         }
         cart[existingIndex].quantity = newQty;
@@ -186,10 +187,9 @@ function renderCart() {
     let hasStockWarning = false;
     
     cart.forEach((item, index) => {
-        // Kiểm tra stock từ database
-        const allProducts = JSON.parse(localStorage.getItem('products')) || [];
-        const dbProduct = allProducts.find(p => String(p.id) === String(item.id));
-        const currentStock = dbProduct ? (dbProduct.stock ?? 10) : (item.stock ?? 10);
+        // Kiểm tra stock từ hàm chung
+        const product = findProductById(item.id);
+        const currentStock = product ? (product.stock ?? 50) : (item.stock ?? 50);
         
         let stockWarning = '';
         if (item.quantity > currentStock) {
@@ -281,10 +281,9 @@ function updateQuantity(index, change) {
     let cart = getCart();
     const newQty = cart[index].quantity + change;
     
-    // Kiểm tra stock từ database
-    const allProducts = JSON.parse(localStorage.getItem('products')) || [];
-    const dbProduct = allProducts.find(p => String(p.id) === String(cart[index].id));
-    const maxStock = dbProduct ? (dbProduct.stock ?? 10) : (cart[index].stock ?? 10);
+    // Tìm stock từ hàm chung
+    const product = findProductById(cart[index].id);
+    const maxStock = product ? (product.stock ?? 50) : (cart[index].stock ?? 50);
     
     if (newQty < 1) {
         cart[index].quantity = 1;

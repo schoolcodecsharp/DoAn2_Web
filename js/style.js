@@ -39,6 +39,18 @@ function initSlideshow() {
 
 // Xem chi tiết sản phẩm
 function viewDetails(productId) {
+    // Lấy data-image từ product card
+    const productCard = document.querySelector(`[data-id="${productId}"]`);
+    let productImage = '../img/tk1.jpg';
+    
+    if (productCard && productCard.getAttribute('data-image')) {
+        productImage = productCard.getAttribute('data-image');
+    }
+    
+    // Lưu vào sessionStorage để trang chi tiết có thể lấy
+    sessionStorage.setItem('selectedProductImage', productImage);
+    sessionStorage.setItem('selectedProductId', productId);
+    
     // Kiểm tra xem đang ở trang nào
     const currentPath = window.location.pathname;
     

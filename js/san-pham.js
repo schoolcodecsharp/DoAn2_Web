@@ -1,60 +1,69 @@
-// ===== PRODUCT DATA =====
-// This is a shared product database for the entire site
-const allProducts = [
-    
-    { id: 1, category: "ao", sport: "bongda", name: "Quần Áo Bóng Đá Thiết Kế RO-25 Màu Đỏ", price: 119000, image: "img/tk1.jpg", isNew: false },
-    { id: 2, category: "ao", sport: "bongro", name: "Áo Bóng Rổ Nike Chính Hãng", price: 259000, image: "img/aobongro.jpeg", isNew: false },
-    { id: 3, category: "giay", sport: "bongda", name: "Giày Đá Bóng Kamito Velocidad", price: 499000, image: "img/tk1.webp", isNew: false },
-    { id: 4, category: "phukien", sport: "bongchuyen", name: "Phụ Kiện Bóng Chuyền - Băng Cổ Tay", price: 69000, image: "img/bct1.webp", isNew: false },
-    { id: 5, category: "quan", sport: "chaybo", name: "Quần Chạy Bộ Adidas Climacool", price: 349000, image: "img/product_5.jpg", isNew: false },
-    { id: 6, category: "phukien", sport: "dapxe", name: "Mũ Bảo Hiểm Đạp Xe GVR", price: 189000, image: "img/product_6.jpg", isNew: false },
+// ============================================
+// SAN-PHAM.JS - Quản lý trang danh mục sản phẩm
+// File: js/san-pham.js
+// ============================================
 
-    { id: 7, category: "ao", sport: "caulong", name: "Áo Cầu Lông Yonex Chính Hãng", price: 399000, image: "img/product_7.jpg", isNew: true },
-    { id: 8, category: "giay", sport: "bongro", name: "Giày Bóng Rổ Jordan Air Max", price: 599000, image: "img/product_8.jpg", isNew: true },
-    { id: 9, category: "phukien", sport: "yoga", name: "Thảm Yoga PVC Chống Trơn", price: 299000, image: "img/product_9.jpg", isNew: true },
-    { id: 10, category: "phukien", sport: "bongban", name: "Vợt Bóng Bàn DHS Chính Hãng", price: 249000, image: "img/product_10.jpg", isNew: true },
-    { id: 11, category: "quan", sport: "bongro", name: "Quần Bóng Rổ Nike Dri-FIT", price: 279000, image: "img/product_11.jpg", isNew: true },
-    { id: 12, category: "phukien", sport: "bongchuyen", name: "Bóng Chuyền Molten Chính Hãng", price: 449000, image: "img/product_12.jpg", isNew: true }
-];
+// Lấy sản phẩm từ ID (tĩnh + admin)
+function findProductById(id) {
+    const numId = parseInt(id);
+    
+    // 1. Tìm từ products-data.js (tĩnh, ID 1-144)
+    if (typeof productsData !== 'undefined' && Array.isArray(productsData)) {
+        const found = productsData.find(p => p.id == numId);
+        if (found) return found;
+    }
+    
+    // 2. Tìm từ localStorage (admin, ID >= 1000)
+    const adminProducts = JSON.parse(localStorage.getItem('products')) || [];
+    const adminFound = adminProducts.find(p => p.id == numId);
+    if (adminFound) return adminFound;
+    
+    return null;
+}
 
 const categoryMapping = {
-    'quan-bong-da-nam': { category: 'quan', sport: 'bongda', title: 'Quần Bóng Đá Nam' },
-    'quan-bong-ro-nam': { category: 'quan', sport: 'bongro', title: 'Quần Bóng Rổ Nam' },
-    'quan-chay-bo': { category: 'quan', sport: 'chaybo', title: 'Quần Chạy Bộ' },
-    'quan-tap-gym': { category: 'quan', sport: 'gym', title: 'Quần Tập Gym' },
-    'quan-dap-xe': { category: 'quan', sport: 'dapxe', title: 'Quần Đạp Xe' },
-    'quan-cau-long': { category: 'quan', sport: 'caulong', title: 'Quần Cầu Lông' },
+    'quan-bong-da-nam': { category: 'Quần', sport: 'Bóng Đá', title: 'Quần Bóng Đá Nam' },
+    'quan-bong-ro-nam': { category: 'Quần', sport: 'Bóng Rổ', title: 'Quần Bóng Rổ Nam' },
+    'quan-chay-bo': { category: 'Quần', sport: 'Chạy Bộ', title: 'Quần Chạy Bộ' },
+    'quan-tap-gym': { category: 'Quần', sport: 'Tập Gym', title: 'Quần Tập Gym' },
+    'quan-dap-xe': { category: 'Quần', sport: 'Đạp Xe', title: 'Quần Đạp Xe' },
+    'quan-cau-long': { category: 'Quần', sport: 'Cầu Lông', title: 'Quần Cầu Lông' },
     
-    'ao-bong-da-nam': { category: 'ao', sport: 'bongda', title: 'Áo Bóng Đá Nam' },
-    'ao-bong-ro-nam': { category: 'ao', sport: 'bongro', title: 'Áo Bóng Rổ Nam' },
-    'ao-tap-luyen': { category: 'ao', sport: 'taplyuen', title: 'Áo Tập Luyện' },
-    'ao-dong-phuc': { category: 'ao', sport: 'dongphuc', title: 'Áo Đồng Phục' },
-    'ao-thoi-trang': { category: 'ao', sport: 'thoidung', title: 'Áo Thời Trang Thể Thao' },
-    'ao-lifestyle': { category: 'ao', sport: 'lifestyle', title: 'Áo Lifestyle' },
+    'ao-bong-da-nam': { category: 'Áo', sport: 'Bóng Đá', title: 'Áo Bóng Đá Nam' },
+    'ao-bong-ro-nam': { category: 'Áo', sport: 'Bóng Rổ', title: 'Áo Bóng Rổ Nam' },
+    'ao-tap-luyen': { category: 'Áo', sport: 'Tập Luyện', title: 'Áo Tập Luyện' },
+    'ao-dong-phuc': { category: 'Áo', sport: 'Đồng Phục', title: 'Áo Đồng Phục' },
+    'ao-thoi-trang-the-thao': { category: 'Áo', sport: 'Thời Trang Thể Thao', title: 'Áo Thời Trang Thể Thao' },
+    'ao-lifestyle': { category: 'Áo', sport: 'Lifestyle', title: 'Áo Lifestyle' },
     
-    'giay-bong-da-nam': { category: 'giay', sport: 'bongda', title: 'Giày Bóng Đá Nam' },
-    'giay-bong-ro-nam': { category: 'giay', sport: 'bongro', title: 'Giày Bóng Rổ Nam' },
-    'giay-chay-bo': { category: 'giay', sport: 'chaybo', title: 'Giày Chạy Bộ' },
-    'giay-tap-gym': { category: 'giay', sport: 'gym', title: 'Giày Tập Gym' },
-    'giay-da-ngoai': { category: 'giay', sport: 'dangoai', title: 'Giày Dã Ngoại' },
-    'giay-casual': { category: 'giay', sport: 'casual', title: 'Giày Casual' },
+    'giay-bong-da-nam': { category: 'Giày', sport: 'Bóng Đá', title: 'Giày Bóng Đá Nam' },
+    'giay-bong-ro-nam': { category: 'Giày', sport: 'Bóng Rổ', title: 'Giày Bóng Rổ Nam' },
+    'giay-chay-bo': { category: 'Giày', sport: 'Chạy Bộ', title: 'Giày Chạy Bộ' },
+    'giay-tap-gym': { category: 'Giày', sport: 'Tập Gym', title: 'Giày Tập Gym' },
+    'giay-da-ngoai': { category: 'Giày', sport: 'Dã Ngoài', title: 'Giày Dã Ngoài' },
+    'giay-casual': { category: 'Giày', sport: 'Casual', title: 'Giày Casual' },
     
-    'phu-kien-bong-dung-cu': { category: 'phukien', sport: 'bongdungcu', title: 'Bóng & Dụng Cụ' },
-    'phu-kien-tui-balo': { category: 'phukien', sport: 'tuibalo', title: 'Túi & Balo' },
-    'phu-kien-bao-ho': { category: 'phukien', sport: 'baoho', title: 'Bảo Hộ & Băng' },
-    'phu-kien-vo-gang-tay': { category: 'phukien', sport: 'vogangtay', title: 'Vớ & Găng Tay' },
-    'phu-kien-yoga': { category: 'phukien', sport: 'yoga', title: 'Yoga & Fitness' },
-    'phu-kien-khac': { category: 'phukien', sport: 'khac', title: 'Phụ Kiện Khác' }
+    'phukien-bong-dungcu': { category: 'Phụ Kiện', sport: 'Bóng & Dụng Cụ', title: 'Bóng & Dụng Cụ' },
+    'phukien-tui-balo': { category: 'Phụ Kiện', sport: 'Túi & Balo', title: 'Túi & Balo' },
+    'phukien-bao-ho': { category: 'Phụ Kiện', sport: 'Bảo Hộ', title: 'Bảo Hộ & Băng' },
+    'phukien-vo-gang': { category: 'Phụ Kiện', sport: 'Vớ & Găng', title: 'Vớ & Găng Tay' },
+    'phukien-yoga-fitness': { category: 'Phụ Kiện', sport: 'Yoga & Fitness', title: 'Yoga & Fitness' },
+    'phukien-khac': { category: 'Phụ Kiện', sport: 'Khác', title: 'Phụ Kiện Khác' }
 };
 
-// Get current page category from filename
+// Lấy category hiện tại từ tên file
 function getCurrentPageCategory() {
     const filename = window.location.pathname.split('/').pop().replace('.html', '');
     return categoryMapping[filename] || null;
 }
 
-// Filter products by category and sport
+// Filter sản phẩm theo category và sport
 function getProductsByCategory(category, sport = null) {
+    // Kết hợp sản phẩm tĩnh + admin
+    let allProducts = Array.isArray(productsData) ? [...productsData] : [];
+    const adminProducts = JSON.parse(localStorage.getItem('products')) || [];
+    allProducts = [...allProducts, ...adminProducts];
+    
     return allProducts.filter(product => {
         if (sport) {
             return product.category === category && product.sport === sport;
@@ -63,16 +72,32 @@ function getProductsByCategory(category, sport = null) {
     });
 }
 
-// Create product card HTML
+// Xem chi tiết sản phẩm
+function viewDetails(productId) {
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/html/')) {
+        window.location.href = `chitiet.html?id=${productId}`;
+    } else {
+        window.location.href = `html/chitiet.html?id=${productId}`;
+    }
+}
+
+// Tạo HTML thẻ sản phẩm
 function createProductCard(product) {
+    // Xử lý đường dẫn ảnh
+    let imagePath = product.image || '../img/logo2.png';
+    if (!imagePath.startsWith('../') && !imagePath.startsWith('http')) {
+        imagePath = '../' + imagePath;
+    }
+    
     return `
-        <div class="product-card" data-id="${product.id}" data-category="${product.category}" data-sport="${product.sport}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">
+        <div class="product-card" data-id="${product.id}" data-category="${product.category}" data-sport="${product.sport}" data-name="${product.name}" data-price="${product.price}" data-image="${imagePath}">
             <div class="product-image">
-                <img src="../${product.image}" alt="${product.name}">
+                <img src="${imagePath}" alt="${product.name}">
             </div>
             <div class="product-info">
                 <h3>${product.name}</h3>
-                <div class="product-price">${product.price.toLocaleString('vi-VN')}₫</div>
+                <div class="product-price">${(product.price || 0).toLocaleString('vi-VN')}₫</div>
                 <div class="product-actions">
                     <button class="btn-details" onclick="viewDetails(${product.id})">
                         <i class="fas fa-eye"></i> Chi Tiết
@@ -86,7 +111,7 @@ function createProductCard(product) {
     `;
 }
 
-// Load products on category page
+// Load sản phẩm trang danh mục
 function loadCategoryProducts() {
     const pageCategory = getCurrentPageCategory();
     
@@ -95,11 +120,11 @@ function loadCategoryProducts() {
         return;
     }
     
-    // Update page title and description
+    // Cập nhật tiêu đề trang
     document.getElementById('categoryTitle').textContent = pageCategory.title;
     document.getElementById('categoryDesc').textContent = `Tìm kiếm ${pageCategory.title.toLowerCase()} chất lượng cao, thoải mái và độc đáo`;
     
-    // Get products
+    // Lấy sản phẩm
     const products = getProductsByCategory(pageCategory.category, pageCategory.sport);
     const container = document.getElementById('categoryProducts');
     const noProducts = document.getElementById('noProducts');
@@ -114,11 +139,11 @@ function loadCategoryProducts() {
     noProducts.style.display = 'none';
     container.innerHTML = products.map(createProductCard).join('');
     
-    // Apply filters if they exist
+    // Áp dụng bộ lọc
     applyFilters(products);
 }
 
-// Apply filters and sorting
+// Áp dụng bộ lọc và sắp xếp
 function applyFilters(allFilteredProducts) {
     const priceFilter = document.getElementById('priceFilter');
     const sortFilter = document.getElementById('sortFilter');
@@ -128,24 +153,22 @@ function applyFilters(allFilteredProducts) {
     function updateDisplay() {
         let filtered = [...allFilteredProducts];
         
-        // Price filter
+        // Bộ lọc giá
         const priceValue = priceFilter.value;
         if (priceValue) {
             const [min, max] = priceValue.split('-').map(v => v ? parseInt(v) : Infinity);
             filtered = filtered.filter(p => p.price >= min && p.price <= max);
         }
         
-        // Sort
+        // Sắp xếp
         const sortValue = sortFilter.value;
         if (sortValue === 'price-asc') {
             filtered.sort((a, b) => a.price - b.price);
         } else if (sortValue === 'price-desc') {
             filtered.sort((a, b) => b.price - a.price);
-        } else if (sortValue === 'newest') {
-            filtered.sort((a, b) => b.isNew - a.isNew);
         }
         
-        // Display
+        // Hiển thị
         const container = document.getElementById('categoryProducts');
         const noProducts = document.getElementById('noProducts');
         
@@ -163,5 +186,15 @@ function applyFilters(allFilteredProducts) {
     sortFilter.addEventListener('change', updateDisplay);
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', loadCategoryProducts);
+// Khởi tạo khi trang load
+document.addEventListener('DOMContentLoaded', function() {
+    loadCategoryProducts();
+    
+    if (typeof updateCartBadge === 'function') {
+        updateCartBadge();
+    }
+    if (typeof updateUserDisplay === 'function') {
+        updateUserDisplay();
+    }
+});
+

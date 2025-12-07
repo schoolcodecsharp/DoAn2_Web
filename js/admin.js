@@ -268,9 +268,25 @@ function addOrUpdateProduct() {
         saveProducts(products);
         alert('✅ Cập nhật sản phẩm thành công!');
     } else {
-        // Create - Thêm vào trang category tương ứng
-        const newId = Date.now();
-        const newProduct = { id: newId, name, price, category, sport, stock, image, description, createdAt: new Date().toISOString() };
+        // Create - Tạo ID mới (> 1000 để phân biệt với sản phẩm tĩnh 1-144)
+        let newId = 1000;
+        if (products.length > 0) {
+            // Tìm ID lớn nhất hiện tại
+            const maxId = Math.max(...products.map(p => parseInt(p.id) || 0));
+            newId = Math.max(1000, maxId + 1);
+        }
+        
+        const newProduct = { 
+            id: newId, 
+            name, 
+            price, 
+            category, 
+            sport, 
+            stock, 
+            image, 
+            description, 
+            createdAt: new Date().toISOString() 
+        };
         products.push(newProduct);
         saveProducts(products);
         

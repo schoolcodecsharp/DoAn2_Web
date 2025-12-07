@@ -1,184 +1,116 @@
 // ============================================
 // PRODUCT DETAIL MANAGER - Quản lý trang chi tiết sản phẩm
-// File: js/product-detail.js
+// File: js/chitiet.js
 // ============================================
 
-// Dữ liệu sản phẩm (có thể lấy từ database sau này)
-const productsData = {
-    1: {
-        id: 1,
-        name: "Quần Áo Bóng Đá Thiết Kế RO-25 Màu Đỏ",
-        price: 119000,
-        oldPrice: 159000,
-        discount: 25,
-        category: "Áo",
-        sport: "Bóng Đá",
-        rating: 4.5,
-        reviews: 128,
-        stock: 50,
-        images: ["../img/tk1.jpg", "../img/tk1.jpg", "../img/tk1.jpg", "../img/tk1.jpg"],
-        description: "Bộ quần áo bóng đá thiết kế cao cấp, chất liệu vải thể thao chuyên dụng, thấm hút mồ hôi tốt, thoáng mát. Thiết kế trẻ trung, năng động, phù hợp cho cả tập luyện và thi đấu.",
-        features: [
-            "Chất liệu: 100% Polyester cao cấp",
-            "Công nghệ thấm hút mồ hôi Dri-FIT",
-            "Thiết kế ôm body tôn dáng",
-            "Màu sắc bền đẹp, không phai",
-            "Phù hợp mọi điều kiện thời tiết"
-        ],
-        sizes: ["S", "M", "L", "XL", "XXL"],
-        colors: ["Đỏ", "Xanh", "Vàng", "Đen"]
-    },
-    2: {
-        id: 2,
-        name: "Áo Bóng Rổ Nike Chính Hãng",
-        price: 259000,
-        oldPrice: 329000,
-        discount: 21,
-        category: "Áo",
-        sport: "Bóng Rổ",
-        rating: 4.8,
-        reviews: 95,
-        stock: 35,
-        images: ["../img/aobongro.jpeg", "../img/aobongro1.jpeg", "../img/aobongro2.jpeg", "../img/aobongro3.jpeg"],
-        description: "Áo bóng rổ Nike chính hãng với chất liệu cao cấp, thiết kế thể thao năng động, thoáng mát và bền đẹp.",
-        features: [
-            "Thương hiệu: Nike",
-            "Chất liệu: Polyester thoáng khí",
-            "Công nghệ Dri-FIT",
-            "Form áo rộng thoải mái",
-            "Chính hãng 100%"
-        ],
-        sizes: ["M", "L", "XL", "XXL"],
-        colors: ["Xanh", "Đỏ", "Trắng", "Đen"]
-    },
-    3: {
-        id: 3,
-        name: "Giày Đá Bóng Kamito Velocidad",
-        price: 499000,
-        oldPrice: 699000,
-        discount: 29,
-        category: "Giày",
-        sport: "Bóng Đá",
-        rating: 4.7,
-        reviews: 156,
-        stock: 42,
-        images: ["../img/tk1.webp", "../img/tk1.webp", "../img/tk1.jpg", "../img/tk1.webp"],
-        description: "Giày đá bóng Kamito Velocidad với thiết kế hiện đại, độ bám sân tốt, mang lại cảm giác thoải mái tối đa khi chơi bóng.",
-        features: [
-            "Đế giày cao su chống trượt",
-            "Thiết kế ôm chân",
-            "Trọng lượng nhẹ",
-            "Độ bền cao",
-            "Phù hợp sân cỏ tự nhiên và nhân tạo"
-        ],
-        sizes: ["39", "40", "41", "42", "43"],
-        colors: ["Đen", "Xanh", "Trắng"]
-    },
-    4: {
-        id: 4,
-        name: "Phụ Kiện Bóng Chuyền - Băng Cổ Tay",
-        price: 69000,
-        oldPrice: 89000,
-        discount: 22,
-        category: "Phụ Kiện",
-        sport: "Bóng Chuyền",
-        rating: 4.3,
-        reviews: 87,
-        stock: 100,
-        images: ["../img/bct1.webp", "../img/bct2.webp", "../img/bct3.webp", "../img/bct4.webp"],
-        description: "Băng cổ tay thể thao chuyên dụng cho bóng chuyền, thấm hút mồ hôi tốt, co giãn thoải mái.",
-        features: [
-            "Chất liệu cotton cao cấp",
-            "Thấm hút mồ hôi tốt",
-            "Co giãn 4 chiều",
-            "Nhiều màu sắc",
-            "Giặt máy được"
-        ],
-        sizes: ["Free Size"],
-        colors: ["Đỏ", "Xanh", "Vàng", "Trắng", "Đen"]
-    },
-    5: {
-        id: 5,
-        name: "Quần Chạy Bộ Adidas Climacool",
-        price: 349000,
-        oldPrice: 449000,
-        discount: 22,
-        category: "Quần",
-        sport: "Chạy Bộ",
-        rating: 4.6,
-        reviews: 112,
-        stock: 45,
-        images: ["../img/product_5.jpg", "../img/product_11.jpg", "../img/tk1.jpg", "../img/product_2.jpg"],
-        description: "Quần chạy bộ Adidas với công nghệ Climacool, thoáng mát, co giãn tốt, phù hợp cho việc tập luyện và chạy marathon.",
-        features: [
-            "Công nghệ Climacool",
-            "Chất liệu co giãn 4 chiều",
-            "Túi khóa kéo an toàn",
-            "Thấm hút mồ hôi",
-            "Form dáng thể thao"
-        ],
-        sizes: ["S", "M", "L", "XL"],
-        colors: ["Đen", "Xám", "Xanh Navy"]
+// Hàm lấy tên danh mục từ ID
+function getCategoryName(category) {
+    const categories = {
+        'ao': 'Áo Thể Thao',
+        'quan': 'Quần',
+        'giay': 'Giày',
+        'phukien': 'Phụ Kiện'
+    };
+    return categories[category] || 'Sản Phẩm';
+}
+
+// Hàm lấy link danh mục từ category
+function getCategoryLink(category) {
+    const links = {
+        'ao': 'san-pham.html?category=ao',
+        'quan': 'san-pham.html?category=quan',
+        'giay': 'san-pham.html?category=giay',
+        'phukien': 'san-pham.html?category=phukien'
+    };
+    return links[category] || 'san-pham.html';
+}
+
+// Hàm lấy sản phẩm từ ID (tĩnh hoặc admin)
+function findProductById(id) {
+    const numId = parseInt(id);
+    
+    // 1. Tìm từ products-data.js (tĩnh, ID 1-144)
+    if (typeof productsData !== 'undefined' && Array.isArray(productsData)) {
+        const found = productsData.find(p => p.id == numId);
+        if (found) return found;
     }
-};
+    
+    // 2. Tìm từ localStorage (admin, ID >= 1000)
+    const adminProducts = JSON.parse(localStorage.getItem('products')) || [];
+    const adminFound = adminProducts.find(p => p.id == numId);
+    if (adminFound) return adminFound;
+    
+    return null;
+}
 
-function getStoredProductById(id) {
-    try {
-        const list = JSON.parse(localStorage.getItem('products')) || [];
-        const found = list.find(p => String(p.id) === String(id));
-        if (!found) return null;
-
-        function imgForDetail(path) {
-            if (!path) return '../img/logo2.png';
-            // Trang chi tiết nằm trong /html, cần '../' cho thư mục img
-            if (path.startsWith('img/')) return '../' + path;
-            return path; // đã là '../img/...'
-        }
-
-        const images = found.image ? [imgForDetail(found.image)] : ['../img/logo2.png'];
-        return {
-            id: found.id,
-            name: found.name || 'Sản phẩm',
-            price: found.price || 0,
-            oldPrice: found.oldPrice || null,
-            discount: found.discount || null,
-            category: found.category || '-',
-            sport: found.sport || '-',
-            rating: 4.6,
-            reviews: 0,
-            stock: found.stock ?? 0,
-            images: images,
-            description: found.description || 'Sản phẩm do Admin thêm.',
-            features: [
-                'Chất lượng đảm bảo',
-                'Thiết kế thể thao năng động',
-                'Giá tốt, dễ tiếp cận'
-            ],
-            sizes: ['S','M','L','XL'],
-            colors: ['Đen','Trắng','Đỏ']
-        };
-    } catch (e) { return null; }
+// Chuyển đổi sản phẩm tĩnh thành chi tiết đầy đủ
+function normalizeProduct(product) {
+    if (!product) return null;
+    
+    // Lấy ảnh từ product.image
+    let images = [];
+    if (product.images && Array.isArray(product.images)) {
+        images = product.images;
+    } else if (product.image) {
+        // Lấy ảnh chính từ product.image
+        images = [product.image];
+    } else {
+        // Fallback: dùng ảnh mặc định
+        images = ['../img/tk1.jpg'];
+    }
+    
+    return {
+        id: product.id,
+        name: product.name || 'Sản phẩm',
+        price: product.price || 0,
+        oldPrice: product.oldPrice || null,
+        discount: product.discount || null,
+        category: product.category || '-',
+        sport: product.sport || '-',
+        rating: product.rating || 4.5,
+        reviews: product.reviews || 0,
+        stock: product.stock ?? 50,
+        images: images,
+        description: product.description || 'Sản phẩm chất lượng cao từ Trường Sport',
+        features: product.features || [
+            'Chất lượng đảm bảo',
+            'Thiết kế thể thao năng động',
+            'Giá tốt, dễ tiếp cận'
+        ],
+        sizes: product.sizes || ['S','M','L','XL'],
+        colors: product.colors || ['Đen','Trắng','Đỏ']
+    };
 }
 
 // Load thông tin sản phẩm khi trang được tải
 document.addEventListener('DOMContentLoaded', function() {
+    // Lấy ID từ URL parameter hoặc sessionStorage
     const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
+    let productId = urlParams.get('id');
+    
+    if (!productId) {
+        productId = sessionStorage.getItem('selectedProductId');
+    }
 
+    let product = null;
+    
     if (productId) {
-        const stored = getStoredProductById(productId);
-        if (stored) {
-            // Tiêm vào productsData để tái sử dụng luồng render cũ
-            productsData[productId] = stored;
+        // Tìm sản phẩm từ hàm chung
+        product = findProductById(productId);
+        if (product) {
+            product = normalizeProduct(product);
         }
     }
 
-    if (productId && productsData[productId]) {
-        loadProductDetail(productId);
+    // Load chi tiết nếu tìm thấy
+    if (product) {
+        loadProductDetail(product);
     } else {
-        loadProductDetail(1);
+        alert('Không tìm thấy sản phẩm!');
+        window.location.href = '../index.html';
     }
 
+    // Cập nhật UI khác
     if (typeof updateCartBadge === 'function') {
         updateCartBadge();
     }
@@ -188,17 +120,22 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Load chi tiết sản phẩm
-function loadProductDetail(productId) {
-    const product = productsData[productId];
-    
+function loadProductDetail(product) {
     if (!product) {
         alert('Không tìm thấy sản phẩm!');
         window.location.href = '../index.html';
         return;
     }
 
-    // Cập nhật breadcrumb
-    document.querySelector('.breadcrumb span').textContent = product.name;
+    // Cập nhật breadcrumb động dựa trên category
+    const categoryName = getCategoryName(product.category);
+    const categoryLink = getCategoryLink(product.category);
+    const breadcrumb = document.querySelector('.breadcrumb');
+    breadcrumb.innerHTML = `
+        <a href="../index.html">Trang chủ</a> / 
+        <a href="../html/${categoryLink}">${categoryName}</a> / 
+        <span>${product.name}</span>
+    `;
     
     // Cập nhật tiêu đề trang
     document.title = product.name + ' - Trường Sport';
@@ -207,12 +144,16 @@ function loadProductDetail(productId) {
     const mainImage = document.getElementById('mainImage');
     mainImage.src = product.images[0];
     mainImage.alt = product.name;
+    // Fallback nếu ảnh không tồn tại
+    mainImage.onerror = function() {
+        this.src = '../img/tk1.jpg';
+    };
 
     // Cập nhật thumbnail images
     const thumbnailContainer = document.querySelector('.thumbnail-images');
     thumbnailContainer.innerHTML = product.images.map((img, index) => `
         <div class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage('${img}', ${index})">
-            <img src="${img}" alt="Image ${index + 1}">
+            <img src="${img}" alt="Image ${index + 1}" onerror="this.src='../img/tk1.jpg'">
         </div>
     `).join('');
 
@@ -424,11 +365,24 @@ function addToCartDetail() {
         size: selectedSize,
         color: selectedColor,
         quantity: quantity,
-        stock: product.stock  // Lưu stock khi add để kiểm tra sau
+        stock: product.stock
     };
 
-    // Lấy giỏ hàng hiện tại
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // Lấy giỏ hàng từ localStorage
+    let cart = [];
+    const currentUser = localStorage.getItem('currentUser');
+    
+    if (currentUser) {
+        // Nếu đã đăng nhập, lấy giỏ hàng cá nhân
+        const user = JSON.parse(currentUser);
+        const cartKey = `cart_${user.username}`;
+        const cartData = localStorage.getItem(cartKey);
+        cart = cartData ? JSON.parse(cartData) : [];
+    } else {
+        // Nếu chưa đăng nhập, lấy giỏ hàng chung
+        const cartData = localStorage.getItem('cart');
+        cart = cartData ? JSON.parse(cartData) : [];
+    }
     
     // Kiểm tra sản phẩm đã có trong giỏ chưa (cùng id, size, color)
     const existingIndex = cart.findIndex(item => 
@@ -451,7 +405,15 @@ function addToCartDetail() {
     }
 
     // Lưu giỏ hàng
-    localStorage.setItem('cart', JSON.stringify(cart));
+    if (currentUser) {
+        // Lưu giỏ hàng cá nhân
+        const user = JSON.parse(currentUser);
+        const cartKey = `cart_${user.username}`;
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+    } else {
+        // Lưu giỏ hàng chung
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
     
     // Cập nhật badge
     if (typeof updateCartBadge === 'function') {
@@ -459,13 +421,93 @@ function addToCartDetail() {
     }
 }
 
-// Mua ngay
+// Mua ngay - Thêm vào giỏ và chuyển đến giỏ hàng
 function buyNow() {
-    // Thêm vào giỏ hàng trước
-    addToCartDetail();
+    if (!window.currentProduct) {
+        alert('Lỗi: Không tìm thấy thông tin sản phẩm!');
+        return;
+    }
+
+    const product = window.currentProduct;
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const selectedSize = document.querySelector('.size-options .option-btn.active').textContent;
+    const selectedColor = document.querySelector('.color-options .option-btn.active').textContent;
+
+    // ✅ Kiểm tra tồn kho
+    if (!product.stock || product.stock <= 0) {
+        alert('❌ Sản phẩm này hiện đã hết hàng. Vui lòng quay lại sau!');
+        return;
+    }
+
+    if (quantity > product.stock) {
+        alert(`❌ Số lượng yêu cầu (${quantity}) vượt quá tồn kho (${product.stock} sản phẩm). Vui lòng giảm số lượng!`);
+        return;
+    }
+
+    // Tạo object sản phẩm để thêm vào giỏ
+    const cartItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.images[0],
+        category: product.category,
+        sport: product.sport,
+        size: selectedSize,
+        color: selectedColor,
+        quantity: quantity,
+        stock: product.stock
+    };
+
+    // Lấy giỏ hàng từ localStorage
+    let cart = [];
+    const currentUser = localStorage.getItem('currentUser');
     
-    // Chuyển đến trang giỏ hàng
-    setTimeout(() => {
-        window.location.href = '../html/giohang.html';
-    }, 500);
+    if (currentUser) {
+        // Nếu đã đăng nhập, lấy giỏ hàng cá nhân
+        const user = JSON.parse(currentUser);
+        const cartKey = `cart_${user.username}`;
+        const cartData = localStorage.getItem(cartKey);
+        cart = cartData ? JSON.parse(cartData) : [];
+    } else {
+        // Nếu chưa đăng nhập, lấy giỏ hàng chung
+        const cartData = localStorage.getItem('cart');
+        cart = cartData ? JSON.parse(cartData) : [];
+    }
+    
+    // Kiểm tra sản phẩm đã có trong giỏ chưa (cùng id, size, color)
+    const existingIndex = cart.findIndex(item => 
+        item.id === cartItem.id && 
+        item.size === cartItem.size && 
+        item.color === cartItem.color
+    );
+
+    if (existingIndex > -1) {
+        const newQty = cart[existingIndex].quantity + quantity;
+        if (newQty > product.stock) {
+            alert(`❌ Tổng số lượng (${newQty}) vượt quá tồn kho (${product.stock} sản phẩm)!`);
+            return;
+        }
+        cart[existingIndex].quantity = newQty;
+    } else {
+        cart.push(cartItem);
+    }
+
+    // Lưu giỏ hàng
+    if (currentUser) {
+        // Lưu giỏ hàng cá nhân
+        const user = JSON.parse(currentUser);
+        const cartKey = `cart_${user.username}`;
+        localStorage.setItem(cartKey, JSON.stringify(cart));
+    } else {
+        // Lưu giỏ hàng chung
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    
+    // Cập nhật badge
+    if (typeof updateCartBadge === 'function') {
+        updateCartBadge();
+    }
+
+    // Chuyển đến giỏ hàng ngay lập tức
+    window.location.href = '../html/giohang.html';
 }

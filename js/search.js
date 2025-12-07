@@ -1,77 +1,80 @@
 // ============= SEARCH FUNCTIONALITY =============
 
+// Hàm lấy tất cả sản phẩm (tĩnh + admin)
+function getAllProductsForSearch() {
+    let allProducts = [];
+    
+    // Lấy sản phẩm tĩnh
+    if (typeof productsData !== 'undefined' && Array.isArray(productsData)) {
+        allProducts = [...productsData];
+    }
+    
+    // Lấy sản phẩm admin
+    const adminProducts = JSON.parse(localStorage.getItem('products')) || [];
+    allProducts = [...allProducts, ...adminProducts];
+    
+    return allProducts;
+}
+
 // Hàm tìm kiếm sản phẩm theo name, sport, category - TOÀN DIỆN
 function searchProducts(keyword) {
     const lowerKeyword = keyword.toLowerCase().trim();
+    const allProducts = getAllProductsForSearch();
     
-    // Lấy tất cả sản phẩm từ productsData
-    let allProducts = [];
-    if (typeof productsData !== 'undefined') {
-        allProducts = productsData;
-    }
-    
-    // Mapping tên Vietnamese sang code - CHO TẤT CẢ CATEGORIES
+    // Mapping tên Vietnamese sang English - CHO TẤT CẢ CATEGORIES
     const categoryVieMap = {
-        'quần': 'quan',
-        'áo': 'ao',
-        'ao': 'ao',
-        'giày': 'giay',
-        'giay': 'giay',
-        'phụ kiện': 'phukien',
-        'phukien': 'phukien',
-        'phụ kiến': 'phukien'
+        'quần': 'Quần',
+        'áo': 'Áo',
+        'ao': 'Áo',
+        'giày': 'Giày',
+        'giay': 'Giày',
+        'phụ kiện': 'Phụ Kiện',
+        'phukien': 'Phụ Kiện',
+        'phụ kiến': 'Phụ Kiện'
     };
     
-    // Mapping tên Vietnamese sang code - CHO TẤT CẢ SPORTS
+    // Mapping tên Vietnamese sang English - CHO TẤT CẢ SPORTS
     const sportVieMap = {
         // Chung
-        'bóng đá': 'bongda',
-        'bongda': 'bongda',
-        'bóng rổ': 'bongro',
-        'bongro': 'bongro',
-        'chạy bộ': 'chaybo',
-        'chaybo': 'chaybo',
-        'tập gym': 'tapgym',
-        'tapgym': 'tapgym',
-        'đạp xe': 'dapxe',
-        'dapxe': 'dapxe',
-        'cầu lông': 'caulong',
-        'caulong': 'caulong',
+        'bóng đá': 'Bóng Đá',
+        'bongda': 'Bóng Đá',
+        'bóng rổ': 'Bóng Rổ',
+        'bongro': 'Bóng Rổ',
+        'chạy bộ': 'Chạy Bộ',
+        'chaybo': 'Chạy Bộ',
+        'tập gym': 'Tập Gym',
+        'tapgym': 'Tập Gym',
+        'đạp xe': 'Đạp Xe',
+        'dapxe': 'Đạp Xe',
+        'cầu lông': 'Cầu Lông',
+        'caulong': 'Cầu Lông',
         
         // Giày
-        'dã ngoài': 'dangoai',
-        'dangoai': 'dangoai',
-        'casual': 'casual',
+        'dã ngoài': 'Dã Ngoài',
+        'dangoai': 'Dã Ngoài',
+        'casual': 'Casual',
         
         // Áo
-        'tập luyện': 'taplyuen',
-        'taplyuen': 'taplyuen',
-        'đồng phục': 'dongphuc',
-        'dongphuc': 'dongphuc',
-        'thời trang thể thao': 'thoitrangthethao',
-        'thoitrangthethao': 'thoitrangthethao',
-        'lifestyle': 'lifestyle',
+        'tập luyện': 'Tập Luyện',
+        'taplyuen': 'Tập Luyện',
+        'đồng phục': 'Đồng Phục',
+        'dongphuc': 'Đồng Phục',
+        'lifestyle': 'Lifestyle',
         
         // Phụ kiện
-        'bóng': 'bong',
-        'bongdungcu': 'bongdungcu',
-        'túi': 'tui',
-        'tuibalo': 'tuibalo',
-        'bảo hộ': 'baoho',
-        'baoho': 'baoho',
-        'vớ': 'vo',
-        'vo': 'vo',
-        'yoga': 'yoga',
-        'fitness': 'fitness',
-        'khác': 'khac',
-        'khac': 'khac'
+        'bóng': 'Bóng & Dụng Cụ',
+        'túi': 'Túi & Balo',
+        'bảo hộ': 'Bảo Hộ',
+        'vớ': 'Vớ & Găng',
+        'yoga': 'Yoga & Fitness',
+        'khác': 'Khác'
     };
     
     // Tìm kiếm - LOGIC TOÀN DIỆN
     const results = allProducts.filter(product => {
-        const name = product.name.toLowerCase();
-        const category = product.category.toLowerCase();
-        const sport = product.sport.toLowerCase();
+        const name = product.name ? product.name.toLowerCase() : '';
+        const category = product.category ? product.category.toLowerCase() : '';
+        const sport = product.sport ? product.sport.toLowerCase() : '';
         
         // 1. Tìm kiếm theo TÊN sản phẩm
         if (name.includes(lowerKeyword)) {
@@ -83,7 +86,7 @@ function searchProducts(keyword) {
             return true;
         }
         
-        if (categoryVieMap[lowerKeyword] && category === categoryVieMap[lowerKeyword]) {
+        if (categoryVieMap[lowerKeyword] && category.includes(categoryVieMap[lowerKeyword].toLowerCase())) {
             return true;
         }
         
@@ -92,7 +95,7 @@ function searchProducts(keyword) {
             return true;
         }
         
-        if (sportVieMap[lowerKeyword] && sport === sportVieMap[lowerKeyword]) {
+        if (sportVieMap[lowerKeyword] && sport.includes(sportVieMap[lowerKeyword].toLowerCase())) {
             return true;
         }
         
@@ -143,14 +146,30 @@ function displayResults(products, keyword) {
 
 // Hàm tạo card sản phẩm (giống index.html)
 function createProductCard(product) {
+    // Xử lý đường dẫn ảnh
+    let imagePath = product.image || 'img/logo2.png';
+    if (!imagePath.startsWith('http')) {
+        // Nếu là ảnh admin (đã chứa ../)
+        if (imagePath.startsWith('../')) {
+            // Đã ở trang search.html trong html/ -> không cần thêm ../
+            imagePath = imagePath;
+        } else if (imagePath.startsWith('img/')) {
+            // Ảnh tĩnh từ homepage cần thêm ../
+            imagePath = imagePath;
+        } else {
+            // Fallback
+            imagePath = 'img/' + imagePath;
+        }
+    }
+    
     return `
-        <div class="product-card" data-id="${product.id}" data-category="${product.category}" data-sport="${product.sport}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}">
+        <div class="product-card" data-id="${product.id}" data-category="${product.category}" data-sport="${product.sport}" data-name="${product.name}" data-price="${product.price}" data-image="${imagePath}">
             <div class="product-image">
-                <img src="${product.image}" alt="${product.name}">
+                <img src="${imagePath}" alt="${product.name}">
             </div>
             <div class="product-info">
                 <h3>${product.name}</h3>
-                <div class="product-price">${product.price.toLocaleString('vi-VN')}₫</div>
+                <div class="product-price">${(product.price || 0).toLocaleString('vi-VN')}₫</div>
                 <div class="product-actions">
                     <button class="btn-details" onclick="viewDetails(${product.id})">
                         <i class="fas fa-eye"></i> Chi Tiết

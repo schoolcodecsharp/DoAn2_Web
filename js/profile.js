@@ -158,22 +158,56 @@ document.addEventListener('DOMContentLoaded', function() {
     if (user) {
         loadProfileData();
     }
+
+    // Xử lý redirect từ buyNow() với param redirect=checkout
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('redirect') === 'checkout') {
+        // Thêm thông báo và nút quay lại giỏ hàng
+        const profileSection = document.querySelector('.profile-section');
+        if (profileSection) {
+            const warningDiv = document.createElement('div');
+            warningDiv.style.cssText = `
+                background-color: #fff3cd;
+                border: 1px solid #ffc107;
+                border-radius: 4px;
+                padding: 15px;
+                margin-bottom: 20px;
+                color: #856404;
+            `;
+            warningDiv.innerHTML = `
+                <i class="fas fa-info-circle"></i> 
+                <strong>Bạn cần cập nhật thông tin cá nhân để tiếp tục mua hàng.</strong>
+                <p style="margin-top: 10px;">Vui lòng điền đầy đủ các trường: Họ tên, Email, Số điện thoại</p>
+            `;
+            profileSection.insertBefore(warningDiv, profileSection.firstChild);
+        }
+
+        // Thêm sự kiện cho form submit để quay lại checkout
+        profileForm.addEventListener('submit', function(e) {
+            // Kiểm tra xem đã điền đầy đủ chưa
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (fullName && email && phone) {
+                // Sau khi lưu, quay lại giỏ hàng để checkout
+                setTimeout(() => {
+                    window.location.href = 'giohang.html?checkout=true';
+                }, 1500);
+            }
+        });
+    }
 });
 
-    // Logout function
-    window.logout = function(event) {
-        if (event) {
-            event.preventDefault();
-        }
-        
-        if (confirm('Bạn có chắc muốn đăng xuất?')) {
-            localStorage.setItem('isLoggedIn', 'false');
-            localStorage.removeItem('currentUser');
-            window.location.href = 'login.html';
-        }
-    };
-
-    // Initialize
-    checkLoginStatus();
-    loadProfileData();
-;
+// Logout function
+window.logout = function(event) {
+    if (event) {
+        event.preventDefault();
+    }
+    
+    if (confirm('Bạn có chắc muốn đăng xuất?')) {
+        localStorage.setItem('isLoggedIn', 'false');
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+    }
+};
